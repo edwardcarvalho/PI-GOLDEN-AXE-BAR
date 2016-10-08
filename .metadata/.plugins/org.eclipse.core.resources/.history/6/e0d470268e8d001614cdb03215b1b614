@@ -1,0 +1,10 @@
+package Entity;
+
+public class Produto {
+
+	private int Nome;
+	private int Quantidade;
+	private int Valor;
+	private int IdFornecedor;
+	
+}

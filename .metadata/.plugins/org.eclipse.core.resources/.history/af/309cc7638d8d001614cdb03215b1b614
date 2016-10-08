@@ -1,0 +1,13 @@
+package Entity;
+
+public class Comanda {
+	
+	private int idCliente;
+	private int idServico;
+	private int idProduto;
+	private int idJogo;
+	private int Quantidade;
+	private int DataComanda;
+	private int idFuncionario;
+
+}

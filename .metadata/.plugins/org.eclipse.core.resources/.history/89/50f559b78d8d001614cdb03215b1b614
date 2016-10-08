@@ -1,0 +1,11 @@
+package Entity;
+
+import java.sql.Date;
+
+public class Funcionario {
+	
+	private String Nome;
+	private String Cpf;
+	private char Sexo;
+	private String IdUnidade;
+}

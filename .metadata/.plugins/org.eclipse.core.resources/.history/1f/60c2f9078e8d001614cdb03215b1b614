@@ -1,0 +1,10 @@
+package Entity;
+
+public class Jogos {
+	
+	private int Nome;
+	private int Quantidade;
+	private float Valor;
+	private int IdFornecedor;
+
+}

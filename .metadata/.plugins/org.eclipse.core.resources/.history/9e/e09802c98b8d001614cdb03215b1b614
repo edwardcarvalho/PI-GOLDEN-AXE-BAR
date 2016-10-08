@@ -1,0 +1,13 @@
+package Entity;
+
+import java.util.ArrayList;
+
+public class Estoque {
+	
+	private int IdFornecedor;
+	private int IdProduto;
+	private int IdJogo;
+	private int Quantidade;
+	private float Valor;
+	private int idUnidade;
+}

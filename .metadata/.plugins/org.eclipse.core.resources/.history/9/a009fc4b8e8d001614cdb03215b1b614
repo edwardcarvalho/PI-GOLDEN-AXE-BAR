@@ -1,0 +1,8 @@
+package Entity;
+
+public class Servico {
+	
+	private String Descricao;
+	private float ValorHora;
+
+}
