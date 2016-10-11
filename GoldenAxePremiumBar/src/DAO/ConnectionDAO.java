@@ -15,7 +15,7 @@ public class ConnectionDAO {
 
 	public void conectaBanco() {
 
-//		faz a abertura de uma conexão com o banco de dados.
+//		faz a abertura de uma conexão com o banco de dados
 		
 		String diretorio = System.getProperty("user.dir");
 
