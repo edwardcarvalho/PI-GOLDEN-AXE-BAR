@@ -48,7 +48,7 @@ public class DaoProduto extends ConnectionDAO{
 		}
 	}
 
-	public void deletar(Integer id_Produto) {
+	public void deletar(int id_Produto) {
 		String sql = "DELETE FROM PRODUTOS WHERE ID_PRODUTO = ?";
 		try {
 			conectaBanco();
