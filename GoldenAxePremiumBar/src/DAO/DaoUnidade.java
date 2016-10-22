@@ -34,7 +34,7 @@ public class DaoUnidade extends ConnectionDAO {
 			// TODO: handle exception
 		}
 	}
-	public void deletar(Integer id_Unidade){
+	public void deletar(int id_Unidade){
 		String sql = "DELETE FROM UNIDADE WHERE ID_UNIDADE = ?";
 		try {
 			conectaBanco();

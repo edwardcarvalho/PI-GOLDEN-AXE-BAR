@@ -47,7 +47,7 @@ public class DaoUsuarios extends ConnectionDAO {
 		}
 	}
 
-	public void deletar(Integer id_Usuario) {
+	public void deletar(int id_Usuario) {
 		String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
 		try {
 			conectaBanco();

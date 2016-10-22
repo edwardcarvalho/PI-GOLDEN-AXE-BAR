@@ -40,7 +40,7 @@ public class DaoServicos extends ConnectionDAO {
 		}
 	}
 
-	public void deletar(Integer id_Servico) {
+	public void deletar(int id_Servico) {
 		String sql = "DELETE FROM SERVICO WHERE ID_SERVICO = ?";
 		try {
 			conectaBanco();
