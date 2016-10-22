@@ -2,15 +2,15 @@ package Entity;
 
 public class Produto {
 
-	private int Nome;
+	private String Nome;
 	private int Quantidade;
 	private int Valor;
 	private int IdFornecedor;
 	
-	public int getNome() {
+	public String getNome() {
 		return Nome;
 	}
-	public void setNome(int nome) {
+	public void setNome(String nome) {
 		Nome = nome;
 	}
 	public int getQuantidade() {

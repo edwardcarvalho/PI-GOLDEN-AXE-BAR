@@ -2,34 +2,23 @@ package Entity;
 
 import java.sql.Date;
 
-public class Funcionario {
-	
-	private String Nome;
-	private String Cpf;
-	private char Sexo;
-	private String IdUnidade;
-	public String getNome() {
-		return Nome;
+public class Funcionario extends Pessoa {
+
+	private int Tipo;
+
+	public Funcionario(String nome, String cpf, char sexo, Date dataNascimento, int tipo) {
+
+		super(nome, cpf, sexo, dataNascimento);
+		this.Tipo = tipo;
+
 	}
-	public void setNome(String nome) {
-		Nome = nome;
+
+	public int getTipo() {
+		return Tipo;
 	}
-	public String getCpf() {
-		return Cpf;
+
+	public void setTipo(int tipo) {
+		this.Tipo = tipo;
 	}
-	public void setCpf(String cpf) {
-		Cpf = cpf;
-	}
-	public char getSexo() {
-		return Sexo;
-	}
-	public void setSexo(char sexo) {
-		Sexo = sexo;
-	}
-	public String getIdUnidade() {
-		return IdUnidade;
-	}
-	public void setIdUnidade(String idUnidade) {
-		IdUnidade = idUnidade;
-	}
+
 }

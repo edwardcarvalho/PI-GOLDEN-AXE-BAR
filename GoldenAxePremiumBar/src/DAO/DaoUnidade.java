@@ -9,7 +9,7 @@ public class DaoUnidade extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			//pst.setInt(1, Unidade.getUnidade()); //criar getUnidade.
+			pst.setString(1, unidade.getNome()); 
 			pst.execute();
 			pst.close();
 
@@ -24,7 +24,7 @@ public class DaoUnidade extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			//pst.setInt(1, Unidade.getUnidade()); //criar getUnidade.
+			pst.setString(1, unidade.getNome()); 
 			pst.execute();
 			pst.close();
 			
@@ -34,12 +34,12 @@ public class DaoUnidade extends ConnectionDAO {
 			// TODO: handle exception
 		}
 	}
-	public void deletar(Unidade unidade, int id_Unidade){
+	public void deletar(Integer id_Unidade){
 		String sql = "DELETE FROM UNIDADE WHERE ID_UNIDADE = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, Unidade.getUnidade()); //criar getUnidade.
+			pst.setInt(1, id_Unidade);
 			pst.execute();
 			pst.close();
 			

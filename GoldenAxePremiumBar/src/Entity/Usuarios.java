@@ -2,10 +2,10 @@ package Entity;
 
 
 public class Usuarios {
+
 	private String usuario;
 	private String senha;
 	private int id_Funcionario;
-	
 	
 	public int getId_Funcionario() {
 		return id_Funcionario;

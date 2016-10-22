@@ -14,14 +14,13 @@ public class ConnectionDAO {
 
 	public void conectaBanco() {
 
-//		faz a abertura de uma conexão com o banco de dados
-		
+		// faz a abertura de uma conexão com o banco de dados
+
 		String diretorio = System.getProperty("user.dir");
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio
-					+ "\\LuderiaBD.bd");
+			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio + "\\LuderiaBD.bd");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -32,8 +31,8 @@ public class ConnectionDAO {
 	}
 
 	public void desconectaBanco() throws SQLException {
-		
-//		faz o fechamento da conexão aberta com o banco de dados.
+
+		// faz o fechamento da conexão aberta com o banco de dados.
 
 		conn.close();
 		System.out.println("Banco desconectado!");
