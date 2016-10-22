@@ -17,10 +17,11 @@ public class ConnectionDAO {
 		// faz a abertura de uma conexão com o banco de dados
 
 		String diretorio = System.getProperty("user.dir");
-		
+
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio + "\\LuderiaBD.bd");
+//			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:C:\\desktop\\LuderiaBD.db");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -38,4 +39,4 @@ public class ConnectionDAO {
 		System.out.println("Banco desconectado!");
 	}
 
-}	
+}
