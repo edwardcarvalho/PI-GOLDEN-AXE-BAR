@@ -1,7 +1,5 @@
 package DAO;
 
-import java.sql.PreparedStatement;
-
 import Entity.Usuarios;
 
 public class DaoUsuarios extends ConnectionDAO {
@@ -50,7 +48,7 @@ public class DaoUsuarios extends ConnectionDAO {
 	}
 
 	public void deletar(Integer id_Usuario) {
-		String sql = "DELETE FROM USUARIO WHERE NOME_USU = ?";
+		String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
@@ -63,4 +61,5 @@ public class DaoUsuarios extends ConnectionDAO {
 			// TODO: handle exception
 		}
 	}
+	
 }
