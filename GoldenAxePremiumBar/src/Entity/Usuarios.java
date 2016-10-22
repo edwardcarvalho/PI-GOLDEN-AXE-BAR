@@ -3,32 +3,27 @@ package Entity;
 
 public class Usuarios {
 
-	private int IdFuncionario;
-	private String Usuario;
-	private String Senha;
-
+	private String usuario;
+	private String senha;
+	private int id_Funcionario;
+	
+	public int getId_Funcionario() {
+		return id_Funcionario;
+	}
+	public void setId_Funcionario(int id_Funcionario) {
+		this.id_Funcionario = id_Funcionario;
+	}
 	public String getUsuario() {
-		return Usuario;
+		return usuario;
 	}
-
 	public void setUsuario(String usuario) {
-		this.Usuario = usuario;
+		this.usuario = usuario;
 	}
-
 	public String getSenha() {
-		return Senha;
+		return senha;
 	}
-
 	public void setSenha(String senha) {
-		this.Senha = senha;
+		this.senha = senha;
 	}
-
-	public int getIdFuncionario() {
-		return IdFuncionario;
-	}
-
-	public void setIdFuncionario(int idFuncionario) {
-		this.IdFuncionario = idFuncionario;
-	}
-
 }
+
