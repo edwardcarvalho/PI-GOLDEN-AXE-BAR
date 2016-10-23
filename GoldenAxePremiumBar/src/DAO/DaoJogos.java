@@ -21,7 +21,6 @@ public class DaoJogos extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}
@@ -44,7 +43,6 @@ public class DaoJogos extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
@@ -59,7 +57,6 @@ public class DaoJogos extends ConnectionDAO {
 
 			desconectaBanco();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 }

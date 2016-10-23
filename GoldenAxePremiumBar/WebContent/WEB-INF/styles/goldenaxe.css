@@ -3,5 +3,13 @@
 }
 
 #cadastroCliente{
-	margin-left: 20px;
+	margin-left: 40px;
+}
+
+#cadastroFuncionario{
+	margin-left: 40px;
+}
+
+#inputIcon{
+	width:180px;
 }

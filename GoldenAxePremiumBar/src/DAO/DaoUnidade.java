@@ -16,7 +16,6 @@ public class DaoUnidade extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	public void alterar(Unidade unidade){
@@ -31,7 +30,6 @@ public class DaoUnidade extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	public void deletar(int id_Unidade){
@@ -46,7 +44,6 @@ public class DaoUnidade extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 	}

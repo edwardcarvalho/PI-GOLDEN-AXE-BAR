@@ -25,7 +25,6 @@ public class DaoCliente extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}
@@ -51,7 +50,6 @@ public class DaoCliente extends ConnectionDAO {
 			desconectaBanco();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
@@ -66,7 +64,6 @@ public class DaoCliente extends ConnectionDAO {
 
 			desconectaBanco();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
