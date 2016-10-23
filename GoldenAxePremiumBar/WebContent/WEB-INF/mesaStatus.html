@@ -8,8 +8,10 @@
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
+<script src="scripts/jquery-3.1.1.min.js"></script>
 </head>
 <body>
+
 <!-- menu navegação superior-->
 	<div class="navbar">
 	  <div class="navbar-inner">
@@ -43,7 +45,7 @@
 			  <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Comanda<b class="caret"></b></a>
 				   <ul id="comandaDrop" class="dropdown-menu">
-				    <li><a href="comandaAbrir.html">Abri</a></li>
+				    <li><a href="comandaAbrir.html">Abrir</a></li>
 				  	<li><a href="comandaAdicionar.html">Adicionar/Excluir Produto</a></li>
 				  	<li><a href="comandaFechar.html">Fechar</a></li>
 				   </ul>
@@ -73,7 +75,50 @@
 	    </ul>
 	  </div>
 	</div>
-
+	
+	<div class="alert alert-info">
+		<h2>Mesas</h2>
+	</div>
+	
+	<div class="container-fluid">
+  		<div class="row-fluid">
+	    	<div id="sideBarMesas" class="span2">
+	      <!--Sidebar content-->
+	      		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
+				<p><button id="buscarCliente" type="submit" class="btn btn-primary">Buscar</button></p>
+				<p>Nome:</p><input type="text" id="nome" readonly="readonly">
+				<p>Nro.Comanda:</p><input type="text" id="idComanda"  readonly="readonly">
+	    	</div>
+	    	<div id="overviewMesas" class="span10">
+	      <!--Body content-->
+		      	<img src="img/icon-tableroom-green.PNG" ondragstart="drag(event)">
+		  		<img src="img/icon-tableroom-green.PNG" >
+		  		<img src="img/icon-tableroom-red.PNG" >
+		  		<img src="img/icon-tableroom-green.PNG" >	
+		  		<img src="img/icon-tableroom-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-red.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >	
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-red.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >	
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-red.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >
+		  		<img src="img/icon-table-green.PNG" >	
+		  		<img src="img/icon-table-red.PNG" >
+		  		<img src="img/icon-table-green.PNG" >	
+	    	</div>
+  		</div>
+	</div>
+	
 	<script src="scripts/goldenaxe.js" ></script>
 	<script src="scripts/bootstrap.js" ></script>
 	<script src="scripts/bootstrap.min.js"></script>

@@ -13,3 +13,18 @@
 #inputIcon{
 	width:180px;
 }
+
+#overviewMesas{
+	margin-top:25px;
+	text-align:center;
+}
+
+#overviewMesas img{
+	cursor:pointer;
+	margin: 0px 10px 10px 10px;
+}
+
+
+#sideBarMesas{
+/* 	background-color: #E6E6FA; */
+}
