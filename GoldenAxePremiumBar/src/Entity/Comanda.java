@@ -1,5 +1,5 @@
 package Entity;
-
+import java.sql.Date;
 public class Comanda {
 	
 	private int idCliente;
@@ -7,7 +7,7 @@ public class Comanda {
 	private int idProduto;
 	private int idJogo;
 	private int Quantidade;
-	private int DataComanda;
+	private Date DataComanda;
 	private int idFuncionario;
 	
 	public int getIdCliente() {
@@ -40,10 +40,10 @@ public class Comanda {
 	public void setQuantidade(int quantidade) {
 		Quantidade = quantidade;
 	}
-	public int getDataComanda() {
+	public Date getDataComanda() {
 		return DataComanda;
 	}
-	public void setDataComanda(int dataComanda) {
+	public void setDataComanda(Date dataComanda) {
 		DataComanda = dataComanda;
 	}
 	public int getIdFuncionario() {

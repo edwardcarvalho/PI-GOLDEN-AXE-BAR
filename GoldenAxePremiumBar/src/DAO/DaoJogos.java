@@ -46,12 +46,12 @@ public class DaoJogos extends ConnectionDAO {
 		}
 	}
 
-	public void deletar(int id_Jogos) {
+	public void deletar(int id_jogos) {
 		String sql = "DELETE FROM JOGOS WHERE ID_JOGOS = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, id_Jogos);
+			pst.setInt(1, id_jogos);
 			pst.execute();
 			pst.close();
 

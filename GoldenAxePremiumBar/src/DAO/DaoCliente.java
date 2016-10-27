@@ -14,7 +14,7 @@ public class DaoCliente extends ConnectionDAO {
 			pst.setString(1, cliente.getNome());
 			pst.setString(2, cliente.getTelefone());
 			pst.setString(3, cliente.getCpf());
-			pst.setLong(4, cliente.getSexo());
+			pst.setString(4, cliente.getSexo().toString());
 			pst.setString(5, cliente.getEmail());
 			pst.setDate(6, cliente.getDataNascimento());
 
@@ -39,7 +39,7 @@ public class DaoCliente extends ConnectionDAO {
 			pst.setString(1, cliente.getNome());
 			pst.setString(2, cliente.getTelefone());
 			pst.setString(3, cliente.getCpf());
-			pst.setLong(4, cliente.getSexo());
+			pst.setString(4, cliente.getSexo().toString());
 			pst.setString(5, cliente.getEmail());
 			pst.setDate(6, cliente.getDataNascimento());
 

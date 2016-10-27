@@ -6,7 +6,7 @@ public class Funcionario extends Pessoa {
 
 	private int Tipo;
 
-	public Funcionario(String nome, String cpf, char sexo, Date dataNascimento, int tipo) {
+	public Funcionario(String nome, String cpf, Character sexo, Date dataNascimento, int tipo) {
 
 		super(nome, cpf, sexo, dataNascimento);
 		this.Tipo = tipo;
@@ -19,6 +19,6 @@ public class Funcionario extends Pessoa {
 
 	public void setTipo(int tipo) {
 		this.Tipo = tipo;
-	}
+	}//verificar idunidade
 
 }
