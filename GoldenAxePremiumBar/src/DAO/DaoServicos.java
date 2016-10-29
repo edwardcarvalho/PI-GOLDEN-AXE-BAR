@@ -55,7 +55,6 @@ public class DaoServicos extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
-	// procurar unidade por ID
 	public Servico procurarId(int id_servico) throws Exception {
 		String sql = "SELECT * FROM SERVICO WHERE ID_SERVICO = ?";
 
@@ -78,7 +77,7 @@ public class DaoServicos extends ConnectionDAO {
 		return servico;
 	}
 
-	// procurar unidade por nome
+
 	public List<Servico> procurarNome(String descricao) throws Exception {
 		List<Servico> lista = new ArrayList<Servico>();
 		String sql = "SELECT * FROM SERVICO WHERE DESCRICAO LIKE '%" + descricao + "%'";
@@ -103,7 +102,6 @@ public class DaoServicos extends ConnectionDAO {
 		}
 		return lista;
 	}
-
 	public List<Servico> mostrarTodos() throws Exception {
 		List<Servico> lista = new ArrayList<Servico>();
 		String sql = "SELECT * FROM SERVICO";

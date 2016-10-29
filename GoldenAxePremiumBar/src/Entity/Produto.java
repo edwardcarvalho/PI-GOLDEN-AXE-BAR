@@ -4,7 +4,7 @@ public class Produto {
 
 	private String Nome;
 	private int Quantidade;
-	private int Valor;
+	private float Valor;
 	private int IdFornecedor;
 	
 	public String getNome() {
@@ -19,10 +19,10 @@ public class Produto {
 	public void setQuantidade(int quantidade) {
 		Quantidade = quantidade;
 	}
-	public int getValor() {
+	public float getValor() {
 		return Valor;
 	}
-	public void setValor(int valor) {
+	public void setValor(float valor) {
 		Valor = valor;
 	}
 	public int getIdFornecedor() {

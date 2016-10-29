@@ -55,7 +55,6 @@ public class DaoUnidade extends ConnectionDAO {
 
 	}
 
-	// procurar unidade por ID
 	public Unidade procurarId(int id_unidade) throws Exception {
 		String sql = "SELECT * FROM UNIDADE WHERE ID_UNIDADE = ?";
 
@@ -77,7 +76,6 @@ public class DaoUnidade extends ConnectionDAO {
 		return unidade;
 	}
 
-	// procurar unidade por nome
 	public List<Unidade> procurarNome(String nome) throws Exception {
 		List<Unidade> lista = new ArrayList<Unidade>();
 		String sql = "SELECT * FROM UNIDADE WHERE NOME LIKE '%" + nome + "%'";

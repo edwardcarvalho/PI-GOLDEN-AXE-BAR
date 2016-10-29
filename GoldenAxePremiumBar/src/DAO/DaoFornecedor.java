@@ -1,5 +1,8 @@
 package DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Entity.Fornecedor;
 
 public class DaoFornecedor extends ConnectionDAO {
@@ -50,5 +53,74 @@ public class DaoFornecedor extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
+		public Fornecedor procurarId(int id_fornecedor) throws Exception {
+			String sql = "SELECT * FROM FORNECEDOR WHERE ID_FORNECEDOR = ?";
 
-}
+			try {
+				conectaBanco();
+				pst = conn.prepareStatement(sql);
+				pst.setInt(1, id_fornecedor);
+				rs = pst.executeQuery();
+			} catch (Exception e) {
+			}
+			Fornecedor fornecedor = new Fornecedor();
+			while (rs.next()) {
+
+				fornecedor.setNome(rs.getString("NOME"));
+
+			}
+			pst.close();
+			desconectaBanco();
+
+			return fornecedor;
+		}
+
+		public List<Fornecedor> procurarNome(String nome) throws Exception {
+			List<Fornecedor> lista = new ArrayList<Fornecedor>();
+			String sql = "SELECT * FROM FORNECEDOR WHERE NOME LIKE '%" + nome + "%'";
+
+			try {
+				conectaBanco();
+				pst = conn.prepareStatement(sql);
+				pst.setString(1, nome);
+				rs = pst.executeQuery();
+
+				while (rs.next()) {
+					Fornecedor fornecedor = new Fornecedor();
+
+					fornecedor.setNome(rs.getString("NOME"));
+				}
+				pst.close();
+				desconectaBanco();
+
+			} catch (Exception e) {
+			}
+			return lista;
+		}
+
+		public List<Fornecedor> mostrarTodos() throws Exception {
+			List<Fornecedor> lista = new ArrayList<Fornecedor>();
+			String sql = "SELECT * FROM FORNECEDOR";
+
+			try {
+				conectaBanco();
+				pst = conn.prepareStatement(sql);
+				rs = pst.executeQuery();
+
+				while (rs.next()) {
+					Fornecedor fornecedor = new Fornecedor();
+
+					fornecedor.setNome(rs.getString("NOME"));
+
+					lista.add(fornecedor);
+				}
+				pst.close();
+				desconectaBanco();
+
+			} catch (Exception e) {
+			}
+			return lista;
+		}
+
+	}
+

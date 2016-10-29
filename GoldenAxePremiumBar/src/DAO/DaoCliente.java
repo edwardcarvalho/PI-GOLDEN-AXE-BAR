@@ -66,5 +66,4 @@ public class DaoCliente extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
-
 }

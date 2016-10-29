@@ -1,5 +1,8 @@
 package DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Entity.Estoque;
 
 public class DaoEstoque extends ConnectionDAO {
@@ -60,4 +63,60 @@ public class DaoEstoque extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
+
+	public Estoque procurarId(int id_estoque) throws Exception {
+		String sql = "SELECT * FROM ESTOQUE WHERE ID_ESTOQUE = ?";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id_estoque);
+			rs = pst.executeQuery();
+		} catch (Exception e) {
+		}
+		Estoque estoque = new Estoque();
+		while (rs.next()) {
+
+			estoque.setIdFornecedor(rs.getInt("ID_FORNECEDOR"));
+			estoque.setIdProduto(rs.getInt("ID_PRODUTO"));
+			estoque.setIdJogo(rs.getInt("ID_JOGOS"));
+			estoque.setQuantidade(rs.getInt("QUANTIDADE"));
+			estoque.setValor(rs.getFloat("VALOR"));
+			estoque.setIdUnidade(rs.getInt("ID_UNIDADE"));
+		}
+		pst.close();
+		desconectaBanco();
+
+		return estoque;
+	}
+
+	public List<Estoque> mostrarTodos() throws Exception {
+		List<Estoque> lista = new ArrayList<Estoque>();
+		String sql = "SELECT * FROM ESTOQUE";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Estoque estoque = new Estoque();
+
+				estoque.setIdFornecedor(rs.getInt("ID_FORNECEDOR"));
+				estoque.setIdProduto(rs.getInt("ID_PRODUTO"));
+				estoque.setIdJogo(rs.getInt("ID_JOGOS"));
+				estoque.setQuantidade(rs.getInt("QUANTIDADE"));
+				estoque.setValor(rs.getFloat("VALOR"));
+				estoque.setIdUnidade(rs.getInt("ID_UNIDADE"));
+
+				lista.add(estoque);
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+		}
+		return lista;
+	}
+
 }
