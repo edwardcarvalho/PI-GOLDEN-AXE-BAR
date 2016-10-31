@@ -1,5 +1,8 @@
 package DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Entity.Usuarios;
 
 public class DaoUsuarios extends ConnectionDAO {
@@ -57,6 +60,29 @@ public class DaoUsuarios extends ConnectionDAO {
 			desconectaBanco();
 		} catch (Exception e) {
 		}
+	}
+	public List<Usuarios> mostrarTodos() throws Exception {
+		List<Usuarios> lista = new ArrayList<Usuarios>();
+		String sql = "SELECT * FROM USUARIO";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Usuarios usuarios = new Usuarios();
+			
+				usuarios.setUsuario(rs.getString("USUARIO"));
+				
+				lista.add(usuarios);
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+		}
+		return lista;
 	}
 	
 }
