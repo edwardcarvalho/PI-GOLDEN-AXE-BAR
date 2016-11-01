@@ -1,6 +1,7 @@
 package DAO;
 
 import Entity.Cliente;
+import Entity.Comanda;
 
 public class DaoCliente extends ConnectionDAO {
 
@@ -65,5 +66,29 @@ public class DaoCliente extends ConnectionDAO {
 			desconectaBanco();
 		} catch (Exception e) {
 		}
+	}
+	public Comanda procurarId(int id_cliente) throws Exception {
+		String sql = "SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id_cliente);
+			rs = pst.executeQuery();
+		} catch (Exception e) {
+		}
+		Cliente cliente = new Cliente();
+		while (rs.next()) {
+			
+			cliente.setNome(rs.getString("NOME"));
+			cliente.setNome(rs.getString("NOME"));
+
+			
+			
+		}
+		pst.close();
+		desconectaBanco();
+
+		return comanda;
 	}
 }

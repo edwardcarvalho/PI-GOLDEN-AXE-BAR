@@ -14,7 +14,7 @@ public class DaoFuncionario extends ConnectionDAO {
 			pst.setString(1, funcionario.getNome());
 			pst.setString(2, funcionario.getCpf());
 			pst.setString(3, funcionario.getSexo().toString());
-			// adicionar IDUNIDADE
+			pst.setString(4, funcionario.getUnidade());
 			pst.setInt(5, funcionario.getTipo());
 			pst.execute();
 
@@ -37,7 +37,7 @@ public class DaoFuncionario extends ConnectionDAO {
 			pst.setString(1, funcionario.getNome());
 			pst.setString(2, funcionario.getCpf());
 			pst.setString(3, funcionario.getSexo().toString());
-			// adicionar IDUNIDADE
+			pst.setString(4, funcionario.getUnidade());
 			pst.setInt(5, funcionario.getTipo());
 			pst.execute();
 
