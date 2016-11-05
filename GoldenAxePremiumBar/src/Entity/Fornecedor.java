@@ -7,6 +7,9 @@ public class Fornecedor {
 	private String Telefone;
 	private String Email;
 
+	public Fornecedor() {
+	}
+
 	public Fornecedor(String cnpj, String nome, String telefone, String email) {
 		this.Cnpj = cnpj;
 		this.Nome = nome;
@@ -45,6 +48,5 @@ public class Fornecedor {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	
 
 }
