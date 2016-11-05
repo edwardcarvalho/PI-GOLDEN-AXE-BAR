@@ -72,14 +72,14 @@ public class DaoCliente extends ConnectionDAO {
 		}
 	}
 
-	public Cliente procurarId(int id_cliente) throws Exception {
-		String sql = "SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?";
-
+	public Cliente buscarClienteCPF(String cpf_cliente) throws Exception {
+		String sql = "SELECT * FROM CLIENTE WHERE CPF = ?";
+		Cliente cliente = null;
+		
 		try {
-			Cliente cliente = null;
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, id_cliente);
+			pst.setString(1, cpf_cliente);
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -89,9 +89,10 @@ public class DaoCliente extends ConnectionDAO {
 			pst.close();
 			desconectaBanco();
 
-			return cliente;
 		} catch (Exception e) {
+			
 		}
-		return null;
+		
+		return cliente;
 	}
 }

@@ -41,6 +41,31 @@ function cadastrarCliente() {
 	});
 }
 
+function buscarCliente() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'GET',
+		data : {
+			'menu' : 'BuscarCliente',
+			'cpf' : $('#cpf').val(),
+		},
+		success : function(data) {
+			if (data != null) {
+				data = JSON.parse(data);
+				$('#cpf').attr('readonly', true);
+				$('#alterarCliente').css("display","");
+				$('#nome').val(data[0].nome);
+				$('#inputIcon').val(data[0].email);
+				$('#telefone').val(data[0].telefone);
+				$('#dataNascimento').val(data[0].dataNascimento);
+				$('#sexo option').eq(data[0].sexo).prop('selected', true);
+			} else {
+				alert("CPF não encontrado!");
+			}
+		}
+	});
+}
+
 $(document).ready(function() {
 
 });

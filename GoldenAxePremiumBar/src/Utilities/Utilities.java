@@ -6,6 +6,8 @@ import java.util.Date;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import Entity.Cliente;
+
 public class Utilities {
 
 	public static boolean ConvertToBoolean(String item) {
@@ -38,6 +40,22 @@ public class Utilities {
 			throw e;
 		}
 		return date;
+	}
+	
+	public static String SerializeClienteToJson(Cliente cliente){
+		
+		int sexo = cliente.getSexo() ? 1 : 0;
+		String json = "";
+		json += "[{";
+		json += "\"nome\" : "+ "\""+cliente.getNome()+"\"";
+		json += ", \"cpf\" : " + "\""+cliente.getCpf()+"\"";
+		json += ", \"dataNascimento\" : " + "\""+cliente.getDataNascimento()+"\"";
+		json += ", \"sexo\" : " + "\""+ sexo +"\"";
+		json += ", \"telefone\" : "+ "\""+cliente.getTelefone()+"\"";
+		json += ", \"email\" : " + "\""+cliente.getEmail()+"\"";
+		json += "}]";
+		
+		return json;
 	}
 
 }
