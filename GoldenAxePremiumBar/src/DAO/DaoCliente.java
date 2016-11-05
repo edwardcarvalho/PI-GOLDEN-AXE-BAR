@@ -3,13 +3,12 @@ package DAO;
 import java.sql.Date;
 
 import Entity.Cliente;
-import Entity.Comanda;
 
 public class DaoCliente extends ConnectionDAO {
 
-	public void salvar(Cliente cliente) {
+	public boolean salvar(Cliente cliente) {
 
-		String sql = "INSERT INTO CLIENTE(NOME, TELEFONE, CPF, SEXO, EMAIL, DATA_NASC) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (NOME, TELEFONE, CPF, SEXO, EMAIL, DATA_NASC) VALUES (?,?,?,?,?,?)";
 
 		try {
 			conectaBanco();
@@ -19,15 +18,18 @@ public class DaoCliente extends ConnectionDAO {
 			pst.setString(3, cliente.getCpf());
 			pst.setBoolean(4, cliente.getSexo());
 			pst.setString(5, cliente.getEmail());
-			pst.setDate(6, cliente.getDataNascimento());
+			pst.setString(6, cliente.getDataNascimento());
 
-			pst.execute();
+			pst.executeUpdate();
 
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			 System.out.println("ERRO " + e);
+			return false;
 		}
 
 	}
@@ -44,7 +46,7 @@ public class DaoCliente extends ConnectionDAO {
 			pst.setString(3, cliente.getCpf());
 			pst.setBoolean(4, cliente.getSexo());
 			pst.setString(5, cliente.getEmail());
-			pst.setDate(6, cliente.getDataNascimento());
+			pst.setString(6, cliente.getDataNascimento());
 
 			pst.execute();
 
@@ -82,7 +84,7 @@ public class DaoCliente extends ConnectionDAO {
 
 			while (rs.next()) {
 				cliente = new Cliente(rs.getString("NOME"), rs.getString("CPF"), rs.getString("EMAIL"),
-						rs.getBoolean("SEXO"), rs.getDate("DATA_NASC"), rs.getString("TELEFONE"));
+						rs.getBoolean("SEXO"), rs.getString("DATA_NASC"), rs.getString("TELEFONE"));
 			}
 			pst.close();
 			desconectaBanco();

@@ -16,18 +16,21 @@ public class ConnectionDAO {
 
 		// faz a abertura de uma conexão com o banco de dados
 
-		String diretorio = System.getProperty("user.dir");
+//		String diretorio = System.getProperty("user.dir");
+		String diretorio = "C:\\Users\\CASA\\Desktop\\LuderiaBD.db";
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio + "\\LuderiaBD.bd");
-//			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:C:\\desktop\\LuderiaBD.db");
+//			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio + "\\LuderiaBD");
+			conn = (Connection) DriverManager.getConnection("jdbc:sqlite:" + diretorio);
+			System.out.println("Banco Conectado!");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("Falha na conexão!");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("Falha na conexão!");
 		}
-		System.out.println("Banco Conectado!");
 
 	}
 

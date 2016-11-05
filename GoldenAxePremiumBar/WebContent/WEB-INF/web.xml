@@ -2,6 +2,16 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
 <web-app id="WebApp_ID">
 	<display-name>GoldenAxePremiumBar</display-name>
+	<servlet>
+		<servlet-name>Cadastro</servlet-name>
+		<display-name>Cadastro</display-name>
+		<description></description>
+		<servlet-class>Servlet.Cadastro</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Cadastro</servlet-name>
+		<url-pattern>/Cadastro</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

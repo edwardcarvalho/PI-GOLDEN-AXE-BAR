@@ -1,6 +1,6 @@
 package Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public abstract class Pessoa {
 
@@ -8,10 +8,10 @@ public abstract class Pessoa {
 	private String Cpf;
 	private String Email;
 	private boolean Sexo;
-	private Date DataNascimento;
+	private String DataNascimento;
 	private String Telefone;
 
-	public Pessoa(String nome, String cpf, String email, boolean sexo, Date dataNascimento, String telefone) {
+	public Pessoa(String nome, String cpf, String email, boolean sexo, String dataNascimento, String telefone) {
 		this.Nome = nome;
 		this.Cpf = cpf;
 		this.Email = email;
@@ -20,7 +20,7 @@ public abstract class Pessoa {
 		this.Telefone = telefone;
 	}
 
-	public Pessoa(String nome, String cpf, boolean sexo, Date dataNascimento) {
+	public Pessoa(String nome, String cpf, boolean sexo, String dataNascimento) {
 		this.Nome = nome;
 		this.Cpf = cpf;
 		this.Sexo = sexo;
@@ -59,11 +59,11 @@ public abstract class Pessoa {
 		Sexo = sexo;
 	}
 
-	public Date getDataNascimento() {
+	public String getDataNascimento() {
 		return DataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		DataNascimento = dataNascimento;
 	}
 

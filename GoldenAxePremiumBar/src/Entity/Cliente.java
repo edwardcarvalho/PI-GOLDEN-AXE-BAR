@@ -1,10 +1,10 @@
 package Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Cliente extends Pessoa {
 
-	public Cliente(String nome, String cpf, String email, boolean sexo, Date dataNascimento, String telefone) {
+	public Cliente(String nome, String cpf, String email, boolean sexo, String dataNascimento, String telefone) {
 
 		super(nome, cpf, email, sexo, dataNascimento, telefone);
 	}
