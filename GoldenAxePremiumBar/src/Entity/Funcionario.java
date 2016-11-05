@@ -7,7 +7,7 @@ public class Funcionario extends Pessoa {
 	private int Tipo;
 	private String Unidade;
 
-	public Funcionario(String nome, String cpf, Character sexo, Date dataNascimento, int tipo, String unidade) {
+	public Funcionario(String nome, String cpf, boolean sexo, Date dataNascimento, int tipo, String unidade) {
 
 		super(nome, cpf, sexo, dataNascimento);
 		this.Tipo = tipo;

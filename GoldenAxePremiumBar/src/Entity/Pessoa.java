@@ -7,11 +7,11 @@ public abstract class Pessoa {
 	private String Nome;
 	private String Cpf;
 	private String Email;
-	private Character Sexo;
+	private boolean Sexo;
 	private Date DataNascimento;
 	private String Telefone;
 
-	public Pessoa(String nome, String cpf, String email, Character sexo, Date dataNascimento, String telefone) {
+	public Pessoa(String nome, String cpf, String email, boolean sexo, Date dataNascimento, String telefone) {
 		this.Nome = nome;
 		this.Cpf = cpf;
 		this.Email = email;
@@ -20,7 +20,7 @@ public abstract class Pessoa {
 		this.Telefone = telefone;
 	}
 
-	public Pessoa(String nome, String cpf, Character sexo, Date dataNascimento) {
+	public Pessoa(String nome, String cpf, boolean sexo, Date dataNascimento) {
 		this.Nome = nome;
 		this.Cpf = cpf;
 		this.Sexo = sexo;
@@ -51,11 +51,11 @@ public abstract class Pessoa {
 		Email = email;
 	}
 
-	public Character getSexo() {
+	public boolean getSexo() {
 		return Sexo;
 	}
 
-	public void setSexo(Character sexo) {
+	public void setSexo(boolean sexo) {
 		Sexo = sexo;
 	}
 
