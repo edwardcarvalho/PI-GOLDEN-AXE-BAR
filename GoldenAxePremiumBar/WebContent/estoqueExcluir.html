@@ -74,32 +74,22 @@
 	</div>
 	
 	<div class="alert alert-info">
-		<h2>Excluir Funcionário</h2>
+		<h2>Excluir Estoque</h2>
 	</div>
-	<div id="cadastroFuncionario">
-		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
-		<p><button id="buscarFunc" type="submit" class="btn btn-primary">Buscar</button></p>
-		<div id="alterarCliente "style="display:none">	
-			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome" readonly="readonly" >
-			<p>Data Nascimento:</p><input readonly="readonly" type="text" placeholder="__/__/____" id="dataNascimento">
-			<p>Sexo:</p>
-			<select readonly="readonly" id="sexo">
-			  <option>Masculino</option>
-			  <option>Feminino</option>
-			</select>
-			<p>Grupo:</p>
-			<select readonly="readonly" id="tipo">
-			  <option>Atendimento</option>
-			  <option>Gerência</option>
-			</select>
-			<p>Nome de Usuario:</p><input readonly="readonly" type="text" placeholder="fulanosilva" id="usuario">
-			<div id="pswFuncionario" style="display:none">
-				<p>Senha:</p><input type="password" placeholder="*******" id="password">
-				<p>Confirmar Senha:</p><input type="password" placeholder="*******" id="passwordConfirmation">
-			</div>
+	<div id="excluirEstoque">
+		<p>Id Produto:</p><input type="number" id="idExEstoque">
+		<p><button id="buscarProduto" type="submit" class="btn btn-primary">Buscar</button></p>
+		<div id="alterarProduto "style="display:none">
+			<p>Produto</p><input type="text" id="produto">
+			<p>Jogo</p><input type="text" id="jogo">
+			<p>Quantidade</p><input type="number" id="quantidade">
+			<p>Valor</p><input type="number" id="valor">
+						
 			<p><button type="submit" class="btn btn-primary">Excluir</button>
 			<button type="button" class="btn">Cancelar</button></p>
-		</div>
+		</div>	
+		
+		
 	</div>
 
 	<script src="scripts/goldenaxe.js" ></script>

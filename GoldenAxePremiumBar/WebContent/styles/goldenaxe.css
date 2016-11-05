@@ -10,6 +10,18 @@
 	margin-left: 40px;
 }
 
+#inserirEstoque{
+	margin-left: 40px;
+}
+
+#alterarEstoque{
+	margin-left: 40px;
+}
+
+#excluirEstoque{
+	margin-left: 40px;
+}
+
 #inputIcon{
 	width:180px;
 }
@@ -24,7 +36,26 @@
 	margin: 0px 10px 10px 10px;
 }
 
-
 #sideBarMesas{
 /* 	background-color: #E6E6FA; */
+}
+
+#fornecedorCadastro{
+	margin-left: 40px;
+}
+
+#fornecedorAlterar{
+	margin-left: 40px;
+}
+
+#fornecedorExcluir{
+	margin-left: 40px;
+}
+
+#comandaAdmin{
+	margin-left: 40px;
+}
+
+.botoesComanda{
+	margin-left: 40px;
 }
