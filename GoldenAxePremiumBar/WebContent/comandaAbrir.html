@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>GoldenAxe Bar e Luderia</title>
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.min.css">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
+<script src="scripts/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<!-- menu navegação superior-->
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Golden Axe Bar</a>
+			<ul class="nav">
+				<ul class="nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Cliente<b class="caret"></b></a>
+						<ul id="clienteDrop" class="dropdown-menu">
+							<li><a href="clienteCadastro.html">Novo</a></li>
+							<li><a href="clienteAlterar.html">Alterar</a></li>
+							<li><a href="clienteExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Funcionario<b class="caret"></b></a>
+						<ul id="funcionarioDrop" class="dropdown-menu">
+							<li><a href="funcionarioCadastro.html">Novo</a></li>
+							<li><a href="funcionarioAlterar.html">Alterar</a></li>
+							<li><a href="funcionarioExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Fornecedor<b class="caret"></b></a>
+						<ul id="fornecedorDrop" class="dropdown-menu">
+							<li><a href="fornecedorCadastrar.html">Novo</a></li>
+							<li><a href="fornecedorAlterar.html">Alterar</a></li>
+							<li><a href="fornecedorExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Comanda<b class="caret"></b></a>
+						<ul id="comandaDrop" class="dropdown-menu">
+							<li><a href="comandaAbrir.html">Abri</a></li>
+							<li><a href="comandaAdicionar.html">Adicionar/Excluir
+									Produto</a></li>
+							<li><a href="comandaFechar.html">Fechar</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Mesas<b class="caret"></b></a>
+						<ul id="mesaDrop" class="dropdown-menu">
+							<li><a href="mesaStatus.html">Status</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Estoque<b class="caret"></b></a>
+						<ul id="estoqueDrop" class="dropdown-menu">
+							<li><a href="estoqueIncluir.html">Inserir</a></li>
+							<li><a href="estoqueAlterar.html">Alterar</a></li>
+							<li><a href="estoqueExcluir.html">Excluir</a></li>
+						</ul></li>
+					<div id="usuarioLogado" class="btn-group">
+						<a class="btn btn-primary" href=""><i
+							class="icon-user icon-white"></i> Usuario</a> <a
+							class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+							href="#"><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="logoutUsuario.html"><i class="icon-off"></i>
+									Sair</a></li>
+						</ul>
+					</div>
+				</ul>
+			</ul>
+		</div>
+	</div>
+
+	<div class="alert alert-info">
+		<h2>Abrir Comanda</h2>
+	</div>
+
+	<div class="botoesComanda">
+		<p>
+			<button type="submit" class="btn btn-primary">Abrir</button>
+			<button type="submit" class="btn btn-primary">Alterar</button>
+			<button type="submit" class="btn btn-primary">Cancelar Comanda</button>
+			<button type="submit" class="btn btn-primary">Fechar Comanda</button>
+		</p>
+
+	</div>
+	<div id="dadosComanda">
+		<p>Numero da Comanda</p>
+		<input type="number" id="numComanda">
+		<p>CPF:</p>
+		<input type="text" placeholder="xxx.xxx.xxx-xx" id="cpfComanda">
+		<p>
+			<button id="buscarClienteCom" type="submit" class="btn btn-primary">Buscar</button>
+		</p>
+		<div id="abrirComanda ">
+			<p>Nome:</p>
+			<input type="text" placeholder="Fulano da Silva" id="nome">
+			<p>Tipo do Serviço:</p>
+			<select id="tpServico">
+				<option>...</option>
+			</select>
+			<p>Jogos:</p>
+			<select id="jogos">
+				<option>...</option>
+			</select>
+			<p>Horas Reservadas:</p>
+			<input type="number">
+
+		</div>
+	</div>
+	<p>
+		<button type="submit" class="btn btn-primary">Salvar</button>
+		<button type="button" class="btn">Cancelar</button>
+	</p>
+
+	</div>
+
+	</div>
+
+
+	<script src="scripts/goldenaxe.js"></script>
+	<script src="scripts/bootstrap.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/jquery.js"></script>
+	<script src="scripts/bootstrap-affix.js"></script>
+	<script src="scripts/bootstrap-alert.js"></script>
+	<script src="scripts/bootstrap-button.js"></script>
+	<script src="scripts/bootstrap-carousel.js"></script>
+	<script src="scripts/bootstrap-collapse.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/bootstrap-modal.js"></script>
+	<script src="scripts/bootstrap-popover.js"></script>
+	<script src="scripts/bootstrap-scrollspy.js"></script>
+	<script src="scripts/bootstrap-tab.js"></script>
+	<script src="scripts/bootstrap-tooltip.js"></script>
+	<script src="scripts/bootstrap-transition.js"></script>
+	<script src="scripts/bootstrap-typeahead.js"></script>
+</body>
+</html>
