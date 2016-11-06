@@ -6,6 +6,7 @@ public class Jogos {
 	private int Quantidade;
 	private float Valor;
 	private int IdFornecedor;
+	private boolean Ativo;
 	
 	public String getNome() {
 		return Nome;

@@ -8,9 +8,29 @@
 		<description></description>
 		<servlet-class>Servlet.Cadastro</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Alteracao</servlet-name>
+		<display-name>Alteracao</display-name>
+		<description></description>
+		<servlet-class>Servlet.Alteracao</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Exclusao</servlet-name>
+		<display-name>Exclusao</display-name>
+		<description></description>
+		<servlet-class>Servlet.Exclusao</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Cadastro</servlet-name>
 		<url-pattern>/Cadastro</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Alteracao</servlet-name>
+		<url-pattern>/Alteracao</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Exclusao</servlet-name>
+		<url-pattern>/Exclusao</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

@@ -1,7 +1,5 @@
 package Entity;
 
-import java.util.Date;
-
 public abstract class Pessoa {
 
 	private String Nome;
@@ -10,6 +8,7 @@ public abstract class Pessoa {
 	private boolean Sexo;
 	private String DataNascimento;
 	private String Telefone;
+	private boolean Ativo;
 
 	public Pessoa(String nome, String cpf, String email, boolean sexo, String dataNascimento, String telefone) {
 		this.Nome = nome;
@@ -20,11 +19,10 @@ public abstract class Pessoa {
 		this.Telefone = telefone;
 	}
 
-	public Pessoa(String nome, String cpf, boolean sexo, String dataNascimento) {
+	public Pessoa(String nome, String cpf, boolean sexo) {
 		this.Nome = nome;
 		this.Cpf = cpf;
 		this.Sexo = sexo;
-		this.DataNascimento = dataNascimento;
 	}
 
 	public String getNome() {

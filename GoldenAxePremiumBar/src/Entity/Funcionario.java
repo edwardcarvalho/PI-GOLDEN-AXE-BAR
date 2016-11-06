@@ -1,34 +1,32 @@
 package Entity;
 
-import java.sql.Date;
-
 public class Funcionario extends Pessoa {
 
-	private int Tipo;
-	private String Unidade;
+	private int Grupo;
+	private int Unidade;
 
-	public Funcionario(String nome, String cpf, boolean sexo, String dataNascimento, int tipo, String unidade) {
+	public Funcionario(String nome, String cpf, boolean sexo, int grupo, int unidade) {
 
-		super(nome, cpf, sexo, dataNascimento);
-		this.Tipo = tipo;
+		super(nome, cpf, sexo);
+		this.Grupo = grupo;
 		this.Unidade = unidade;
 
 	}
 	
-	public String getUnidade(){
+	public int getUnidade(){
 		return Unidade;
 	}
 	
-	public void setUnidade(String unidade){
+	public void setUnidade(int unidade){
 		this.Unidade = unidade;
 	}
 
-	public int getTipo() {
-		return Tipo;
+	public int getGrupo() {
+		return Grupo;
 	}
 
 	public void setTipo(int tipo) {
-		this.Tipo = tipo;
+		this.Grupo = tipo;
 	}
 
 }

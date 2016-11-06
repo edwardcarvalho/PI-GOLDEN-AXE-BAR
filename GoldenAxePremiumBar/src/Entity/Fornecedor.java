@@ -6,6 +6,7 @@ public class Fornecedor {
 	private String Nome;
 	private String Telefone;
 	private String Email;
+	private boolean Ativo;
 
 	public Fornecedor() {
 	}

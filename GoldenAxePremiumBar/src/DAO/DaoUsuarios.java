@@ -3,18 +3,18 @@ package DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entity.Usuarios;
+import Entity.Usuario;
 
 public class DaoUsuarios extends ConnectionDAO {
 
-	public void salvar(Usuarios usuarios) {
+	public boolean salvar(Usuario usuarios) {
 
-		String sql = "INSERT INTO USUARIO(ID_FUNCIONARIO, NOME_USU, SENHA,) VALUES(?,?,?)";
+		String sql = "INSERT INTO USUARIO(ID_FUNCIONARIO, USUARIO, SENHA, ATIVO) VALUES(?,?,?,1)";
 
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, usuarios.getId_Funcionario());
+			pst.setInt(1, usuarios.getIdFuncionario());
 			pst.setString(2, usuarios.getUsuario());
 			pst.setString(3, usuarios.getSenha());
 			pst.execute();
@@ -22,22 +22,25 @@ public class DaoUsuarios extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			
+			return false;
 		}
 
 	}
 
-	public void alterar(Usuarios usuarios) {
+	public void alterar(Usuario usuarios) {
 
-		String sql = "UPDATE USUARIO SET ID_FUNCIONARIO = ?, NOME_USU = ?, SENHA = ? WHERE ID_USUARIO = ?";
+		String sql = "UPDATE USUARIO SET USUARIO = ?, SENHA = ? WHERE ID_FUNCIONARIO = ?";
 
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, usuarios.getId_Funcionario());
-			pst.setString(2, usuarios.getUsuario());
-			pst.setString(3, usuarios.getSenha());
+			pst.setString(1, usuarios.getUsuario());
+			pst.setString(2, usuarios.getSenha());
+			pst.setInt(3, usuarios.getIdFuncionario());
 			pst.execute();
 
 			pst.close();
@@ -61,8 +64,8 @@ public class DaoUsuarios extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
-	public List<Usuarios> mostrarTodos() throws Exception {
-		List<Usuarios> lista = new ArrayList<Usuarios>();
+	public List<Usuario> mostrarTodos() throws Exception {
+		List<Usuario> lista = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM USUARIO";
 
 		try {
@@ -71,11 +74,11 @@ public class DaoUsuarios extends ConnectionDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				Usuarios usuarios = new Usuarios();
-			
-				usuarios.setUsuario(rs.getString("USUARIO"));
-				
-				lista.add(usuarios);
+//				Usuario usuarios = new Usuario();
+//			
+//				usuarios.setUsuario(rs.getString("USUARIO"));
+//				
+//				lista.add(usuarios);
 			}
 			pst.close();
 			desconectaBanco();

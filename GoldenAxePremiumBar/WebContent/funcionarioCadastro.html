@@ -79,24 +79,26 @@
 	<div id="cadastroFuncionario">
 		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">	
 		<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome">
-		<p>Data Nascimento:</p><input type="text" placeholder="__/__/____" id="dataNascimento">
 		<p>Sexo:</p>
 		<select id="sexo">
 		  <option>Masculino</option>
 		  <option>Feminino</option>
 		</select>
 		<p>Grupo:</p>
-		<select id="tipo">
-		  <option>Atendimento</option>
-		  <option>Gerência</option>
+		<select id="grupo">
+		  <option value=1>Atendimento</option>
+		  <option value =2>Gerência</option>
+		</select>
+		<p>Unidade:</p>
+		<select id="unidade">
+		  <option value =1>Morumbi</option>
+		  <option value =2>Brooklin</option>
 		</select>
 		<p>Nome de Usuario:</p><input type="text" placeholder="fulanosilva" id="usuario">
 		<p>Senha:</p><input type="password" placeholder="*******" id="password">
 		<p>Confirmar Senha:</p><input type="password" placeholder="*******" id="passwordConfirmation">
-		<p><button type="submit" class="btn btn-primary">Salvar</button>
-		<button type="button" class="btn">Cancelar</button></p>
-		
-		
+		<p><button type="submit" class="btn btn-primary" onclick="cadastrarFuncionario()">Salvar</button>
+		<button type="button" class="btn" onclick="clearForm('cadastroFuncionario')">Cancelar</button></p>
 	</div>
 
 	<script src="scripts/goldenaxe.js" ></script>
