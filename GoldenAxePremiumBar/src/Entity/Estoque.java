@@ -10,6 +10,13 @@ public class Estoque {
 	private float Valor;
 	private int IdUnidade;
 	
+	public Estoque(String idFornecedor2, String idProduto2, String idJogo2, String quantidade2, String valor2,
+			String idUnidade2) {
+		// TODO Auto-generated constructor stub
+	}
+	public Estoque() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdFornecedor() {
 		return IdFornecedor;
 	}

@@ -1008,7 +1008,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 input, textarea, .uneditable-input {
-	width: 33%
+	width: 206px
 }
 
 textarea {

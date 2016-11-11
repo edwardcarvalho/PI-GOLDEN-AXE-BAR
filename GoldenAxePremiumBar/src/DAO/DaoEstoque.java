@@ -29,7 +29,7 @@ public class DaoEstoque extends ConnectionDAO {
 		}
 	}
 
-	public void alterar(Estoque estoque) {
+	public boolean alterar(Estoque estoque) {
 		String sql = "UPDATE ESTOQUE SET ID_FORNECEDOR=?,ID_PRODUTO=?,ID_JOGO=?,QUANTIDADE=?,VALOR=?,ID_UNIDADE=? WHERE ID_ESTOQUE=?";
 		try {
 			conectaBanco();
@@ -44,8 +44,10 @@ public class DaoEstoque extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 

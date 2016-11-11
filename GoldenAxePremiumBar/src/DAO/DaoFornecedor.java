@@ -24,7 +24,7 @@ public class DaoFornecedor extends ConnectionDAO {
 		}
 	}
 
-	public void alterar(Fornecedor fornecedor) {
+	public boolean alterar(Fornecedor fornecedor) {
 		String sql = "UPDATE FORNECEDOR SET NOME=? WHERE ID_FORNECEDOR=?";
 		try {
 			conectaBanco();
@@ -34,8 +34,10 @@ public class DaoFornecedor extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
