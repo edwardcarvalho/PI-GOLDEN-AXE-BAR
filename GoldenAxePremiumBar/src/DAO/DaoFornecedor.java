@@ -7,7 +7,7 @@ import Entity.Fornecedor;
 
 public class DaoFornecedor extends ConnectionDAO {
 
-	public void salvar(Fornecedor fornecedor) {
+	public boolean salvar(Fornecedor fornecedor) {
 
 		String sql = "INSERT INTO FORNECEDOR (NOME) VALUES (?)";
 		try {
@@ -19,8 +19,10 @@ public class DaoFornecedor extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
@@ -41,7 +43,7 @@ public class DaoFornecedor extends ConnectionDAO {
 		}
 	}
 
-	public void deletar(int id_fornecedor) {
+	public boolean deletar(int id_fornecedor) {
 		String sql = "DELETE FROM FORNECEDOR WHERE ID_FORNECEDOR = ?";
 		try {
 			conectaBanco();
@@ -51,8 +53,10 @@ public class DaoFornecedor extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 		public Fornecedor procurarId(int id_fornecedor) throws Exception {

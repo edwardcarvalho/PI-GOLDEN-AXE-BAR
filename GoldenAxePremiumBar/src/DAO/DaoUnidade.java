@@ -7,7 +7,7 @@ import Entity.Unidade;
 
 public class DaoUnidade extends ConnectionDAO {
 
-	public void salvar(Unidade unidade) {
+	public boolean salvar(Unidade unidade) {
 
 		String sql = "INSERT INTO UNIDADE (NOME) VALUES (?)";
 		try {
@@ -18,12 +18,14 @@ public class DaoUnidade extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return true;
 		}
 	}
 
-	public void alterar(Unidade unidade) {
+	public boolean alterar(Unidade unidade) {
 		String sql = "UPDATE UNIDADE SET NOME=? WHERE ID_UNIDADE = ?";
 		try {
 			conectaBanco();
@@ -33,12 +35,14 @@ public class DaoUnidade extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
-	public void deletar(int id_Unidade) {
+	public boolean deletar(int id_Unidade) {
 		String sql = "DELETE FROM UNIDADE WHERE ID_UNIDADE = ?";
 		try {
 			conectaBanco();
@@ -48,8 +52,10 @@ public class DaoUnidade extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 
 	}
@@ -110,9 +116,9 @@ public class DaoUnidade extends ConnectionDAO {
 
 			while (rs.next()) {
 				Unidade unidade = new Unidade();
-			
+
 				unidade.setNome(rs.getString("nome"));
-				
+
 				lista.add(unidade);
 			}
 			pst.close();

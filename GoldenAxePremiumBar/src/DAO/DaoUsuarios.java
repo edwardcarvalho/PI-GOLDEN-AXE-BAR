@@ -25,13 +25,13 @@ public class DaoUsuarios extends ConnectionDAO {
 			return true;
 
 		} catch (Exception e) {
-			
+
 			return false;
 		}
 
 	}
 
-	public void alterar(Usuario usuarios) {
+	public boolean alterar(Usuario usuarios) {
 
 		String sql = "UPDATE USUARIO SET USUARIO = ?, SENHA = ? WHERE ID_FUNCIONARIO = ?";
 
@@ -46,12 +46,14 @@ public class DaoUsuarios extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
-	public void deletar(int id_Usuario) {
+	public boolean deletar(int id_Usuario) {
 		String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
 		try {
 			conectaBanco();
@@ -61,9 +63,13 @@ public class DaoUsuarios extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
+			
 		} catch (Exception e) {
+			return false;
 		}
 	}
+
 	public List<Usuario> mostrarTodos() throws Exception {
 		List<Usuario> lista = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM USUARIO";
@@ -74,11 +80,11 @@ public class DaoUsuarios extends ConnectionDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-//				Usuario usuarios = new Usuario();
-//			
-//				usuarios.setUsuario(rs.getString("USUARIO"));
-//				
-//				lista.add(usuarios);
+				// Usuario usuarios = new Usuario();
+				//
+				// usuarios.setUsuario(rs.getString("USUARIO"));
+				//
+				// lista.add(usuarios);
 			}
 			pst.close();
 			desconectaBanco();
@@ -87,5 +93,5 @@ public class DaoUsuarios extends ConnectionDAO {
 		}
 		return lista;
 	}
-	
+
 }

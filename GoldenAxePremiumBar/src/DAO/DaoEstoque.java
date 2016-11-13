@@ -7,7 +7,7 @@ import Entity.Estoque;
 
 public class DaoEstoque extends ConnectionDAO {
 
-	public void salvar(Estoque estoque) {
+	public boolean salvar(Estoque estoque) {
 
 		String sql = "INSERT INTO ESTOQUE (ID_FORNECEDOR,ID_PRODUTO,ID_JOGO,QUANTIDADE,VALOR,ID_UNIDADE) VALUES (?,?,?,?,?,?)";
 		try {
@@ -24,8 +24,10 @@ public class DaoEstoque extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
@@ -51,7 +53,7 @@ public class DaoEstoque extends ConnectionDAO {
 		}
 	}
 
-	public void deletar(int id_estoque) {
+	public boolean deletar(int id_estoque) {
 		String sql = "DELETE FROM ESTOQUE WHERE ID_ESTOQUE = ?";
 		try {
 			conectaBanco();
@@ -61,8 +63,10 @@ public class DaoEstoque extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 

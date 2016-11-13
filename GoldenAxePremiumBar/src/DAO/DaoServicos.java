@@ -7,7 +7,7 @@ import Entity.Servico;
 
 public class DaoServicos extends ConnectionDAO {
 
-	public void salvar(Servico servico) {
+	public boolean salvar(Servico servico) {
 
 		String sql = "INSERT INTO SERVICO (DESCRICAO, VALOR_HORA) VALUES (?,?)";
 		try {
@@ -20,12 +20,14 @@ public class DaoServicos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return true;
 		}
 	}
 
-	public void alterar(Servico servico) {
+	public boolean alterar(Servico servico) {
 		String sql = "UPDATE SERVICO SET DESCRICAO=?, VALOR_HORA = ? WHERE ID_SERVICO=?";
 		try {
 			conectaBanco();
@@ -36,12 +38,14 @@ public class DaoServicos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
-	public void deletar(int id_Servico) {
+	public boolean deletar(int id_Servico) {
 		String sql = "DELETE FROM SERVICO WHERE ID_SERVICO = ?";
 		try {
 			conectaBanco();
@@ -51,8 +55,10 @@ public class DaoServicos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 	public Servico procurarId(int id_servico) throws Exception {
