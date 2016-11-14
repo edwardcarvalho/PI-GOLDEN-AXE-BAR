@@ -24,6 +24,14 @@ function clearAlteracaoCliente() {
 	clearForm("alterarCliente,#cadastroCliente");
 
 }
+
+function clearAlteracaoFuncionario() {
+	clearForm("alterarFuncionario,#cadastroFuncionario");
+	$('#cpf').attr('readonly', false);
+	$('#alterarFuncionario').css("display", "none");
+	clearForm("alterarFuncionario,#cadastroFuncionario");
+
+}
 function cadastrarCliente() {
 	$.ajax({
 		url : 'Cadastro',
@@ -43,7 +51,7 @@ function cadastrarCliente() {
 				clearForm("cadastroCliente");
 			} else {
 				alert("Erro no cadastro!");
-				
+
 			}
 		}
 	});
@@ -121,6 +129,33 @@ function buscarCliente() {
 	});
 }
 
+function buscarFuncionario() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'POST',
+		data : {
+			'menu' : 'BuscarFuncionario',
+			'cpf' : $('#cpf').val(),
+		},
+		success : function(data) {
+			if (data != null && data != "") {
+				data = JSON.parse(data);
+
+				$('#cpf').attr('readonly', true);
+				$('#alterarFuncionario').css("display", "");
+				$('#nome').val(data[0].nome);
+				$('#sexo option').eq(data[0].sexo).prop('selected', true);
+				$('#grupo option').val(data[0].grupo).prop('selected', true);
+				$('#unidade').val(data[0].unidade).prop('selected', true);
+				$('#usuario').val(data[0].usuario);
+				psw = data[0].senha;
+			} else {
+				alert("CPF não encontrado!");
+			}
+		}
+	});
+}
+
 function cadastrarFuncionario() {
 	var pwd = $('#password').val();
 	var pwdc = $('#passwordConfirmation').val();
@@ -149,13 +184,61 @@ function cadastrarFuncionario() {
 				}
 			}
 		});
-	}else{
+	} else {
 		alert("Senha e confirmação de senha diferentes. Inserir novamente.");
 		$('#password').val('');
 		$('#passwordConfirmation').val('');
 	}
 }
 
+function alterarFuncionario() {
+	var pwdlast = $('#lastPassword').val();
+	var pwd = $('#newPassword').val();
+	var pwdc = $('#newPasswordConfirmation').val();
+
+	if (psw == pwdlast) {
+
+		if (pwd == pwdc) {
+
+			$.ajax({
+				url : 'Alteracao',
+				method : 'POST',
+				data : {
+					'menu' : 'AlterarFuncionario',
+					'nome' : $('#nome').val(),
+					'cpf' : $('#cpf').val(),
+					'sexo' : $('#sexo').val(),
+					'grupo' : $('#grupo').val(),
+					'unidade' : $('#unidade').val(),
+					'usuario' : $('#usuario').val(),
+					'pswd' : $('#newPassword').val()
+				},
+				success : function(data) {
+					if (data == "true") {
+						$('#cpf').attr('readonly', false);
+						$('#alterarFuncionario').css("display", "none");
+						clearForm("alterarFuncionario,#cadastroFuncionario");
+						alert("Alteração realizada com sucesso!");
+					} else {
+						alert("Erro no processamento da alteração!");
+					}
+				}
+			});
+		} else {
+			alert("Senha e confirmação de senha diferentes. Inserir novamente.");
+			$('#newPassword').val('');
+			$('#newPasswordConfirmation').val('');
+		}
+	} else {
+
+		alert("Senha anterior incorreta. Inserir novamente.");
+		$('#lastPassword').val('');
+		$('#newPassword').val('');
+		$('#newPasswordConfirmation').val('');
+	}
+}
+
 $(document).ready(function() {
 
+	var psw;
 });

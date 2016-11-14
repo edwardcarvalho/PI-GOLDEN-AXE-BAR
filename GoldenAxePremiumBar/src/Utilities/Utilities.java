@@ -7,6 +7,8 @@ import java.util.Date;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import Entity.Cliente;
+import Entity.Funcionario;
+import Entity.Usuario;
 
 public class Utilities {
 
@@ -53,6 +55,22 @@ public class Utilities {
 		json += ", \"sexo\" : " + "\""+ sexo +"\"";
 		json += ", \"telefone\" : "+ "\""+cliente.getTelefone()+"\"";
 		json += ", \"email\" : " + "\""+cliente.getEmail()+"\"";
+		json += "}]";
+		
+		return json;
+	}
+	
+public static String SerializeFuncionarioToJson(Funcionario funcionario, Usuario usuario){
+		
+		int sexo = funcionario.getSexo() ? 1 : 0;
+		String json = "";
+		json += "[{";
+		json += "\"nome\" : "+ "\""+funcionario.getNome()+"\"";
+		json += ", \"sexo\" : " + "\""+ sexo +"\"";
+		json += ", \"grupo\" : " + "\""+funcionario.getGrupo()+"\"";
+		json += ", \"unidade\" : " + "\""+funcionario.getUnidade()+"\"";
+		json += ", \"usuario\" : "+ "\""+usuario.getUsuario()+"\"";
+		json += ", \"senha\" : "+ "\""+usuario.getSenha()+"\"";
 		json += "}]";
 		
 		return json;

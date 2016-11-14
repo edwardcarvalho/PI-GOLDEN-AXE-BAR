@@ -3,6 +3,7 @@ package DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entity.Funcionario;
 import Entity.Usuario;
 
 public class DaoUsuarios extends ConnectionDAO {
@@ -25,13 +26,13 @@ public class DaoUsuarios extends ConnectionDAO {
 			return true;
 
 		} catch (Exception e) {
-			
+
 			return false;
 		}
 
 	}
 
-	public void alterar(Usuario usuarios) {
+	public boolean alterar(Usuario usuarios) {
 
 		String sql = "UPDATE USUARIO SET USUARIO = ?, SENHA = ? WHERE ID_FUNCIONARIO = ?";
 
@@ -47,8 +48,12 @@ public class DaoUsuarios extends ConnectionDAO {
 
 			desconectaBanco();
 
+			return true;
+
 		} catch (Exception e) {
+			return false;
 		}
+
 	}
 
 	public void deletar(int id_Usuario) {
@@ -64,6 +69,29 @@ public class DaoUsuarios extends ConnectionDAO {
 		} catch (Exception e) {
 		}
 	}
+
+	public Usuario buscarUsuario(int id_funcionario) {
+		String sql = "SELECT * FROM USUARIO WHERE ID_FUNCIONARIO = ? AND ATIVO = 1";
+		Usuario usuario = null;
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id_funcionario);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				usuario = new Usuario(rs.getString("USUARIO"), rs.getString("SENHA"), rs.getInt("ID_FUNCIONARIO"));
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+
+		}
+
+		return usuario;
+	}
+
 	public List<Usuario> mostrarTodos() throws Exception {
 		List<Usuario> lista = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM USUARIO";
@@ -74,11 +102,11 @@ public class DaoUsuarios extends ConnectionDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-//				Usuario usuarios = new Usuario();
-//			
-//				usuarios.setUsuario(rs.getString("USUARIO"));
-//				
-//				lista.add(usuarios);
+				// Usuario usuarios = new Usuario();
+				//
+				// usuarios.setUsuario(rs.getString("USUARIO"));
+				//
+				// lista.add(usuarios);
 			}
 			pst.close();
 			desconectaBanco();
@@ -87,5 +115,5 @@ public class DaoUsuarios extends ConnectionDAO {
 		}
 		return lista;
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package DAO;
 
+import Entity.Cliente;
 import Entity.Funcionario;
 
 public class DaoFuncionario extends ConnectionDAO {
@@ -74,5 +75,50 @@ public class DaoFuncionario extends ConnectionDAO {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public Funcionario buscarFuncionarioCPF(String cpf_funcionario) throws Exception {
+		String sql = "SELECT * FROM FUNCIONARIO WHERE CPF = ? AND ATIVO = 1";
+		Funcionario funcionario = null;
+		
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, cpf_funcionario);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				funcionario = new Funcionario(rs.getInt("ID_FUNCIONARIO"),rs.getString("NOME"), rs.getString("CPF"), rs.getBoolean("SEXO"), rs.getInt("GRUPO"), rs.getInt("ID_UNIDADE"));
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+			
+		}
+		
+		return funcionario;
+	}
+
+	public int buscarIdFuncionarioPorCPF(String cpf_funcionario) throws Exception {
+		String sql = "SELECT ID_FUNCIONARIO FROM FUNCIONARIO WHERE CPF = ? AND ATIVO = 1 LIMIT 1";
+		int id = 0;
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, cpf_funcionario);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				id = rs.getInt("ID_FUNCIONARIO");
+			}
+
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+
+		}
+		return id;
 	}
 }

@@ -78,32 +78,44 @@
 	</div>
 	<div id="cadastroFuncionario">
 		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
-		<p><button id="buscarFunc" type="submit" class="btn btn-primary">Buscar</button></p>
-		<div id="alterarCliente "style="display:none">	
-			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome">
-			<p>Data Nascimento:</p><input type="text" placeholder="__/__/____" id="dataNascimento">
-			<p>Sexo:</p>
-			<select id="sexo">
-			  <option>Masculino</option>
-			  <option>Feminino</option>
-			</select>
-			<p>Grupo:</p>
-			<select id="tipo">
-			  <option>Atendimento</option>
-			  <option>Gerência</option>
-			</select>
-			<p>Nome de Usuario:</p><input type="text" placeholder="fulanosilva" id="usuario">
-			<p>Senha:</p><input type="password" placeholder="*******" id="password">
-			<p>Confirmar Senha:</p><input type="password" placeholder="*******" id="passwordConfirmation">
-			<p><button type="submit" class="btn btn-primary">Salvar</button>
-			<button type="button" class="btn">Cancelar</button></p>
-		</div>
+		<p><button id="buscarFunc" type="submit" class="btn btn-primary" onclick="buscarFuncionario()">Buscar</button></p>
+	</div>
+	<div id="alterarFuncionario" style="display:none">
+		<p>Nome:</p>
+		<input type="text" placeholder="Fulano da Silva" id="nome">
+		<p>Sexo:</p>
+		<select id="sexo">
+			<option value="0">Feminino</option>
+			<option value="1">Masculino</option>
+		</select>
+		<p>Grupo:</p>
+		<select id="grupo">
+			<option value="1">Atendimento</option>
+			<option value="2">Gerência</option>
+		</select>
+		<p>Unidade:</p>
+		<select id="unidade">
+		  <option value ="1">Morumbi</option>
+		  <option value ="2">Brooklin</option>
+		</select>
+		<p>Nome de Usuario:</p>
+		<input type="text" placeholder="fulanosilva" id="usuario">
+		<p>Senha Anterior:</p>
+		<input type="password" placeholder="*******" id="lastPassword">
+		<p>Nova Senha:</p>
+		<input type="password" placeholder="*******" id="newPassword">
+		<p>Confirmar Nova Senha:</p>
+		<input type="password" placeholder="*******" id="newPasswordConfirmation">
+		<p>
+			<button type="submit" class="btn btn-primary" onclick="alterarFuncionario()">Salvar</button>
+			<button type="button" class="btn" onclick="clearAlteracaoFuncionario()">Cancelar</button>
+		</p>
 	</div>
 
 	<script src="scripts/goldenaxe.js" ></script>
 	<script src="scripts/bootstrap.js" ></script>
 	<script src="scripts/bootstrap.min.js"></script>
-	<script src="scripts/jquery.js"></script>
+<!-- 	<script src="scripts/jquery.js"></script> -->
 	<script src="scripts/bootstrap-affix.js"></script>
 	<script src="scripts/bootstrap-alert.js"></script>
 	<script src="scripts/bootstrap-button.js"></script>

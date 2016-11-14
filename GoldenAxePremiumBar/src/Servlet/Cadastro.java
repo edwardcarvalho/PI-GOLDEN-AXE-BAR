@@ -117,6 +117,21 @@ public class Cadastro extends HttpServlet {
 					response.getWriter().print(false);
 				}
 				break;
+				
+			case "BuscarFuncionario":
+				try {
+
+					String cpfFunc = request.getParameter("cpf");
+					Funcionario funcionario1 = buscarFuncionarioCpf(cpfFunc);
+					Usuario usuario = buscarUsuarioPorIdFuncionario(funcionario1.getId());
+					String serialize = funcionario1 != null ? Utilities.SerializeFuncionarioToJson(funcionario1,usuario) : "";
+					response.getWriter().print(serialize);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				break;
 			}
 		}
 	}
@@ -133,6 +148,13 @@ public class Cadastro extends HttpServlet {
 		Cliente cliente = cDAL.buscarClienteCPF(cpf);
 		return cliente;
 	}
+	
+	public Funcionario buscarFuncionarioCpf(String cpf) throws Exception {
+
+		DaoFuncionario cDAL = new DaoFuncionario();
+		Funcionario funcionario = cDAL.buscarFuncionarioCPF(cpf);
+		return funcionario;
+	}
 
 	public int cadastrarFuncionario(Funcionario funcionario) {
 
@@ -144,6 +166,11 @@ public class Cadastro extends HttpServlet {
 	public boolean cadastrarUsuario(Usuario usuario) {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.salvar(usuario);
+	}
+	
+	public Usuario buscarUsuarioPorIdFuncionario(int idFuncionario){
+		DaoUsuarios cDAL = new DaoUsuarios();
+		return cDAL.buscarUsuario(idFuncionario);
 	}
 
 }
