@@ -7,8 +7,21 @@ public class Comanda {
 	private int idProduto;
 	private int idJogo;
 	private int Quantidade;
-	private Date DataComanda;
+	private String DataComanda;
 	private int idFuncionario;
+	
+	public Comanda(int idCliente, int idServico, int idJogo, int qtdHoras, String dataComanda, int idFuncionario){
+		this.idCliente = idCliente;
+		this.idServico = idServico;
+		this.idJogo = idJogo;
+		this.Quantidade = qtdHoras;
+		this.DataComanda = dataComanda;
+		this.idFuncionario = idFuncionario;
+	}
+	
+	public Comanda(){
+		
+	}
 	
 	public int getIdCliente() {
 		return idCliente;
@@ -40,10 +53,10 @@ public class Comanda {
 	public void setQuantidade(int quantidade) {
 		Quantidade = quantidade;
 	}
-	public Date getDataComanda() {
+	public String getDataComanda() {
 		return DataComanda;
 	}
-	public void setDataComanda(Date dataComanda) {
+	public void setDataComanda(String dataComanda) {
 		DataComanda = dataComanda;
 	}
 	public int getIdFuncionario() {

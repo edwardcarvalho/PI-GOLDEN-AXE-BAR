@@ -77,7 +77,7 @@
 
 	<div class="botoesComanda">
 		<p>
-			<button type="submit" class="btn btn-primary">Abrir</button>
+			<button type="submit" class="btn btn-primary" onclick="abrirComanda()">Abrir</button>
 			<button type="submit" class="btn btn-primary">Alterar</button>
 			<button type="submit" class="btn btn-primary">Fechar</button>
 			<button type="submit" class="btn btn-primary">Cancelar</button>
@@ -86,23 +86,26 @@
 
 	<div id="comandaAdmin">
 		<b><p>Numero da Comanda:</p><input type="number" id="numComanda">
-		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpfComanda">
-		<p><button id="buscarClienteCom" type="submit" class="btn btn-primary">Buscar</button></p></b>
+		<p><button id="buscarComanda" type="submit" class="btn btn-primary">Buscar</button></p></b>
 		<div id="abrirComanda "><b>
-			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome">
+		<b><p>CPF Cliente:</p><input type="text" id="cpf">
+		<p><button id="buscarCliente" type="submit" class="btn btn-primary" onclick="buscarCliente()">Buscar</button></p></b>
+			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome" readonly="readonly">
 			<p>Tipo do Serviço:</p>
 			<select id="tpServico">
-				<option>...</option>
+				<option value="1">Mesa</option>
+				<option value="2">Sala</option>
+				<option value="3">Balcão</option>
 			</select>
 			<p>Jogos:</p>
 			<select id="jogos">
 				<option>...</option>
 			</select>
-			<p>Horas Reservadas:</p><input type="number">
+			<p>Horas Reservadas:</p><input type="number" id=qtdHoras>
 		</b></div>
 	</div>
-	<div class="botoesComanda"><button type="submit" class="btn btn-primary">Salvar</button>
-		<button type="button" class="btn">Cancelar</button></div>
+	<div class="botoesComanda"><button type="submit" class="btn btn-primary" onclick="salvarComanda()">Salvar</button>
+		<button type="button" class="btn" onclick="clearForm('comandaAdmin')">Cancelar</button></div>
 	</div>
 	</div>
 

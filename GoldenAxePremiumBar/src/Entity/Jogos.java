@@ -2,6 +2,7 @@ package Entity;
 
 public class Jogos {
 
+	private int idJogo;
 	private String Nome;
 	private int Quantidade;
 	private float Valor;
@@ -50,6 +51,14 @@ public class Jogos {
 
 	public void setIdFornecedor(int idFornecedor) {
 		IdFornecedor = idFornecedor;
+	}
+
+	public int getIdJogo() {
+		return idJogo;
+	}
+
+	public void setIdJogo(int idJogo) {
+		this.idJogo = idJogo;
 	}
 
 }

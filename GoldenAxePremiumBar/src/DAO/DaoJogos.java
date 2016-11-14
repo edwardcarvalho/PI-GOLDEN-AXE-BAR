@@ -132,6 +132,7 @@ public class DaoJogos extends ConnectionDAO {
 			while (rs.next()) {
 				Jogos jogos = new Jogos();
 
+				jogos.setIdJogo(rs.getInt("ID_JOGOS"));
 				jogos.setNome(rs.getString("NOME"));
 				jogos.setQuantidade(rs.getInt("QUANTIDADE"));
 				jogos.setValor(rs.getFloat("VALOR"));

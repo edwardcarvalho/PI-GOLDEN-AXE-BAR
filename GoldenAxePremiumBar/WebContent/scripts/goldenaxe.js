@@ -17,6 +17,27 @@ function clearForm(idForm) {
 	$('#' + idForm).find('select').val('');
 }
 
+function getDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; // January is 0!
+	var yyyy = today.getFullYear();
+
+	if (dd < 10) {
+		dd = '0' + dd
+	}
+
+	if (mm < 10) {
+		mm = '0' + mm
+	}
+
+	return today = dd + '/' + mm + '/' + yyyy;
+	
+}
+
+
+// funções de limpeza de tela
+
 function clearAlteracaoCliente() {
 	clearForm("alterarCadastro,#cadastroCliente");
 	$('#cpf').attr('readonly', false);
@@ -40,6 +61,8 @@ function clearAlteracaoFornecedor() {
 	clearForm("alterarFornecedor,#cadastroFornecedor");
 
 }
+
+// funções de manipulação do cliente
 
 function cadastrarCliente() {
 	$.ajax({
@@ -138,6 +161,8 @@ function buscarCliente() {
 	});
 }
 
+// funções de manipulação do funcionario
+
 function buscarFuncionario() {
 	$.ajax({
 		url : 'Cadastro',
@@ -165,28 +190,6 @@ function buscarFuncionario() {
 	});
 }
 
-function buscarFornecedor() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'BuscarFornecedor',
-			'cnpj' : $('#cnpj').val(),
-		},
-		success : function(data) {
-			if (data != null && data != "") {
-				data = JSON.parse(data);
-				$('#cnpj').attr('readonly', true);
-				$('#alterarFornecedor').css("display", "");
-				$('#fornecedor').val(data[0].fornecedor);
-				$('#inputIcon').val(data[0].email);
-				$('#telefone').val(data[0].telefone);
-			} else {
-				alert("CNPJ não encontrado!");
-			}
-		}
-	});
-}
 
 function cadastrarFuncionario() {
 	var pwd = $('#password').val();
@@ -291,6 +294,32 @@ function excluirFuncionario() {
 	});
 }
 
+// funções de manipulação de fornecedors
+
+function buscarFornecedor() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'GET',
+		data : {
+			'menu' : 'BuscarFornecedor',
+			'cnpj' : $('#cnpj').val(),
+		},
+		success : function(data) {
+			if (data != null && data != "") {
+				data = JSON.parse(data);
+				$('#cnpj').attr('readonly', true);
+				$('#alterarFornecedor').css("display", "");
+				$('#fornecedor').val(data[0].fornecedor);
+				$('#inputIcon').val(data[0].email);
+				$('#telefone').val(data[0].telefone);
+			} else {
+				alert("CNPJ não encontrado!");
+			}
+		}
+	});
+}
+
+
 function cadastrarFornecedor() {
 	$.ajax({
 		url : 'Cadastro',
@@ -358,7 +387,65 @@ function excluirFornecedor(){
 	});
 }
 
+// funções de manipulação da comanda
+
+function abrirComanda(){
+	$.ajax({
+		url: 'Comanda',
+		data: {'menu': 'AbrirComanda'},
+		method: 'GET',
+		success: function(data){
+			if(data != "" && data != undefined){
+				$('#numComanda').val(data);
+				$('#numComanda').attr('readonly', true);
+				$('#buscarComanda').hide();
+			}
+		}
+	});
+}
+
+function salvarComanda(){
+	$.ajax({
+		url: 'Comanda',
+		data: {
+			'menu' : 'CadastrarComanda',
+			'cpf' : $('#cpf').val(),
+			'servico' : $('#tpServico').val(),
+			'jogo' : $('#jogos').val(),
+			'horas' : $('#qtdHoras').val(),
+			'data' : getDate()
+		},
+		method: 'GET',
+		success: function(data){
+			if(data == "true"){
+				alert("Cadastro efetuado com sucesso!");
+				clearForm('comandaAdmin');
+				$('#numComanda').attr('readonly', false);
+				$('#cpf').attr('readonly', false);
+				$('#buscarComanda').show();
+			}else{
+				alert("Erro no cadastro!");
+			}
+		}
+	});
+}
+
 $(document).ready(function() {
 
 	var psw;
+	
+	//alimenta o combobox com todos os jogos ao carregar a pagina.
+		$.ajax({
+			url: 'Comanda',
+			method: 'GET',
+			data: {'menu': 'CarregarJogos'},
+			success: function(data){
+				if(data != "" && data != undefined){
+					data = JSON.parse(data);
+					for(var i = 0 ; i < data.length; i++){
+						$('#jogos').append('<option value='+data[i].id+'>' +data[i].jogo+ '</option>');
+					}
+				}
+			}
+		});
 });

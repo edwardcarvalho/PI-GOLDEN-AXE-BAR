@@ -26,6 +26,12 @@
 		<description></description>
 		<servlet-class>Servlet.AlterarFornecedor</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Comanda</servlet-name>
+		<display-name>Comanda</display-name>
+		<description></description>
+		<servlet-class>Servlet.Comanda</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Cadastro</servlet-name>
 		<url-pattern>/Cadastro</url-pattern>
@@ -41,6 +47,10 @@
 	<servlet-mapping>
 		<servlet-name>AlterarFornecedor</servlet-name>
 		<url-pattern>/AlterarFornecedor</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Comanda</servlet-name>
+		<url-pattern>/Comanda</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
