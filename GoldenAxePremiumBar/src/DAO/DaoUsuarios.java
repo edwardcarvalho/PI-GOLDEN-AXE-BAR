@@ -47,7 +47,6 @@ public class DaoUsuarios extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
-
 			return true;
 
 		} catch (Exception e) {
@@ -56,7 +55,7 @@ public class DaoUsuarios extends ConnectionDAO {
 
 	}
 
-	public void deletar(int id_Usuario) {
+	public boolean deletar(int id_Usuario) {
 		String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
 		try {
 			conectaBanco();
@@ -66,7 +65,10 @@ public class DaoUsuarios extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
+			
 		} catch (Exception e) {
+			return false;
 		}
 	}
 

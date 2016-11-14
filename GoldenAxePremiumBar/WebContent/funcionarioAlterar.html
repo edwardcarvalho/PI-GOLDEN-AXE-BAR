@@ -61,21 +61,19 @@
 				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
 				   </ul>
 			  </li>
+			  <li>
 			  	<div id="usuarioLogado" class="btn-group">
-			 	 <a class="btn btn-primary" href=""><i class="icon-user icon-white"></i> Usuario</a>
-			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-				    <li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li>
-				  </ul>
+			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
+			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
+				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
 				</div>
+				</li>
 			</ul>
 	    </ul>
 	  </div>
 	</div>
 	
-	<div class="alert alert-info">
-		<h2>Alterar Dados do Funcionário</h2>
-	</div>
+	<div class="alert alert-info"><h2>Alterar Dados do Funcionário</h2></div>
 	<div id="cadastroFuncionario">
 		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
 		<p><button id="buscarFunc" type="submit" class="btn btn-primary" onclick="buscarFuncionario()">Buscar</button></p>
@@ -115,7 +113,7 @@
 	<script src="scripts/goldenaxe.js" ></script>
 	<script src="scripts/bootstrap.js" ></script>
 	<script src="scripts/bootstrap.min.js"></script>
-<!-- 	<script src="scripts/jquery.js"></script> -->
+	<script src="scripts/jquery.js"></script>
 	<script src="scripts/bootstrap-affix.js"></script>
 	<script src="scripts/bootstrap-alert.js"></script>
 	<script src="scripts/bootstrap-button.js"></script>

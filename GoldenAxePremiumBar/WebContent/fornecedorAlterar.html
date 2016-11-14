@@ -61,29 +61,27 @@
 				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
 				   </ul>
 			  </li>
+			  <li>
 			  	<div id="usuarioLogado" class="btn-group">
-			 	 <a class="btn btn-primary" href=""><i class="icon-user icon-white"></i> Usuario</a>
-			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-				    <li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li>
-				  </ul>
+			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
+			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
+				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
 				</div>
+				</li>
 			</ul>
 	    </ul>
 	  </div>
 	</div>
 
-	<div class="alert alert-info">
-		<h2>Alterar Dados do Forcenedor</h2>
-	</div>
+	<div class="alert alert-info"><h2>Alterar Dados do Forcenedor</h2></div>
 	<div id="fornecedorAlterar">
-		<br>CNPJ:</br><input type="text" placeholder="xx.xxx.xxx/xxxx-xx" id="cnpj">
+		<p><b>CNPJ:</b></p><input type="text" placeholder="xx.xxx.xxx/xxxx-xx" id="cnpj">
 		<p><button id="buscarCliente" type="submit" class="btn btn-primary">Buscar</button></p>
 		<div id="alterarFornecedor "style="display:none">
-		<br>Fornecedor:</br><input type="text" placeholder="Nome do Fornecedor" id="fornecedor">
-		<br>Telefone:</br><input type="text" placeholder="(xx) xxxx-xxxxx" id="telefone">
+		<b><p>Fornecedor:</p><input type="text" placeholder="Nome do Fornecedor" id="fornecedor">
+		<p>Telefone:</p><input type="text" placeholder="(xx) xxxx-xxxxx" id="telefone"></b>
 		<div class="control-group">
-		<label class="control-label" for="inputIcon">Email:</label>
+		<label class="control-label" for="inputIcon"><b>Email:</b></label>
 			<div class="controls">
 			<div class="input-prepend">
 				<span class="add-on"><i class="icon-envelope"></i></span>

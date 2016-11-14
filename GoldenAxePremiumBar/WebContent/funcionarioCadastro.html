@@ -61,22 +61,20 @@
 				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
 				   </ul>
 			  </li>
+			  <li>
 			  	<div id="usuarioLogado" class="btn-group">
-			 	 <a class="btn btn-primary" href=""><i class="icon-user icon-white"></i> Usuario</a>
-			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-				    <li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li>
-				  </ul>
+			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
+			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
+				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
 				</div>
+				</li>
 			</ul>
 	    </ul>
 	  </div>
 	</div>
 	
-	<div class="alert alert-info">
-		<h2>Cadastro de Funcionário</h2>
-	</div>
-	<div id="cadastroFuncionario">
+	<div class="alert alert-info"><h2>Cadastro de Funcionário</h2></div>
+	<div id="cadastroFuncionario"><b>
 		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">	
 		<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome">
 		<p>Sexo:</p>
@@ -99,7 +97,7 @@
 		<p>Confirmar Senha:</p><input type="password" placeholder="*******" id="passwordConfirmation">
 		<p><button type="submit" class="btn btn-primary" onclick="cadastrarFuncionario()">Salvar</button>
 		<button type="button" class="btn" onclick="clearForm('cadastroFuncionario')">Cancelar</button></p>
-	</div>
+	</b></div>
 
 	<script src="scripts/goldenaxe.js" ></script>
 	<script src="scripts/bootstrap.js" ></script>

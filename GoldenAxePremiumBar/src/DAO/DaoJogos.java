@@ -6,7 +6,7 @@ import java.util.List;
 import Entity.Jogos;
 
 public class DaoJogos extends ConnectionDAO {
-	public void salvar(Jogos jogos) {
+	public boolean salvar(Jogos jogos) {
 
 		String sql = "INSERT INTO JOGOS(NOME, QUANTIDADE,VALOR, ID_FORNECEDOR) VALUES(?,?,?,?)";
 
@@ -22,13 +22,15 @@ public class DaoJogos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 
 	}
 
-	public void alterar(Jogos jogos) {
+	public boolean alterar(Jogos jogos) {
 
 		String sql = "UPDATE JOGOS SET NOME=?, QUANTIDADE=?,VALOR=?, ID_FORNECEDOR=? WHERE ID_JOGOS=?";
 
@@ -44,12 +46,14 @@ public class DaoJogos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			return false;
 		}
 	}
 
-	public void deletar(int id_jogos) {
+	public boolean deletar(int id_jogos) {
 		String sql = "DELETE FROM JOGOS WHERE ID_JOGOS = ?";
 		try {
 			conectaBanco();
@@ -59,7 +63,10 @@ public class DaoJogos extends ConnectionDAO {
 			pst.close();
 
 			desconectaBanco();
+			return true;
+			
 		} catch (Exception e) {
+			return false;
 		}
 	}
 

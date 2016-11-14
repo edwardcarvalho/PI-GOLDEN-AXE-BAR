@@ -61,25 +61,23 @@
 				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
 				   </ul>
 			  </li>
+			  <li>
 			  	<div id="usuarioLogado" class="btn-group">
-			 	 <a class="btn btn-primary" href=""><i class="icon-user icon-white"></i> Usuario</a>
-			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-				    <li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li>
-				  </ul>
+			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
+			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
+				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
 				</div>
+				</li>
 			</ul>
 	    </ul>
 	  </div>
 	</div>
 	
-	<div class="alert alert-info">
-		<h2>Excluir Funcionário</h2>
-	</div>
+	<div class="alert alert-info"><h2>Excluir Funcionário</h2></div>
 	<div id="cadastroFuncionario">
-		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
+		<p><b>CPF:</b></p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
 		<p><button id="buscarFunc" type="submit" class="btn btn-primary">Buscar</button></p>
-		<div id="alterarCliente "style="display:none">	
+		<div id="alterarCliente "style="display:none"><b>
 			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome" readonly="readonly" >
 			<p>Data Nascimento:</p><input readonly="readonly" type="text" placeholder="__/__/____" id="dataNascimento">
 			<p>Sexo:</p>
@@ -99,7 +97,7 @@
 			</div>
 			<p><button type="submit" class="btn btn-primary">Excluir</button>
 			<button type="button" class="btn">Cancelar</button></p>
-		</div>
+		</b></div>
 	</div>
 
 	<script src="scripts/goldenaxe.js" ></script>

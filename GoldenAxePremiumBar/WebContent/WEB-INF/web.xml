@@ -20,6 +20,12 @@
 		<description></description>
 		<servlet-class>Servlet.Exclusao</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>AlterarFornecedor</servlet-name>
+		<display-name>AlterarFornecedor</display-name>
+		<description></description>
+		<servlet-class>Servlet.AlterarFornecedor</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Cadastro</servlet-name>
 		<url-pattern>/Cadastro</url-pattern>
@@ -31,6 +37,10 @@
 	<servlet-mapping>
 		<servlet-name>Exclusao</servlet-name>
 		<url-pattern>/Exclusao</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AlterarFornecedor</servlet-name>
+		<url-pattern>/AlterarFornecedor</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
