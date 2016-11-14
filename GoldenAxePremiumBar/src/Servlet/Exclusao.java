@@ -54,6 +54,20 @@ public class Exclusao extends HttpServlet {
 					// TODO: handle exception
 				}
 				break;
+				
+			case "ExcluirFuncionario":
+				try {
+
+					String cpf = request.getParameter("cpf");
+					int idFuncionario = buscarIdFuncionarioPorCpf(cpf);
+					boolean ret = excluirFuncionario(idFuncionario);
+					boolean retUser = excluirUsuario(idFuncionario);
+					response.getWriter().print(ret && retUser == true ? true : false);
+
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				break;
 
 			}
 		}
@@ -61,7 +75,16 @@ public class Exclusao extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		String menu = request.getParameter("menu");
+
+		if (menu != null) {
+
+			switch (menu) {
+
+			
+
+			}
+		}
 	}
 
 	public int buscarIdCliente(String cpf) throws Exception {
@@ -72,6 +95,27 @@ public class Exclusao extends HttpServlet {
 	public boolean excluirCadastroCliente(int id) {
 		DaoCliente cDAL = new DaoCliente();
 		return cDAL.deletar(id);
+	}
+	
+	public int buscarIdFuncionarioPorCpf(String cpf) throws Exception {
+
+		DaoFuncionario cDAL = new DaoFuncionario();
+
+		int ret = cDAL.buscarIdFuncionarioPorCPF(cpf);
+
+		return ret;
+	}
+	
+	public boolean excluirFuncionario (int idFuncionario){
+		DaoFuncionario cDAL = new DaoFuncionario();
+		
+		return cDAL.deletar(idFuncionario);
+		
+	}
+	
+	public boolean excluirUsuario (int idFuncionario){
+		DaoUsuarios cDAL = new DaoUsuarios();
+		return cDAL.deletar(idFuncionario);
 	}
 
 }

@@ -56,7 +56,7 @@ public class DaoUsuarios extends ConnectionDAO {
 	}
 
 	public boolean deletar(int id_Usuario) {
-		String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
+		String sql = "UPDATE USUARIO SET ATIVO = 0 WHERE ID_FUNCIONARIO = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);

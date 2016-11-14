@@ -61,7 +61,7 @@ public class DaoFuncionario extends ConnectionDAO {
 	}
 
 	public boolean deletar(int id_funcionario) {
-		String sql = "DELETE FROM FUNCIONARIO WHERE ID_FUNCIONARIO = ?";
+		String sql = "UPDATE FUNCIONARIO SET ATIVO = 0 WHERE ID_FUNCIONARIO = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);

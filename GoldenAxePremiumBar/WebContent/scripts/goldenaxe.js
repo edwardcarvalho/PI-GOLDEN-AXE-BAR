@@ -238,6 +238,27 @@ function alterarFuncionario() {
 	}
 }
 
+function excluirFuncionario() {
+	$.ajax({
+		url : 'Exclusao',
+		method : 'GET',
+		data : {
+			'menu' : 'ExcluirFuncionario',
+			'cpf' : $('#cpf').val()
+		},
+		success : function(data) {
+			if (data == "true") {
+				$('#cpf').attr('readonly', false);
+				$('#alterarFuncionario').css("display", "none");
+				clearForm("alterarFuncionario,#cadastroFuncionario");
+				alert("Exclusão realizada com sucesso!");
+			} else {
+				alert("Erro no processamento da exclusão!");
+			}
+		}
+	});
+}
+
 $(document).ready(function() {
 
 	var psw;

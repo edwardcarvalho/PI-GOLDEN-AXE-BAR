@@ -3,105 +3,121 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>GoldenAxe Bar e Luderia</title>
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.min.css">
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.min.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
 </head>
 <body>
-<!-- menu navegação superior-->
+	<!-- menu navegação superior-->
 	<div class="navbar">
-	  <div class="navbar-inner">
-	    <a class="brand" href="index.html">Golden Axe Bar</a>
-	    <ul class="nav">
-	      <ul class="nav">
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Cliente<b class="caret"></b></a>
-				   <ul id="clienteDrop" class="dropdown-menu">
-				    <li><a href="clienteCadastro.html">Novo</a></li>
-				  	<li><a href="clienteAlterar.html">Alterar</a></li>
-				  	<li><a href="clienteExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Funcionario<b class="caret"></b></a>
-				   <ul id="funcionarioDrop" class="dropdown-menu">
-				    <li><a href="funcionarioCadastro.html">Novo</a></li>
-				  	<li><a href="funcionarioAlterar.html">Alterar</a></li>
-				  	<li><a href="funcionarioExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Fornecedor<b class="caret"></b></a>
-				   <ul id="fornecedorDrop" class="dropdown-menu">
-				    <li><a href="fornecedorCadastro.html">Novo</a></li>
-				  	<li><a href="fornecedorAlterar.html">Alterar</a></li>
-				  	<li><a href="fornecedorExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Comanda<b class="caret"></b></a>
-				   <ul id="comandaDrop" class="dropdown-menu">
-				    <li><a href="comandaAdmin.html">Admin Comanda</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Mesas<b class="caret"></b></a>
-				   <ul id="mesaDrop" class="dropdown-menu">
-				    <li><a href="mesaStatus.html">Status</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Estoque<b class="caret"></b></a>
-				   <ul id="estoqueDrop" class="dropdown-menu">
-				    <li><a href="estoqueIncluir.html">Inserir</a></li>
-				  	<li><a href="estoqueAlterar.html">Alterar</a></li>
-				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li>
-			  	<div id="usuarioLogado" class="btn-group">
-			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
-			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
-				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
-				</div>
-				</li>
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Golden Axe Bar</a>
+			<ul class="nav">
+				<ul class="nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Cliente<b class="caret"></b></a>
+						<ul id="clienteDrop" class="dropdown-menu">
+							<li><a href="clienteCadastro.html">Novo</a></li>
+							<li><a href="clienteAlterar.html">Alterar</a></li>
+							<li><a href="clienteExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Funcionario<b class="caret"></b></a>
+						<ul id="funcionarioDrop" class="dropdown-menu">
+							<li><a href="funcionarioCadastro.html">Novo</a></li>
+							<li><a href="funcionarioAlterar.html">Alterar</a></li>
+							<li><a href="funcionarioExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Fornecedor<b class="caret"></b></a>
+						<ul id="fornecedorDrop" class="dropdown-menu">
+							<li><a href="fornecedorCadastro.html">Novo</a></li>
+							<li><a href="fornecedorAlterar.html">Alterar</a></li>
+							<li><a href="fornecedorExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Comanda<b class="caret"></b></a>
+						<ul id="comandaDrop" class="dropdown-menu">
+							<li><a href="comandaAdmin.html">Admin Comanda</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Mesas<b class="caret"></b></a>
+						<ul id="mesaDrop" class="dropdown-menu">
+							<li><a href="mesaStatus.html">Status</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> Estoque<b class="caret"></b></a>
+						<ul id="estoqueDrop" class="dropdown-menu">
+							<li><a href="estoqueIncluir.html">Inserir</a></li>
+							<li><a href="estoqueAlterar.html">Alterar</a></li>
+							<li><a href="estoqueExcluir.html">Excluir</a></li>
+						</ul></li>
+					<li>
+						<div id="usuarioLogado" class="btn-group">
+							<a class="btn btn-primary" href="userLogin.html"><i
+								class="icon-user icon-white"></i> Usuario</a> <a
+								class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+								href="userLogin.html"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="logoutUsuario.html"><i class="icon-off"></i>
+										Sair</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</ul>
-	    </ul>
-	  </div>
-	</div>
-	
-	<div class="alert alert-info"><h2>Excluir Funcionário</h2></div>
-	<div id="cadastroFuncionario">
-		<p><b>CPF:</b></p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
-		<p><button id="buscarFunc" type="submit" class="btn btn-primary">Buscar</button></p>
-		<div id="alterarCliente "style="display:none"><b>
-			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome" readonly="readonly" >
-			<p>Data Nascimento:</p><input readonly="readonly" type="text" placeholder="__/__/____" id="dataNascimento">
-			<p>Sexo:</p>
-			<select readonly="readonly" id="sexo">
-			  <option>Masculino</option>
-			  <option>Feminino</option>
-			</select>
-			<p>Grupo:</p>
-			<select readonly="readonly" id="tipo">
-			  <option>Atendimento</option>
-			  <option>Gerência</option>
-			</select>
-			<p>Nome de Usuario:</p><input readonly="readonly" type="text" placeholder="fulanosilva" id="usuario">
-			<div id="pswFuncionario" style="display:none">
-				<p>Senha:</p><input type="password" placeholder="*******" id="password">
-				<p>Confirmar Senha:</p><input type="password" placeholder="*******" id="passwordConfirmation">
-			</div>
-			<p><button type="submit" class="btn btn-primary">Excluir</button>
-			<button type="button" class="btn">Cancelar</button></p>
-		</b></div>
+		</div>
 	</div>
 
-	<script src="scripts/goldenaxe.js" ></script>
-	<script src="scripts/bootstrap.js" ></script>
+	<div class="alert alert-info">
+		<h2>Excluir Funcionário</h2>
+	</div>
+	<div id="cadastroFuncionario">
+		<p>
+			<b>CPF:</b>
+		</p>
+		<input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
+		<p>
+			<button id="buscarFunc" type="submit" class="btn btn-primary"
+				onclick="buscarFuncionario()">Buscar</button>
+		</p>
+	</div>
+	<div id="alterarFuncionario" style="display: none">
+		<b>
+			<p>Nome:</p>
+			<input type="text" placeholder="Fulano da Silva" id="nome"
+			readonly="readonly">
+			<p>Sexo:</p> <select readonly="readonly" id="sexo">
+				<option value="0">Feminino</option>
+				<option value="1">Masculino</option>
+		</select>
+			<p>Grupo:</p> <select readonly="readonly" id="grupo">
+				<option value="1">Atendimento</option>
+				<option value="2">Gerência</option>
+		</select>
+			<p>Unidade:</p> <select readonly="readonly" id="unidade">
+				<option value="1">Morumbi</option>
+				<option value="2">Brooklin</option>
+		</select>
+			<p>Nome de Usuario:</p>
+			<input readonly="readonly" type="text" placeholder="fulanosilva"
+			id="usuario">
+			<p>
+				<button type="submit" class="btn btn-primary"
+					onclick="excluirFuncionario()">Excluir</button>
+				<button type="button" class="btn"
+					onclick="clearAlteracaoFuncionario()">Cancelar</button>
+			</p>
+		</b>
+	</div>
+
+	<script src="scripts/goldenaxe.js"></script>
+	<script src="scripts/bootstrap.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
 	<script src="scripts/jquery.js"></script>
 	<script src="scripts/bootstrap-affix.js"></script>
