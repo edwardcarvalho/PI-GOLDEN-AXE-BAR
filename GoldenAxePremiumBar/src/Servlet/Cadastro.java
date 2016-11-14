@@ -77,8 +77,23 @@ public class Cadastro extends HttpServlet {
 				}
 
 				break;
+				
+			case "BuscarFornecedor":
 
-			case "cadastroEstoque":
+				try {
+
+					String cnpj = request.getParameter("cnpj");
+					Fornecedor fornecedor = buscarFornecedor(cnpj);
+					String serialize = fornecedor != null ? Utilities.SerializeFornecedorToJson(fornecedor) : "";
+					response.getWriter().print(serialize);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				break;
+
+			case "CadastroEstoque":
 				try {
 
 					int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
@@ -99,11 +114,11 @@ public class Cadastro extends HttpServlet {
 				}
 				break;
 
-			case "cadastroForncedor":
+			case "CadastroFornecedor":
 				try {
 
 					String cnpj = request.getParameter("cnpj");
-					String nome = request.getParameter("nome");
+					String nome = request.getParameter("fornecedor");
 					String telefone = request.getParameter("telefone");
 					String email = request.getParameter("email");
 
@@ -177,7 +192,7 @@ public class Cadastro extends HttpServlet {
 				}
 				break;
 
-			case "cadastroServico":
+			case "CadastroServico":
 				try {
 
 					String descricao = request.getParameter("descricao");
@@ -255,6 +270,12 @@ public class Cadastro extends HttpServlet {
 		DaoCliente cDAL = new DaoCliente();
 		Cliente cliente = cDAL.buscarClienteCPF(cpf);
 		return cliente;
+	}
+	
+	public Fornecedor buscarFornecedor(String cnpj) throws Exception {
+
+		DaoFornecedor cDAL = new DaoFornecedor();
+		return cDAL.buscarFornecedorPorCNPJ(cnpj);
 	}
 	
 	public Funcionario buscarFuncionarioCpf(String cpf) throws Exception {

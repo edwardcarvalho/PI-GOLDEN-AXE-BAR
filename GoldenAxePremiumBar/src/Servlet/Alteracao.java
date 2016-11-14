@@ -89,7 +89,7 @@ public class Alteracao extends HttpServlet {
 				try {
 
 					String cnpj = request.getParameter("cnpj");
-					String nome = request.getParameter("nome");
+					String nome = request.getParameter("fornecedor");
 					String telefone = request.getParameter("telefone");
 					String email = request.getParameter("email");
 

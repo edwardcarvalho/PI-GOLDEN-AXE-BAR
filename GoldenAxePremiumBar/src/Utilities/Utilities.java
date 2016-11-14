@@ -7,6 +7,7 @@ import java.util.Date;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import Entity.Cliente;
+import Entity.Fornecedor;
 import Entity.Funcionario;
 import Entity.Usuario;
 
@@ -75,5 +76,18 @@ public static String SerializeFuncionarioToJson(Funcionario funcionario, Usuario
 		
 		return json;
 	}
+
+public static String SerializeFornecedorToJson(Fornecedor fornecedor){
+	
+	String json = "";
+	json += "[{";
+	json += "\"fornecedor\" : "+ "\""+fornecedor.getNome()+"\"";
+	json += ", \"cnpj\" : " + "\""+fornecedor.getCnpj()+"\"";
+	json += ", \"email\" : "+ "\""+fornecedor.getEmail()+"\"";
+	json += ", \"telefone\" : "+ "\""+fornecedor.getTelefone()+"\"";
+	json += "}]";
+	
+	return json;
+}
 
 }

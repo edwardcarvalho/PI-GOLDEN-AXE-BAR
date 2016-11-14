@@ -52,11 +52,11 @@
 	margin-left: 40px;
 }
 
-#fornecedorAlterar{
+#fornecedorAlterar, #alterarFornecedor{
 	margin-left: 40px;
 }
 
-#fornecedorExcluir{
+#excluirFornecedor, #cadastroFornecedor{
 	margin-left: 40px;
 }
 

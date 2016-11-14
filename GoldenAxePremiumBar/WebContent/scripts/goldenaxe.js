@@ -32,6 +32,15 @@ function clearAlteracaoFuncionario() {
 	clearForm("alterarFuncionario,#cadastroFuncionario");
 
 }
+
+function clearAlteracaoFornecedor() {
+	clearForm("alterarFornecedor,#cadastroFornecedor");
+	$('#cnpj').attr('readonly', false);
+	$('#alterarFornecedor').css("display", "none");
+	clearForm("alterarFornecedor,#cadastroFornecedor");
+
+}
+
 function cadastrarCliente() {
 	$.ajax({
 		url : 'Cadastro',
@@ -156,6 +165,29 @@ function buscarFuncionario() {
 	});
 }
 
+function buscarFornecedor() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'GET',
+		data : {
+			'menu' : 'BuscarFornecedor',
+			'cnpj' : $('#cnpj').val(),
+		},
+		success : function(data) {
+			if (data != null && data != "") {
+				data = JSON.parse(data);
+				$('#cnpj').attr('readonly', true);
+				$('#alterarFornecedor').css("display", "");
+				$('#fornecedor').val(data[0].fornecedor);
+				$('#inputIcon').val(data[0].email);
+				$('#telefone').val(data[0].telefone);
+			} else {
+				alert("CNPJ não encontrado!");
+			}
+		}
+	});
+}
+
 function cadastrarFuncionario() {
 	var pwd = $('#password').val();
 	var pwdc = $('#passwordConfirmation').val();
@@ -251,6 +283,73 @@ function excluirFuncionario() {
 				$('#cpf').attr('readonly', false);
 				$('#alterarFuncionario').css("display", "none");
 				clearForm("alterarFuncionario,#cadastroFuncionario");
+				alert("Exclusão realizada com sucesso!");
+			} else {
+				alert("Erro no processamento da exclusão!");
+			}
+		}
+	});
+}
+
+function cadastrarFornecedor() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'GET',
+		data : {
+			'menu' : 'CadastroFornecedor',
+			'fornecedor' : $('#fornecedor').val(),
+			'cnpj' : $('#cnpj').val(),
+			'email' : $('#inputIcon').val(),
+			'telefone' : $('#telefone').val()
+		},
+		success : function(data) {
+			if (data == "true") {
+				alert("Cadastrado com sucesso!");
+				clearForm("fornecedorCadastro");
+			} else {
+				alert("Erro no cadastro!");
+			}
+		}
+	});
+}
+
+function alterarFornecedor() {
+	$.ajax({
+		url : 'Alteracao',
+		method : 'GET',
+		data : {
+			'menu' : 'AlterarFornecedor',
+			'fornecedor' : $('#fornecedor').val(),
+			'cnpj' : $('#cnpj').val(),
+			'email' : $('#inputIcon').val(),
+			'telefone' : $('#telefone').val()
+		},
+		success : function(data) {
+			if (data == "true") {
+				$('#cnpj').attr('readonly', false);
+				$('#alterarFornecedor').css("display", "none");
+				clearForm("alterarFornecedor,#fornecedorAlterar");
+				alert("Alteração realizada com sucesso!");
+			} else {
+				alert("Erro no processamento da alteração!");
+			}
+		}
+	});
+}
+
+function excluirFornecedor(){
+	$.ajax({
+		url : 'Exclusao',
+		method : 'GET',
+		data : {
+			'menu' : 'ExcluirFornecedor',
+			'cnpj' : $('#cnpj').val()
+		},
+		success : function(data) {
+			if (data == "true") {
+				$('#cnpj').attr('readonly', false);
+				$('#alterarFornecedor').css("display", "none");
+				clearForm("alterarFornecedor,#cadastroFornecedor");
 				alert("Exclusão realizada com sucesso!");
 			} else {
 				alert("Erro no processamento da exclusão!");

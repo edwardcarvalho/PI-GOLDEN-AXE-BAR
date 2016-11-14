@@ -68,23 +68,25 @@ public class Exclusao extends HttpServlet {
 					// TODO: handle exception
 				}
 				break;
+				
+			case "ExcluirFornecedor":
+				try {
 
+					String cnpj = request.getParameter("cnpj");
+					boolean ret = excluirFornecedor(cnpj);
+					response.getWriter().print(ret);
+
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				break;
 			}
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String menu = request.getParameter("menu");
 
-		if (menu != null) {
-
-			switch (menu) {
-
-			
-
-			}
-		}
 	}
 
 	public int buscarIdCliente(String cpf) throws Exception {
@@ -100,9 +102,7 @@ public class Exclusao extends HttpServlet {
 	public int buscarIdFuncionarioPorCpf(String cpf) throws Exception {
 
 		DaoFuncionario cDAL = new DaoFuncionario();
-
 		int ret = cDAL.buscarIdFuncionarioPorCPF(cpf);
-
 		return ret;
 	}
 	
@@ -110,12 +110,15 @@ public class Exclusao extends HttpServlet {
 		DaoFuncionario cDAL = new DaoFuncionario();
 		
 		return cDAL.deletar(idFuncionario);
-		
 	}
 	
 	public boolean excluirUsuario (int idFuncionario){
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.deletar(idFuncionario);
 	}
-
+	
+	public boolean excluirFornecedor (String cpf){
+		DaoFornecedor cDAL = new DaoFornecedor();
+		return cDAL.deletar(cpf);
+	}
 }
