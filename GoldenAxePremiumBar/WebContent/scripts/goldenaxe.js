@@ -39,7 +39,6 @@ function getDate(){
 // funções de limpeza de tela
 
 function clearAlteracaoCliente() {
-	clearForm("alterarCadastro,#cadastroCliente");
 	$('#cpf').attr('readonly', false);
 	$('#alterarCliente').css("display", "none");
 	clearForm("alterarCliente,#cadastroCliente");
@@ -47,7 +46,6 @@ function clearAlteracaoCliente() {
 }
 
 function clearAlteracaoFuncionario() {
-	clearForm("alterarFuncionario,#cadastroFuncionario");
 	$('#cpf').attr('readonly', false);
 	$('#alterarFuncionario').css("display", "none");
 	clearForm("alterarFuncionario,#cadastroFuncionario");
@@ -55,10 +53,18 @@ function clearAlteracaoFuncionario() {
 }
 
 function clearAlteracaoFornecedor() {
-	clearForm("alterarFornecedor,#cadastroFornecedor");
 	$('#cnpj').attr('readonly', false);
 	$('#alterarFornecedor').css("display", "none");
 	clearForm("alterarFornecedor,#cadastroFornecedor");
+
+}
+
+function clearComandaAdmin() {
+	clearForm("comandaAdmin");
+	$('#numComanda').attr('readonly', false);
+	$('#cpf').attr('readonly', false);
+	$('#buscarComanda').show();
+	$('#tableControleProdutos').hide();
 
 }
 
@@ -399,6 +405,7 @@ function abrirComanda(){
 				$('#numComanda').val(data);
 				$('#numComanda').attr('readonly', true);
 				$('#buscarComanda').hide();
+				$('#tableControleProdutos').css("display","");
 			}
 		}
 	});
@@ -428,6 +435,20 @@ function salvarComanda(){
 			}
 		}
 	});
+}
+
+function adicionarItemComanda(){
+	var sequencia = $('#tableControleProdutos').find('tbody:nth-child(2) tr').length + 1;
+	var line = "<tr id=produto"+sequencia+">"+
+				"<th scope='row'>"+sequencia+"</th>"+
+				"<td><input id='quantidade' type='text'></td>"+
+				"<td><input id='produto' type='text'></td>" +
+				"<td><input id='preco' type='text'></td>" +
+				"<td height='30px' width='50px'><a href='#' class='btn btn-success' role='button'>Salvar</a></td>"+
+				"<td height='30px' width='50px'><a href='#' class='btn btn-warning' role='button'>Editar</a></td>" +
+				"<td height='30px' width='50px'><a href='#' class='btn btn-danger' role='button'>Excluir</a></td>"+
+			  "</tr>";
+	$('#tableControleProdutos').find('tbody:nth-child(2)').append(line);
 }
 
 $(document).ready(function() {

@@ -67,3 +67,22 @@
 .botoesComanda{
 	margin-left: 40px;
 }
+
+#tableControleProdutos {
+    width: 70%;
+    margin-top: 60px;
+    float: right;
+    margin-right: 30px;
+}
+
+table  #quantidade{
+	width: 25px;
+}
+
+table th {
+	width: 1px;
+}
+
+table #preco {
+	width: 140px;
+}
