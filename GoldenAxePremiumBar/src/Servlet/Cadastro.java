@@ -77,7 +77,7 @@ public class Cadastro extends HttpServlet {
 				}
 
 				break;
-				
+
 			case "BuscarFornecedor":
 
 				try {
@@ -174,18 +174,30 @@ public class Cadastro extends HttpServlet {
 				break;
 
 			case "CadastroProduto":
-				try {
 
-					String nomeProd = request.getParameter("nome");
+				try {
+					int tipo = Integer.parseInt("tipo");
+					String nomeCad = request.getParameter("nome");
 					int quantidade = Integer.parseInt(request.getParameter("quantidade"));
 					float valor = (float) Float.parseFloat(request.getParameter("valor"));
-					int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
 
-					Produto produto = new Produto(nomeProd, quantidade, valor, idFornecedor);
+					if (tipo == 1) {
 
-					boolean ret = cadastrarProduto(produto);
+						Jogos jogos = new Jogos(nomeCad, quantidade, valor);
 
-					response.getWriter().print(ret);
+						boolean ret = cadastrarJogos(jogos);
+
+						response.getWriter().print(ret);
+
+					} else if (tipo == 2) {
+
+						Produto produto = new Produto(nomeCad, quantidade, valor);
+
+						boolean ret = cadastrarProduto(produto);
+
+						response.getWriter().print(ret);
+
+					}
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -240,14 +252,15 @@ public class Cadastro extends HttpServlet {
 					response.getWriter().print(false);
 				}
 				break;
-				
+
 			case "BuscarFuncionario":
 				try {
 
 					String cpfFunc = request.getParameter("cpf");
 					Funcionario funcionario1 = buscarFuncionarioCpf(cpfFunc);
 					Usuario usuario = buscarUsuarioPorIdFuncionario(funcionario1.getId());
-					String serialize = funcionario1 != null ? Utilities.SerializeFuncionarioToJson(funcionario1,usuario) : "";
+					String serialize = funcionario1 != null
+							? Utilities.SerializeFuncionarioToJson(funcionario1, usuario) : "";
 					response.getWriter().print(serialize);
 
 				} catch (Exception e) {
@@ -271,13 +284,13 @@ public class Cadastro extends HttpServlet {
 		Cliente cliente = cDAL.buscarClienteCPF(cpf);
 		return cliente;
 	}
-	
+
 	public Fornecedor buscarFornecedor(String cnpj) throws Exception {
 
 		DaoFornecedor cDAL = new DaoFornecedor();
 		return cDAL.buscarFornecedorPorCNPJ(cnpj);
 	}
-	
+
 	public Funcionario buscarFuncionarioCpf(String cpf) throws Exception {
 
 		DaoFuncionario cDAL = new DaoFuncionario();
@@ -333,8 +346,8 @@ public class Cadastro extends HttpServlet {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.salvar(usuario);
 	}
-	
-	public Usuario buscarUsuarioPorIdFuncionario(int idFuncionario){
+
+	public Usuario buscarUsuarioPorIdFuncionario(int idFuncionario) {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.buscarUsuario(idFuncionario);
 	}

@@ -62,6 +62,14 @@ function clearAlteracaoFornecedor() {
 
 }
 
+function clearAlteracaoEstoque() {
+	clearForm("alterarEstoque,#cadastroEstoque");
+	$('#idProduto').attr('readonly', false);
+	$('#alterarEstoque').css("display", "none");
+	clearForm("alterarEstoque,#cadastroEstoque");
+
+}
+
 // funções de manipulação do cliente
 
 function cadastrarCliente() {
@@ -449,3 +457,29 @@ $(document).ready(function() {
 			}
 		});
 });
+
+
+//funções de manipulação do estoque
+
+function cadastrarEstoque() {
+	$.ajax({
+		url : 'Cadastro',
+		method : 'GET',
+		data : {
+			'menu' : 'CadastroEstoque',
+			'produto' : $('#produto').val(),
+			'jogo' : $('#jogo').val(),
+			'quantidade' : $('#quantidade').val(),
+			'valor' : $('#valor').val(),
+		},
+		success : function(data) {
+			if (data == "true") {
+				alert("Cadastrado com sucesso!");
+				clearForm("inserirEstoque");
+			} else {
+				alert("Erro no cadastro!");
+
+			}
+		}
+	});
+}

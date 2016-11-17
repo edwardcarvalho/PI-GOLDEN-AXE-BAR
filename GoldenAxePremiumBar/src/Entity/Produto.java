@@ -16,6 +16,12 @@ public class Produto {
 		this.IdFornecedor = idFornecedor;
 	}
 
+	public Produto(String nome, int quantidade, float valor) {
+
+		this.Nome = nome;
+		this.Quantidade = quantidade;
+		this.Valor = valor;
+	}
 	public Produto() {
 
 	}
