@@ -2,6 +2,7 @@ package Entity;
 
 public class Produto {
 
+	private int id;
 	private String Nome;
 	private int Quantidade;
 	private float Valor;
@@ -56,6 +57,14 @@ public class Produto {
 
 	public void setIdFornecedor(int idFornecedor) {
 		IdFornecedor = idFornecedor;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

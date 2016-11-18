@@ -442,29 +442,110 @@ function salvarComanda() {
 	});
 }
 
+var sequencia = 1;
 function adicionarItemComanda() {
-	var sequencia = $('#tableControleProdutos').find('tbody:nth-child(2) tr').length + 1;
-	var line = "<tr id=produto"
-			+ sequencia
+	var itemId = "produto" + sequencia;
+	var line = "<tr id="
+			+ itemId
 			+ ">"
 			+ "<th scope='row'>"
 			+ sequencia
 			+ "</th>"
-			+ "<td><input id='quantidade' type='text'></td>"
-			+ "<td><input id='produto' type='text'></td>"
-			+ "<td><input id='preco' type='text'></td>"
-			+ "<td height='30px' width='50px'><a href='#' class='btn btn-success' role='button'>Salvar</a></td>"
-			+ "<td height='30px' width='50px'><a href='#' class='btn btn-warning' role='button'>Editar</a></td>"
-			+ "<td height='30px' width='50px'><a href='#' class='btn btn-danger' role='button'>Excluir</a></td>"
-			+ "</tr>";
+			+ "<td><input class='quantidade' type='text'></td>"
+			+ "<td><input class='produto' type='text'list='listItems"
+			+ sequencia
+			+ "' onfocusout='verificaProdutoCadastrado("
+			+ itemId
+			+ ")'>"
+			+ "<datalist id='listItems"
+			+ sequencia
+			+ "'></datalist></td>"
+			+ "<td><input class='preco' type='text'disabled></td>"
+			+ "<td><input class='total' type='text' disabled></td>"
+			+ "<td height='30px' width='50px'><a id='salvar' href='#' class='btn btn-success' role='button' onclick=\"btnSalvarProduto("
+			+ itemId
+			+ ")\">Salvar</a></td>"
+			+ "<td height='30px' width='50px'><a id='editar' href='#' class='btn btn-warning' role='button' onclick='btnEditarProduto("
+			+ itemId
+			+ ")'>Editar</a></td>"
+			+ "<td height='30px' width='50px'><a id='excluir'href='#' class='btn btn-danger' role='button' onclick='btnRemoverProduto("
+			+ itemId + ")'>Excluir</a></td>" + "</tr>";
+
 	$('#tableControleProdutos').find('tbody:nth-child(2)').append(line);
+	sequencia++;
+}
+
+function btnSalvarProduto(element) {
+	var check = false;
+	var linha = $('#' + element.id).find('input').each(function(index, item) {
+		var item = $(item).val();
+		if (item == "" || item == undefined) {
+			alert("Preencha todos os campos!");
+			check = false;
+			return false;
+		} else {
+			check = true;
+		}
+	});
+	if (check) {
+		$('#' + element.id).find('input').attr('readonly', true);
+		var qtd = parseInt($('#' + element.id).find('.quantidade').val());
+		var valorProduto = parseInt($('#' + element.id).find('.preco').val());
+		$('#' + element.id).find('.total').val(valorProduto * qtd + ",00");
+	}
+}
+
+function btnEditarProduto(element) {
+	$('#' + element.id).find('input').attr('readonly', false);
+}
+
+function btnRemoverProduto(element) {
+	$('#' + element.id).remove();
+}
+
+function verificaProdutoCadastrado(idTextBox) {
+	var produto = $('#' + idTextBox.id).find('.produto').val();
+	var qtd = $('#' + idTextBox.id).find('.quantidade').val();
+	if (produto != "" && produto.length > 2) {
+		if (qtd > 0) {
+
+			$.ajax({
+				url : 'Comanda',
+				data : {
+					'menu' : 'VerificaProdutoCadastrado',
+					'produto' : produto
+				},
+				method : 'GET',
+				success : function(data) {
+					data = JSON.parse(data);
+					if (data[0].nome != "null") {
+						var valorProduto = data[0].valor;
+						$('#' + idTextBox.id).find('.preco').val(
+								valorProduto.replace(".0", ",00"));
+						$('#' + idTextBox.id).find('.total').val(
+								valorProduto * qtd + ",00");
+					} else {
+						alert("Produto não cadastrado!");
+						$('#' + idTextBox.id).find('.produto').val("");
+						$('#' + idTextBox.id).find('.preco').val("");
+						$('#' + idTextBox.id).find('.total').val("");
+						return false;
+					}
+				}
+			});
+		} else {
+			alert("Preencha o campo de quantidade!");
+			return false;
+		}
+	} else {
+		$('#' + idTextBox.id).find('.preco').val("");
+		$('#' + idTextBox.id).find('.total').val("");
+	}
 }
 
 $(document).ready(
 		function() {
-
 			var psw;
-
 			// alimenta o combobox com todos os jogos ao carregar a pagina.
 			$.ajax({
 				url : 'Comanda',
@@ -483,4 +564,23 @@ $(document).ready(
 					}
 				}
 			});
+
+			// $(function () {
+			// var availableTags = [
+			// { value: "ActionScript", data: "1" },
+			// { value: "AppleScript", data: "2" },
+			// { value: "Asp", data: "3" }
+			// ];
+			// jQuery('#textBoxBrowsers')
+			// .on('keypress',
+			// function (e) {
+			// if (e.which != 13)
+			// $('#browsers').find('option').remove();
+			// jQuery(availableTags)
+			// .each(function (index, item) {
+			// $('#browsers').append("<option value=" + item.data + ">" +
+			// item.value + "</option>");
+			// });
+			// });
+			// });
 		});

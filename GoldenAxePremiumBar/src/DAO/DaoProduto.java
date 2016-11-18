@@ -145,5 +145,33 @@ public class DaoProduto extends ConnectionDAO {
 		}
 		return lista;
 	}
+	
+	public Produto buscarProduto(String product) throws Exception {
+		
+		String sql = "SELECT * FROM PRODUTOS WHERE NOME = '"+product+"' COLLATE NOCASE LIMIT 1";
+		Produto produto = new Produto();
+		
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+
+				produto.setId(rs.getInt("ID_PRODUTO"));
+				produto.setNome(rs.getString("NOME"));
+				produto.setValor(rs.getFloat("VALOR"));
+				
+			}
+			
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+			
+			System.out.println(e);
+		}
+		return produto;
+	}
 
 }

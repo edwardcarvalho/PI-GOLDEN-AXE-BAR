@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.DaoCliente;
 import DAO.DaoComanda;
 import DAO.DaoJogos;
+import DAO.DaoProduto;
 import Entity.Jogos;
+import Entity.Produto;
 import Utilities.Utilities;
 import sun.util.BuddhistCalendar;
 
@@ -73,6 +75,21 @@ public class Comanda extends HttpServlet {
 					e.printStackTrace();
 				}
 				break;
+				
+			case "VerificaProdutoCadastrado":
+				
+				String produto = request.getParameter("produto");
+				
+				try {
+					Produto product = buscarProduto(produto);
+					String serialize = Utilities.SerializeProdutoToJson(product);
+					response.getWriter().print(serialize);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
 
 			}
 
@@ -103,6 +120,13 @@ public class Comanda extends HttpServlet {
 		
 		DaoComanda cDAL = new DaoComanda();
 		return cDAL.salvar(comanda);
+		
+	}
+	
+public Produto buscarProduto(String produto) throws Exception{
+		
+		DaoProduto daoProduto = new DaoProduto();
+		return daoProduto.buscarProduto(produto);
 		
 	}
 

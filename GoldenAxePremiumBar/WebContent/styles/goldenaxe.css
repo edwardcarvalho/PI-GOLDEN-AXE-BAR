@@ -71,6 +71,7 @@
 
 #cadastrarProduto{
 	margin-left: 40px;
+}
 
 #tableControleProdutos {
     width: 70%;
@@ -79,7 +80,7 @@
     margin-right: 30px;
 }
 
-table  #quantidade{
+table .quantidade{
 	width: 25px;
 }
 
@@ -87,7 +88,15 @@ table th {
 	width: 1px;
 }
 
-table #preco {
+table .preco {
 	width: 140px;
 
+}
+
+table .total {
+	width: 140px;
+}
+
+th, td, tr {
+	text-align: center!important;
 }
