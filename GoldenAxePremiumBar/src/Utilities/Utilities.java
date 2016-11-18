@@ -11,6 +11,7 @@ import Entity.Cliente;
 import Entity.Fornecedor;
 import Entity.Funcionario;
 import Entity.Jogos;
+import Entity.Produto;
 import Entity.Usuario;
 
 public class Utilities {
@@ -106,6 +107,19 @@ public class Utilities {
 			}
 		}
 		json += "]";
+		return json;
+	}
+	
+	public static String SerializeProdutoToJson(Produto produto) {
+
+		String json = "";
+		json += "[{";
+		json += "\"nome\" : " + "\"" + produto.getNome() + "\"";
+		json += ", \"id\" : " + "\"" + produto.getId() + "\"";
+		json += ", \"quantidade\" : " + "\"" + produto.getQuantidade() + "\"";
+		json += ", \"valor\" : " + "\"" + produto.getValor() + "\"";
+		json += "}]";
+
 		return json;
 	}
 

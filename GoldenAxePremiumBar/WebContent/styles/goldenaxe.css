@@ -86,3 +86,11 @@ table th {
 table .preco {
 	width: 140px;
 }
+
+table .total {
+	width: 140px;
+}
+
+th, td, tr {
+	text-align: center!important;
+}
