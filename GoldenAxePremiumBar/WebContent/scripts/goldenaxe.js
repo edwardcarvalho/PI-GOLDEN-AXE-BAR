@@ -17,7 +17,7 @@ function clearForm(idForm) {
 	$('#' + idForm).find('select').val('');
 }
 
-function getDate(){
+function getDate() {
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth() + 1; // January is 0!
@@ -32,14 +32,12 @@ function getDate(){
 	}
 
 	return today = dd + '/' + mm + '/' + yyyy;
-	
-}
 
+}
 
 // funções de limpeza de tela
 
 function clearAlteracaoCliente() {
-	clearForm("alterarCadastro,#cadastroCliente");
 	$('#cpf').attr('readonly', false);
 	$('#alterarCliente').css("display", "none");
 	clearForm("alterarCliente,#cadastroCliente");
@@ -47,7 +45,6 @@ function clearAlteracaoCliente() {
 }
 
 function clearAlteracaoFuncionario() {
-	clearForm("alterarFuncionario,#cadastroFuncionario");
 	$('#cpf').attr('readonly', false);
 	$('#alterarFuncionario').css("display", "none");
 	clearForm("alterarFuncionario,#cadastroFuncionario");
@@ -55,7 +52,6 @@ function clearAlteracaoFuncionario() {
 }
 
 function clearAlteracaoFornecedor() {
-	clearForm("alterarFornecedor,#cadastroFornecedor");
 	$('#cnpj').attr('readonly', false);
 	$('#alterarFornecedor').css("display", "none");
 	clearForm("alterarFornecedor,#cadastroFornecedor");
@@ -67,6 +63,13 @@ function clearAlteracaoEstoque() {
 	$('#idProduto').attr('readonly', false);
 	$('#alterarEstoque').css("display", "none");
 	clearForm("alterarEstoque,#cadastroEstoque");
+}
+function clearComandaAdmin() {
+	clearForm("comandaAdmin");
+	$('#numComanda').attr('readonly', false);
+	$('#cpf').attr('readonly', false);
+	$('#buscarComanda').show();
+	$('#tableControleProdutos').hide();
 
 }
 
@@ -198,7 +201,6 @@ function buscarFuncionario() {
 	});
 }
 
-
 function cadastrarFuncionario() {
 	var pwd = $('#password').val();
 	var pwdc = $('#passwordConfirmation').val();
@@ -327,7 +329,6 @@ function buscarFornecedor() {
 	});
 }
 
-
 function cadastrarFornecedor() {
 	$.ajax({
 		url : 'Cadastro',
@@ -374,7 +375,7 @@ function alterarFornecedor() {
 	});
 }
 
-function excluirFornecedor(){
+function excluirFornecedor() {
 	$.ajax({
 		url : 'Exclusao',
 		method : 'GET',
@@ -397,25 +398,28 @@ function excluirFornecedor(){
 
 // funções de manipulação da comanda
 
-function abrirComanda(){
+function abrirComanda() {
 	$.ajax({
-		url: 'Comanda',
-		data: {'menu': 'AbrirComanda'},
-		method: 'GET',
-		success: function(data){
-			if(data != "" && data != undefined){
+		url : 'Comanda',
+		data : {
+			'menu' : 'AbrirComanda'
+		},
+		method : 'GET',
+		success : function(data) {
+			if (data != "" && data != undefined) {
 				$('#numComanda').val(data);
 				$('#numComanda').attr('readonly', true);
 				$('#buscarComanda').hide();
+				$('#tableControleProdutos').css("display", "");
 			}
 		}
 	});
 }
 
-function salvarComanda(){
+function salvarComanda() {
 	$.ajax({
-		url: 'Comanda',
-		data: {
+		url : 'Comanda',
+		data : {
 			'menu' : 'CadastrarComanda',
 			'cpf' : $('#cpf').val(),
 			'servico' : $('#tpServico').val(),
@@ -423,63 +427,60 @@ function salvarComanda(){
 			'horas' : $('#qtdHoras').val(),
 			'data' : getDate()
 		},
-		method: 'GET',
-		success: function(data){
-			if(data == "true"){
+		method : 'GET',
+		success : function(data) {
+			if (data == "true") {
 				alert("Cadastro efetuado com sucesso!");
 				clearForm('comandaAdmin');
 				$('#numComanda').attr('readonly', false);
 				$('#cpf').attr('readonly', false);
 				$('#buscarComanda').show();
-			}else{
-				alert("Erro no cadastro!");
-			}
-		}
-	});
-}
-
-$(document).ready(function() {
-
-	var psw;
-	
-	//alimenta o combobox com todos os jogos ao carregar a pagina.
-		$.ajax({
-			url: 'Comanda',
-			method: 'GET',
-			data: {'menu': 'CarregarJogos'},
-			success: function(data){
-				if(data != "" && data != undefined){
-					data = JSON.parse(data);
-					for(var i = 0 ; i < data.length; i++){
-						$('#jogos').append('<option value='+data[i].id+'>' +data[i].jogo+ '</option>');
-					}
-				}
-			}
-		});
-});
-
-
-//funções de manipulação do estoque
-
-function cadastrarEstoque() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'CadastroEstoque',
-			'produto' : $('#produto').val(),
-			'jogo' : $('#jogo').val(),
-			'quantidade' : $('#quantidade').val(),
-			'valor' : $('#valor').val(),
-		},
-		success : function(data) {
-			if (data == "true") {
-				alert("Cadastrado com sucesso!");
-				clearForm("inserirEstoque");
 			} else {
 				alert("Erro no cadastro!");
-
 			}
 		}
 	});
 }
+
+function adicionarItemComanda() {
+	var sequencia = $('#tableControleProdutos').find('tbody:nth-child(2) tr').length + 1;
+	var line = "<tr id=produto"
+			+ sequencia
+			+ ">"
+			+ "<th scope='row'>"
+			+ sequencia
+			+ "</th>"
+			+ "<td><input id='quantidade' type='text'></td>"
+			+ "<td><input id='produto' type='text'></td>"
+			+ "<td><input id='preco' type='text'></td>"
+			+ "<td height='30px' width='50px'><a href='#' class='btn btn-success' role='button'>Salvar</a></td>"
+			+ "<td height='30px' width='50px'><a href='#' class='btn btn-warning' role='button'>Editar</a></td>"
+			+ "<td height='30px' width='50px'><a href='#' class='btn btn-danger' role='button'>Excluir</a></td>"
+			+ "</tr>";
+	$('#tableControleProdutos').find('tbody:nth-child(2)').append(line);
+}
+
+$(document).ready(
+		function() {
+
+			var psw;
+
+			// alimenta o combobox com todos os jogos ao carregar a pagina.
+			$.ajax({
+				url : 'Comanda',
+				method : 'GET',
+				data : {
+					'menu' : 'CarregarJogos'
+				},
+				success : function(data) {
+					if (data != "" && data != undefined) {
+						data = JSON.parse(data);
+						for (var i = 0; i < data.length; i++) {
+							$('#jogos').append(
+									'<option value=' + data[i].id + '>'
+											+ data[i].jogo + '</option>');
+						}
+					}
+				}
+			});
+		});

@@ -154,25 +154,6 @@ public class Cadastro extends HttpServlet {
 				}
 				break;
 
-			case "cadastroJogos":
-				try {
-
-					String nomeJogo = request.getParameter("nome");
-					int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-					float valor = (float) Float.parseFloat(request.getParameter("valor"));
-					int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
-
-					Jogos jogos = new Jogos(nomeJogo, quantidade, valor, idFornecedor);
-
-					boolean ret = cadastrarJogos(jogos);
-
-					response.getWriter().print(ret);
-
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				break;
-
 			case "CadastroProduto":
 
 				try {

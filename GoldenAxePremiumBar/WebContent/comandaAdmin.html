@@ -3,16 +3,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>GoldenAxe Bar e Luderia</title>
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.min.css">
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="styles/bootstrap-responsive.min.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
 </head>
 <body>
-<!-- menu navegação superior-->
+	<!-- menu navegação superior-->
 	<div class="navbar">
+<<<<<<< HEAD
 	  <div class="navbar-inner">
 	    <a class="brand" href="index.html">Golden Axe Bar</a>
 	    <ul class="nav">
@@ -70,15 +73,30 @@
 				</div>
 				</li>
 			</ul>
-	    </ul>
-	  </div>
+		</div>
 	</div>
 
-	<div class="alert alert-info"><h2>Administração de Comandas</h2></div>
-
+	<div class="alert alert-info">
+		<h2>Administração de Comandas</h2>
+	</div>
+	<table id="tableControleProdutos" class="table table-striped" style="display:none">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Quantidade</th>
+				<th>Produto</th>
+				<th>Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		<tbody id="adicionarLinha">
+			<tr><td><button type="submit" class="btn btn btn-inverse" onclick="adicionarItemComanda()">Adicionar</button></td></tr>
+		</tbody>
+	</table>
 	<div class="botoesComanda">
 		<p>
-			<button type="submit" class="btn btn-primary" onclick="abrirComanda()">Abrir</button>
+			<button type="submit" class="btn btn-primary"onclick="abrirComanda()">Abrir</button>
 			<button type="submit" class="btn btn-primary">Alterar</button>
 			<button type="submit" class="btn btn-primary">Fechar</button>
 			<button type="submit" class="btn btn-primary">Cancelar</button>
@@ -86,27 +104,34 @@
 	</div>
 
 	<div id="comandaAdmin">
-		<b><p>Numero da Comanda:</p><input type="number" id="numComanda">
-		<p><button id="buscarComanda" type="submit" class="btn btn-primary">Buscar</button></p></b>
-		<div id="abrirComanda "><b>
-		<b><p>CPF Cliente:</p><input type="text" id="cpf">
-		<p><button id="buscarCliente" type="submit" class="btn btn-primary" onclick="buscarCliente()">Buscar</button></p></b>
-			<p>Nome:</p><input type="text" placeholder="Fulano da Silva" id="nome" readonly="readonly">
-			<p>Tipo do Serviço:</p>
-			<select id="tpServico">
-				<option value="1">Mesa</option>
-				<option value="2">Sala</option>
-				<option value="3">Balcão</option>
+		<b><p>Numero da Comanda:</p> <input type="number" id="numComanda">
+			<p>
+				<button id="buscarComanda" type="submit" class="btn btn-primary">Buscar</button>
+			</p></b>
+		<div id="abrirComanda ">
+			<b> <b><p>CPF Cliente:</p> <input type="text" id="cpf">
+					<p>
+						<button id="buscarCliente" type="submit" class="btn btn-primary"
+							onclick="buscarCliente()">Buscar</button>
+					</p></b>
+				<p>Nome:</p> <input type="text" placeholder="Fulano da Silva"
+				id="nome" readonly="readonly">
+				<p>Tipo do Serviço:</p> <select id="tpServico">
+					<option value="1">Mesa</option>
+					<option value="2">Sala</option>
+					<option value="3">Balcão</option>
 			</select>
-			<p>Jogos:</p>
-			<select id="jogos">
-				<option>...</option>
+				<p>Jogos:</p> <select id="jogos">
+					<option>...</option>
 			</select>
-			<p>Horas Reservadas:</p><input type="number" id=qtdHoras>
-		</b></div>
+				<p>Horas Reservadas:</p> <input type="number" id=qtdHoras>
+			</b>
+		</div>
 	</div>
-	<div class="botoesComanda"><button type="submit" class="btn btn-primary" onclick="salvarComanda()">Salvar</button>
-		<button type="button" class="btn" onclick="clearForm('comandaAdmin')">Cancelar</button></div>
+	<div class="botoesComanda">
+		<button type="submit" class="btn btn-primary"onclick="salvarComanda()">Salvar</button>
+		<button type="button" class="btn" onclick="clearComandaAdmin()">Cancelar</button>
+	</div>
 	</div>
 	</div>
 
