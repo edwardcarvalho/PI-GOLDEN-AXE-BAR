@@ -15,7 +15,6 @@
 	<div class="navbar">
 	  <div class="navbar-inner">
 	    <a class="brand" href="index.html">Golden Axe Bar</a>
-	    <ul class="nav">
 	      <ul class="nav">
 			  <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Cliente<b class="caret"></b></a>
@@ -94,9 +93,9 @@
 	</table>
 	<div class="botoesComanda">
 		<p>
-			<button type="submit" class="btn btn-primary"onclick="abrirComanda()">Abrir</button>
-			<button type="submit" class="btn btn-primary">Alterar</button>
-			<button type="submit" class="btn btn-primary">Fechar</button>
+			<button type="submit" id="abrirCmd" class="btn btn-primary"onclick="abrirComanda()">Abrir</button>
+			<button type="submit" id="alterarCmd" class="btn btn-primary">Alterar</button>
+			<button type="submit" id="fecharCmd" class="btn btn-primary">Fechar</button>
 <!-- 			<button type="submit" class="btn btn-primary">Cancelar</button> -->
 		</p>
 	</div>
@@ -130,25 +129,23 @@
 		<button type="submit" class="btn btn-primary"onclick="salvarComanda()">Salvar</button>
 		<button type="button" class="btn" onclick="clearComandaAdmin()">Cancelar</button>
 	</div>
-	</div>
-	</div>
 
+	<script src="scripts/jquery-3.1.1.min.js"></script>
 	<script src="scripts/goldenaxe.js"></script>
 	<script src="scripts/bootstrap.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
-	<script src="scripts/jquery.js"></script>
-	<script src="scripts/bootstrap-affix.js"></script>
-	<script src="scripts/bootstrap-alert.js"></script>
-	<script src="scripts/bootstrap-button.js"></script>
-	<script src="scripts/bootstrap-carousel.js"></script>
-	<script src="scripts/bootstrap-collapse.js"></script>
-	<script src="scripts/bootstrap-dropdown.js"></script>
-	<script src="scripts/bootstrap-modal.js"></script>
-	<script src="scripts/bootstrap-popover.js"></script>
-	<script src="scripts/bootstrap-scrollspy.js"></script>
-	<script src="scripts/bootstrap-tab.js"></script>
-	<script src="scripts/bootstrap-tooltip.js"></script>
-	<script src="scripts/bootstrap-transition.js"></script>
-	<script src="scripts/bootstrap-typeahead.js"></script>
+	<script src="scripts/affix.js"></script>
+	<script src="scripts/alert.js"></script>
+	<script src="scripts/button.js"></script>
+	<script src="scripts/carousel.js"></script>
+	<script src="scripts/collapse.js"></script>
+	<script src="scripts/dropdown.js"></script>
+	<script src="scripts/modal.js"></script>
+	<script src="scripts/popover.js"></script>
+	<script src="scripts/scrollspy.js"></script>
+	<script src="scripts/tab.js"></script>
+	<script src="scripts/tooltip.js"></script>
+	<script src="scripts/transition.js"></script>
+	
 </body>
 </html>

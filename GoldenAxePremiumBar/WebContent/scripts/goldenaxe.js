@@ -409,6 +409,8 @@ function abrirComanda() {
 			if (data != "" && data != undefined) {
 				$('#numComanda').val(data);
 				$('#numComanda').attr('readonly', true);
+				$('#numComanda').attr('readonly', true);
+				$('#numComanda').attr('readonly', true);
 				$('#buscarComanda').hide();
 				$('#tableControleProdutos').css("display", "");
 			}
@@ -561,8 +563,7 @@ function salvarProdutosDaComanda(){
 	return undefined;
 }
 
-$(document).ready(
-		function() {
+$(document).ready(function() {
 			var psw;
 			// alimenta o combobox com todos os jogos ao carregar a pagina.
 			$.ajax({
