@@ -4,9 +4,8 @@ public class Comanda {
 	
 	private int idCliente;
 	private int idServico;
-	private int idProduto;
 	private int idJogo;
-	private int Quantidade;
+	private int QuantidadeHoras;
 	private String DataComanda;
 	private int idFuncionario;
 	
@@ -14,7 +13,7 @@ public class Comanda {
 		this.idCliente = idCliente;
 		this.idServico = idServico;
 		this.idJogo = idJogo;
-		this.Quantidade = qtdHoras;
+		this.QuantidadeHoras = qtdHoras;
 		this.DataComanda = dataComanda;
 		this.idFuncionario = idFuncionario;
 	}
@@ -35,23 +34,17 @@ public class Comanda {
 	public void setIdServico(int idServico) {
 		this.idServico = idServico;
 	}
-	public int getIdProduto() {
-		return idProduto;
-	}
-	public void setIdProduto(int idProduto) {
-		this.idProduto = idProduto;
-	}
 	public int getIdJogo() {
 		return idJogo;
 	}
 	public void setIdJogo(int idJogo) {
 		this.idJogo = idJogo;
 	}
-	public int getQuantidade() {
-		return Quantidade;
+	public int getQuantidadeHoras() {
+		return QuantidadeHoras;
 	}
-	public void setQuantidade(int quantidade) {
-		Quantidade = quantidade;
+	public void setQuantidadeHoras(int quantidade) {
+		QuantidadeHoras = quantidade;
 	}
 	public String getDataComanda() {
 		return DataComanda;

@@ -1,7 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.Date;
+import com.google.gson.*;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.DaoCliente;
 import DAO.DaoComanda;
+import DAO.DaoConsumo;
 import DAO.DaoJogos;
 import DAO.DaoProduto;
+import Entity.Consumo;
 import Entity.Jogos;
 import Entity.Produto;
 import Utilities.Utilities;
-import sun.util.BuddhistCalendar;
 
 public class Comanda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +30,7 @@ public class Comanda extends HttpServlet {
 			throws ServletException, IOException {
 
 		String menu = request.getParameter("menu");
+		Gson gson = new Gson();
 
 		if (menu != null) {
 
@@ -57,39 +59,44 @@ public class Comanda extends HttpServlet {
 				try {
 
 					String cpf = request.getParameter("cpf");
+					int idComanda = Integer.parseInt(request.getParameter("numComanda"));
 					int idCliente = buscarIdClienteCpf(cpf);
 					int idServico = Integer.parseInt(request.getParameter("servico"));
 					int idJogo = Integer.parseInt(request.getParameter("jogo"));
 					int qtdHoras = Integer.parseInt(request.getParameter("horas"));
 					int idFuncionario = 1;
 					String dataComanda = request.getParameter("data");
-
-					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, dataComanda,
-							idFuncionario);
+					String produtos = request.getParameter("produtos") == null ? "vazio" : request.getParameter("produtos");
 					
-					boolean ret = gravarComanda(comanda);
+					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, dataComanda,idFuncionario);
+					
+					if (!produtos.equalsIgnoreCase("vazio")) {
+					Consumo[] listaProdutos = gson.fromJson(produtos, Consumo[].class);
+						for (Consumo produto : listaProdutos) {
+							salvarConsumo(new Consumo(produto.getIdProduto(), idComanda, produto.getQuantidade()));
+						}
+					}
 
+					boolean ret = gravarComanda(comanda);
 					response.getWriter().print(ret);
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "VerificaProdutoCadastrado":
-				
+
 				String produto = request.getParameter("produto");
-				
+
 				try {
 					Produto product = buscarProduto(produto);
 					String serialize = Utilities.SerializeProdutoToJson(product);
 					response.getWriter().print(serialize);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				
 
 			}
 
@@ -115,19 +122,25 @@ public class Comanda extends HttpServlet {
 		DaoJogos cDAL = new DaoJogos();
 		return cDAL.mostrarTodos();
 	}
-	
-	public boolean gravarComanda(Entity.Comanda comanda){
-		
+
+	public boolean gravarComanda(Entity.Comanda comanda) {
+
 		DaoComanda cDAL = new DaoComanda();
 		return cDAL.salvar(comanda);
-		
+
 	}
-	
-public Produto buscarProduto(String produto) throws Exception{
-		
+
+	public Produto buscarProduto(String produto) throws Exception {
+
 		DaoProduto daoProduto = new DaoProduto();
 		return daoProduto.buscarProduto(produto);
-		
+
+	}
+
+	public boolean salvarConsumo(Consumo consumo) {
+		DaoConsumo daoConsumo = new DaoConsumo();
+		return daoConsumo.salvar(consumo);
+
 	}
 
 }

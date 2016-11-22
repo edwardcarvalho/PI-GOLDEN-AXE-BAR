@@ -17,7 +17,7 @@ public class ConnectionDAO {
 		// faz a abertura de uma conexão com o banco de dados
 
 //		String diretorio = System.getProperty("user.dir");
-		String diretorio = "C:\\Users\\Jeff.Soul\\Desktop\\LuderiaBD.db";
+		String diretorio = "C:\\Users\\CASA\\Desktop\\LuderiaBD.db";
 //		String diretorio = "C:\\Users\\Jeff.Soul\\Desktop\\LuderiaBD.db";
 
 		try {

@@ -9,7 +9,7 @@ public class DaoComanda extends ConnectionDAO {
 	
 	public boolean salvar(Comanda comanda) {
 
-		String sql = "INSERT INTO COMANDA(ID_CLIENTE, ID_SERVICO, ID_JOGO, QUANTIDADE_HORAS, DATA_COMANDA, ID_FUNCIONARIO) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO COMANDA(ID_CLIENTE, ID_SERVICO, ID_JOGO, QUANTIDADE_HORAS, DATA_COMANDA, ID_FUNCIONARIO, STATUS) VALUES(?,?,?,?,?,?, 1)";
 
 		try {
 			conectaBanco();
@@ -17,7 +17,7 @@ public class DaoComanda extends ConnectionDAO {
 			pst.setInt(1, comanda.getIdCliente());
 			pst.setInt(2, comanda.getIdServico());
 			pst.setInt(3, comanda.getIdJogo());
-			pst.setInt(4, comanda.getQuantidade());
+			pst.setInt(4, comanda.getQuantidadeHoras());
 			pst.setString(5, comanda.getDataComanda());
 			pst.setInt(6, comanda.getIdFuncionario());
 			pst.execute();
@@ -34,16 +34,15 @@ public class DaoComanda extends ConnectionDAO {
 
 	public void alterar(Comanda comanda) {
 
-		String sql = "UPDATE COMANDA SET ID_CLIENTE=?, ID_SERVICO=?, ID_PRODUTO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, DATA_COMANDA=?, ID_FUNCIONARIO=? WHERE ID_COMANDA = ?";
+		String sql = "UPDATE COMANDA SET ID_CLIENTE=?, ID_SERVICO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, DATA_COMANDA=?, ID_FUNCIONARIO=? WHERE ID_COMANDA = ? AND STATUS = 1";
 
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, comanda.getIdCliente());
 			pst.setInt(2, comanda.getIdServico());
-			pst.setInt(3, comanda.getIdProduto());
 			pst.setInt(4, comanda.getIdJogo());
-			pst.setInt(5, comanda.getQuantidade());
+			pst.setInt(5, comanda.getQuantidadeHoras());
 			pst.setString(6, comanda.getDataComanda());
 			pst.setInt(7, comanda.getIdFuncionario());
 
@@ -95,7 +94,7 @@ public class DaoComanda extends ConnectionDAO {
 	}
 	
 	public Comanda procurarId(int id_comanda) throws Exception {
-		String sql = "SELECT * FROM COMANDA WHERE ID_COMANDA = ?";
+		String sql = "SELECT * FROM COMANDA WHERE ID_COMANDA = ? AND STATUS = 1";
 
 		try {
 			conectaBanco();
@@ -109,9 +108,8 @@ public class DaoComanda extends ConnectionDAO {
 			
 			comanda.setIdCliente(rs.getInt("ID_CLIENTE"));
 			comanda.setIdServico(rs.getInt("ID_SERVICO"));	
-			comanda.setIdProduto(rs.getInt("ID_PRODUTO"));
 			comanda.setIdJogo(rs.getInt("ID_JOGO"));
-			comanda.setQuantidade(rs.getInt("QUANTIDADE_HORAS"));
+			comanda.setQuantidadeHoras(rs.getInt("QUANTIDADE_HORAS"));
 			comanda.setDataComanda(rs.getString("DATA_COMANDA"));
 			comanda.setIdFuncionario(rs.getInt("ID_FUNCIONARIO"));
 			
@@ -124,7 +122,7 @@ public class DaoComanda extends ConnectionDAO {
 
 	public List<Comanda> mostrarTodos() throws Exception {
 		List<Comanda> lista = new ArrayList<Comanda>();
-		String sql = "SELECT * FROM COMANDA";
+		String sql = "SELECT * FROM COMANDA WHERE STATUS = 1";
 
 		try {
 			conectaBanco();
@@ -136,9 +134,8 @@ public class DaoComanda extends ConnectionDAO {
 
 			comanda.setIdCliente(rs.getInt("ID_CLIENTE"));
 			comanda.setIdServico(rs.getInt("ID_SERVICO"));	
-			comanda.setIdProduto(rs.getInt("ID_PRODUTO"));
 			comanda.setIdJogo(rs.getInt("ID_JOGO"));
-			comanda.setQuantidade(rs.getInt("QUANTIDADE_HORAS"));
+			comanda.setQuantidadeHoras(rs.getInt("QUANTIDADE_HORAS"));
 			comanda.setDataComanda(rs.getString("DATA_COMANDA"));
 			comanda.setIdFuncionario(rs.getInt("ID_FUNCIONARIO"));
 

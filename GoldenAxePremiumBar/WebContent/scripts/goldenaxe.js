@@ -417,19 +417,25 @@ function abrirComanda() {
 }
 
 function salvarComanda() {
+	
+	var produtos = JSON.stringify(salvarProdutosDaComanda());
+	
 	$.ajax({
 		url : 'Comanda',
+		dataType : 'json',
 		data : {
 			'menu' : 'CadastrarComanda',
 			'cpf' : $('#cpf').val(),
 			'servico' : $('#tpServico').val(),
 			'jogo' : $('#jogos').val(),
 			'horas' : $('#qtdHoras').val(),
-			'data' : getDate()
+			'data' : getDate(),
+			'numComanda' : $('#numComanda').val(),
+			'produtos' : produtos
 		},
 		method : 'GET',
 		success : function(data) {
-			if (data == "true") {
+			if (data == "true" || data == true) {
 				alert("Cadastro efetuado com sucesso!");
 				clearForm('comandaAdmin');
 				$('#numComanda').attr('readonly', false);
@@ -508,7 +514,6 @@ function verificaProdutoCadastrado(idTextBox) {
 	var qtd = $('#' + idTextBox.id).find('.quantidade').val();
 	if (produto != "" && produto.length > 2) {
 		if (qtd > 0) {
-
 			$.ajax({
 				url : 'Comanda',
 				data : {
@@ -519,13 +524,13 @@ function verificaProdutoCadastrado(idTextBox) {
 				success : function(data) {
 					data = JSON.parse(data);
 					if (data[0].nome != "null") {
+						$('#' + idTextBox.id).val(data[0].id);
 						var valorProduto = data[0].valor;
-						$('#' + idTextBox.id).find('.preco').val(
-								valorProduto.replace(".0", ",00"));
-						$('#' + idTextBox.id).find('.total').val(
-								valorProduto * qtd + ",00");
+						$('#' + idTextBox.id).find('.preco').val(valorProduto.replace(".0", ",00"));
+						$('#' + idTextBox.id).find('.total').val(valorProduto * qtd + ",00");
 					} else {
 						alert("Produto não cadastrado!");
+						$('#produto1').val("");
 						$('#' + idTextBox.id).find('.produto').val("");
 						$('#' + idTextBox.id).find('.preco').val("");
 						$('#' + idTextBox.id).find('.total').val("");
@@ -541,6 +546,19 @@ function verificaProdutoCadastrado(idTextBox) {
 		$('#' + idTextBox.id).find('.preco').val("");
 		$('#' + idTextBox.id).find('.total').val("");
 	}
+}
+
+function salvarProdutosDaComanda(){
+	var listaDeProdutos = [];
+	var produtosInseridos = $('#tableControleProdutos').find('input.produto');
+	if(produtosInseridos.length > 0){
+		$(produtosInseridos).each(function(index, item){
+			var obj = {idProduto : $(item).parent().parent().val(), Quantidade:$(item).parent().parent().find('.quantidade').val()};
+			listaDeProdutos[index] = obj;
+		});
+		return listaDeProdutos;
+	}
+	return undefined;
 }
 
 $(document).ready(
