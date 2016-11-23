@@ -2,6 +2,8 @@ package Servlet;
 
 import java.io.IOException;
 import com.google.gson.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import DAO.DaoConsumo;
 import DAO.DaoJogos;
 import DAO.DaoProduto;
 import Entity.Consumo;
+import Entity.ConsumoComandaResponseEntity;
 import Entity.Jogos;
 import Entity.Produto;
 import Utilities.Utilities;
@@ -97,6 +100,23 @@ public class Comanda extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				break;
+				
+			case "BuscarComandaCliente":
+				
+				int idComanda = Integer.parseInt(request.getParameter("idComanda"));
+				try {
+					ArrayList<ConsumoComandaResponseEntity> lista = buscarConsumoPorIdComanda(idComanda);
+					
+					String listaSerialize = gson.toJson(lista);
+					
+					response.getWriter().print(listaSerialize);
+				
+				} catch (Exception e) {
+					
+					System.out.println(e);
+					e.printStackTrace();
+				}
 
 			}
 
@@ -141,6 +161,16 @@ public class Comanda extends HttpServlet {
 		DaoConsumo daoConsumo = new DaoConsumo();
 		return daoConsumo.salvar(consumo);
 
+	}
+	
+	public Entity.Comanda buscarComandaPorId (int id) throws Exception{
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.procurarId(id);
+	}
+	
+	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id){
+		DaoConsumo daoConsumo = new DaoConsumo();
+		return daoConsumo.buscarConsumoIdComanda(id);
 	}
 
 }

@@ -65,12 +65,17 @@ function clearAlteracaoEstoque() {
 	clearForm("alterarEstoque,#cadastroEstoque");
 }
 function clearComandaAdmin() {
+	if ($('#alterarForm').is(':visible')) {
+		$('#alterarForm').hide();
+		$('#salvarForm').show();
+	}
 	clearForm("comandaAdmin");
 	$('#numComanda').attr('readonly', false);
 	$('#cpf').attr('readonly', false);
-	$('#buscarComanda').show();
 	$('#tableControleProdutos').hide();
-
+	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', 'none');
+	$('table tbody:first').find('tr').remove();
+	sequencia = 1;
 }
 
 // funções de manipulação do cliente
@@ -167,6 +172,7 @@ function buscarCliente() {
 				$('#sexo option').eq(data[0].sexo).prop('selected', true);
 			} else {
 				alert("CPF não encontrado!");
+				
 			}
 		}
 	});
@@ -409,10 +415,9 @@ function abrirComanda() {
 			if (data != "" && data != undefined) {
 				$('#numComanda').val(data);
 				$('#numComanda').attr('readonly', true);
-				$('#numComanda').attr('readonly', true);
-				$('#numComanda').attr('readonly', true);
 				$('#buscarComanda').hide();
 				$('#tableControleProdutos').css("display", "");
+				$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
 			}
 		}
 	});
@@ -561,6 +566,51 @@ function salvarProdutosDaComanda(){
 		return listaDeProdutos;
 	}
 	return undefined;
+}
+
+function alterarComanda(){
+	$('#salvarForm').css('display', 'none');
+	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #alterarForm').css('display', '');
+	$('#buscarCliente').hide();
+	$('#cpf').attr('readonly',true);
+}
+
+function buscarComandaCliente(){
+	
+	var idComanda = $('#numComanda').val();
+	
+	if(idComanda != 0 && idComanda != "0" && idComanda != ""){
+		$.ajax({
+			url:'Comanda',
+			method: 'GET',
+			data:{'menu' : 'BuscarComandaCliente','idComanda' : idComanda},
+			success: function(data){
+				if (data != "" && data != undefined) {
+					$('#numComanda').attr('readonly',true);
+					data = JSON.parse(data);
+					
+					$(data).each(function(index, item){
+						if(index == 0){
+							$('#cpf').val(item.cpf);
+							$('#nome').val(item.nome);
+							$('#tpServico option').eq(item.tipoServico).prop('selected', true);;
+							$('#jogos option').eq(item.jogo).prop('selected', true);
+							$('#qtdHoras').val(item.horasReservadas);
+						}else{
+							$('#tableControleProdutos').css('display', "");
+							adicionarItemComanda();
+							var linha = "produto"+index;
+							$('#'+linha).find('.quantidade').val(item.quantidadeItemConsumo);
+							$('#'+linha).find('.produto').val(item.nomeItemConsumo);
+							$('#'+linha).find('.preco').val(item.precoUnitario.toFixed(2).replace(".",","));
+							$('#'+linha).find('.total').val((item.quantidadeItemConsumo * item.precoUnitario).toFixed(2).replace(".",","));
+							
+						}
+					});
+				}
+			}
+		});
+	}
 }
 
 $(document).ready(function() {

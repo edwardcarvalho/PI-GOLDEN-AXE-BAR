@@ -13,6 +13,9 @@ public class Consumo {
 		this.Quantidade = quantidadeProduto;
 	}
 	
+	public Consumo() {
+	}
+
 	public int getId() {
 		return id;
 	}
