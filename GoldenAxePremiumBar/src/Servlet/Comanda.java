@@ -69,12 +69,14 @@ public class Comanda extends HttpServlet {
 					int qtdHoras = Integer.parseInt(request.getParameter("horas"));
 					int idFuncionario = 1;
 					String dataComanda = request.getParameter("data");
-					String produtos = request.getParameter("produtos") == null ? "vazio" : request.getParameter("produtos");
-					
-					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, dataComanda,idFuncionario);
-					
+					String produtos = request.getParameter("produtos") == null ? "vazio"
+							: request.getParameter("produtos");
+
+					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, dataComanda,
+							idFuncionario);
+
 					if (!produtos.equalsIgnoreCase("vazio")) {
-					Consumo[] listaProdutos = gson.fromJson(produtos, Consumo[].class);
+						Consumo[] listaProdutos = gson.fromJson(produtos, Consumo[].class);
 						for (Consumo produto : listaProdutos) {
 							salvarConsumo(new Consumo(produto.getIdProduto(), idComanda, produto.getQuantidade()));
 						}
@@ -101,23 +103,41 @@ public class Comanda extends HttpServlet {
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "BuscarComandaCliente":
-				
+
 				int idComanda = Integer.parseInt(request.getParameter("idComanda"));
 				try {
 					ArrayList<ConsumoComandaResponseEntity> lista = buscarConsumoPorIdComanda(idComanda);
-					
+
 					String listaSerialize = gson.toJson(lista);
-					
+
 					response.getWriter().print(listaSerialize);
-				
+
 				} catch (Exception e) {
-					
+
 					System.out.println(e);
 					e.printStackTrace();
 				}
+				break;
 
+			case "AlterarItemConsumo":
+
+				int idItemConsumo = Integer.parseInt(request.getParameter("idItemConsumo"));
+				int idComandaConsumo = Integer.parseInt(request.getParameter("idComanda"));
+				int quantidadeConsumo = Integer.parseInt(request.getParameter("quantidade"));
+				int idProduto = Integer.parseInt(request.getParameter("produto"));
+				
+				try {
+					boolean ret = alterarItemComanda(
+							new Consumo(idItemConsumo, idProduto, idComandaConsumo, quantidadeConsumo));
+					response.getWriter().print(ret);
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				
+				break;
 			}
 
 		}
@@ -162,13 +182,18 @@ public class Comanda extends HttpServlet {
 		return daoConsumo.salvar(consumo);
 
 	}
-	
-	public Entity.Comanda buscarComandaPorId (int id) throws Exception{
+
+	public Entity.Comanda buscarComandaPorId(int id) throws Exception {
 		DaoComanda daoComanda = new DaoComanda();
 		return daoComanda.procurarId(id);
 	}
-	
-	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id){
+
+	public boolean alterarItemComanda(Consumo consumo) {
+		DaoConsumo daoConsumo = new DaoConsumo();
+		return daoConsumo.alterar(consumo);
+	}
+
+	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id) {
 		DaoConsumo daoConsumo = new DaoConsumo();
 		return daoConsumo.buscarConsumoIdComanda(id);
 	}

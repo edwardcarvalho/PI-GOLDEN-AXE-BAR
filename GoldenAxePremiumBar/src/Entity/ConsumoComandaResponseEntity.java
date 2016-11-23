@@ -11,6 +11,21 @@ public class ConsumoComandaResponseEntity {
 	int quantidadeItemConsumo;
 	String nomeItemConsumo;
 	float precoUnitario;
+	int idItemConsumo;
+	int idProduto;
+
+	public int getIdItemConsumo() {
+		return idItemConsumo;
+	}
+	public void setIdItemConsumo(int idItemConsumo) {
+		this.idItemConsumo = idItemConsumo;
+	}
+	public int getIdProduto() {
+		return idProduto;
+	}
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
 	
 	public float getPrecoUnitario() {
 		return precoUnitario;

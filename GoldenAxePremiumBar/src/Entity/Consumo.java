@@ -13,6 +13,13 @@ public class Consumo {
 		this.Quantidade = quantidadeProduto;
 	}
 	
+	public Consumo (int id, int idProduto, int idComanda, int quantidadeProduto){
+		this.id = id;
+		this.idProduto = idProduto;
+		this.idComanda = idComanda;
+		this.Quantidade = quantidadeProduto;
+	}
+	
 	public Consumo() {
 	}
 
