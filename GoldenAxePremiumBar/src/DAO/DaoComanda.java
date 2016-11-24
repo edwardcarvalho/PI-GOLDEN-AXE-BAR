@@ -32,27 +32,27 @@ public class DaoComanda extends ConnectionDAO {
 
 	}
 
-	public void alterar(Comanda comanda) {
+	public boolean alterar(Comanda comanda) {
 
-		String sql = "UPDATE COMANDA SET ID_CLIENTE=?, ID_SERVICO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, DATA_COMANDA=?, ID_FUNCIONARIO=? WHERE ID_COMANDA = ? AND STATUS = 1";
+		String sql = "UPDATE COMANDA SET ID_SERVICO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, ID_FUNCIONARIO=? WHERE ID_CLIENTE = ? AND STATUS = 1";
 
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1, comanda.getIdCliente());
-			pst.setInt(2, comanda.getIdServico());
-			pst.setInt(4, comanda.getIdJogo());
-			pst.setInt(5, comanda.getQuantidadeHoras());
-			pst.setString(6, comanda.getDataComanda());
-			pst.setInt(7, comanda.getIdFuncionario());
-
+			pst.setInt(1, comanda.getIdServico());
+			pst.setInt(2, comanda.getIdJogo());
+			pst.setInt(3, comanda.getQuantidadeHoras());
+			pst.setInt(4, comanda.getIdFuncionario());
+			pst.setInt(5, comanda.getIdCliente());
 			pst.execute();
-
 			pst.close();
 
 			desconectaBanco();
+			return true;
 
 		} catch (Exception e) {
+			System.out.println(e);
+			return false;
 		}
 	}
 

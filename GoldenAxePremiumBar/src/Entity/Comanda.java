@@ -18,6 +18,14 @@ public class Comanda {
 		this.idFuncionario = idFuncionario;
 	}
 	
+	public Comanda(int idCliente, int idServico, int idJogo, int qtdHoras, int idFuncionario){
+		this.idCliente = idCliente;
+		this.idServico = idServico;
+		this.idJogo = idJogo;
+		this.QuantidadeHoras = qtdHoras;
+		this.idFuncionario = idFuncionario;
+	}
+	
 	public Comanda(){
 		
 	}

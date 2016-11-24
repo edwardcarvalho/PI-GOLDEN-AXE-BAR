@@ -28,7 +28,7 @@ public class DaoConsumo extends ConnectionDAO {
 		}
 
 	}
-	
+
 	public boolean alterar(Consumo consumo) {
 
 		String sql = "UPDATE CONSUMO SET QUANTIDADE = ?, ID_PRODUTO = ? WHERE ID = ?";
@@ -51,7 +51,7 @@ public class DaoConsumo extends ConnectionDAO {
 		}
 
 	}
-	
+
 	public boolean excluir(int idItem, int idComanda) {
 
 		String sql = "UPDATE CONSUMO SET STATUS = 0 WHERE ID = ? AND ID_COMANDA = ?";
@@ -76,12 +76,15 @@ public class DaoConsumo extends ConnectionDAO {
 
 	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoIdComanda(int id) {
 
-		String sql = "SELECT CLI.NOME, CLI.CPF, COM.ID_JOGO, COM.ID_SERVICO, CONS.ID AS ID_CONSUMO, CONS.ID_PRODUTO, COM.QUANTIDADE_HORAS, CONS.QUANTIDADE, P.NOME AS PRODUTO, P.VALOR FROM CLIENTE AS CLI "
+		String sql = "SELECT CLI.NOME, CLI.CPF, COM.ID_JOGO, COM.ID_SERVICO, COM.QUANTIDADE_HORAS FROM CLIENTE AS CLI "
+				+ "INNER JOIN COMANDA AS COM ON CLI.ID_CLIENTE = COM.ID_CLIENTE WHERE COM.ID_COMANDA = ?";
+		
+		String sql1 = "SELECT CLI.NOME, CLI.CPF, COM.ID_JOGO, COM.ID_SERVICO, CONS.ID AS ID_CONSUMO, CONS.ID_PRODUTO, COM.QUANTIDADE_HORAS, CONS.QUANTIDADE, P.NOME AS PRODUTO, P.VALOR FROM CLIENTE AS CLI "
 				+ "INNER JOIN COMANDA AS COM ON CLI.ID_CLIENTE = COM.ID_CLIENTE "
 				+ "INNER JOIN CONSUMO AS CONS ON COM.ID_COMANDA = CONS.ID_COMANDA "
 				+ "INNER JOIN PRODUTOS AS P ON CONS.ID_PRODUTO = P.ID_PRODUTO "
 				+ "WHERE COM.ID_COMANDA = ? AND CONS.STATUS = 1";
-		
+
 		ArrayList<ConsumoComandaResponseEntity> lista = new ArrayList<ConsumoComandaResponseEntity>();
 
 		try {
@@ -90,22 +93,34 @@ public class DaoConsumo extends ConnectionDAO {
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				
+
 				ConsumoComandaResponseEntity consumo = new ConsumoComandaResponseEntity();
 				consumo.setIdComanda(id);
 				consumo.setNome(rs.getString("NOME"));
 				consumo.setCpf(rs.getString("CPF"));
 				consumo.setJogo(rs.getInt("ID_JOGO"));
 				consumo.setTipoServico(rs.getInt("ID_SERVICO"));
-				consumo.setIdItemConsumo(rs.getInt("ID_CONSUMO"));
-				consumo.setIdProduto(rs.getInt("ID_PRODUTO"));
 				consumo.setHorasReservadas(rs.getString("QUANTIDADE_HORAS"));
+				lista.add(consumo);
+			}
+			pst.close();
+			
+			pst = conn.prepareStatement(sql1);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+
+				ConsumoComandaResponseEntity consumo = new ConsumoComandaResponseEntity();
+				consumo.setIdProduto(rs.getInt("ID_PRODUTO"));
+				consumo.setIdItemConsumo(rs.getInt("ID_CONSUMO"));
 				consumo.setQuantidadeItemConsumo(rs.getInt("QUANTIDADE"));
 				consumo.setNomeItemConsumo(rs.getString("PRODUTO"));
 				consumo.setPrecoUnitario(rs.getFloat("VALOR"));
 				lista.add(consumo);
 			}
 			pst.close();
+			
+			
 			desconectaBanco();
 
 		} catch (Exception e) {

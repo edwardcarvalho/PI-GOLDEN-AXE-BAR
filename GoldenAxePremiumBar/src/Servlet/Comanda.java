@@ -89,6 +89,36 @@ public class Comanda extends HttpServlet {
 					e.printStackTrace();
 				}
 				break;
+				
+			case "AtualizarComanda":
+				try {
+
+					String cpf = request.getParameter("cpf");
+					int idComanda = Integer.parseInt(request.getParameter("numComanda"));
+					int idCliente = buscarIdClienteCpf(cpf);
+					int idServico = Integer.parseInt(request.getParameter("servico"));
+					int idJogo = Integer.parseInt(request.getParameter("jogo"));
+					int qtdHoras = Integer.parseInt(request.getParameter("horas"));
+					int idFuncionario = 1;
+					String produtos = request.getParameter("produtos") == null ? "vazio"
+							: request.getParameter("produtos");
+
+					if (!produtos.equalsIgnoreCase("vazio")) {
+						Consumo[] listaProdutos = gson.fromJson(produtos, Consumo[].class);
+						for (Consumo produto : listaProdutos) {
+							salvarConsumo(new Consumo(produto.getIdProduto(), idComanda, produto.getQuantidade()));
+						}
+					}
+
+					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, idFuncionario);
+
+					boolean ret = atualizarComanda(comanda);
+					response.getWriter().print(ret);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
 
 			case "VerificaProdutoCadastrado":
 
@@ -180,6 +210,13 @@ public class Comanda extends HttpServlet {
 
 		DaoComanda cDAL = new DaoComanda();
 		return cDAL.salvar(comanda);
+
+	}
+	
+	public boolean atualizarComanda(Entity.Comanda comanda) {
+
+		DaoComanda cDAL = new DaoComanda();
+		return cDAL.alterar(comanda);
 
 	}
 
