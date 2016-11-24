@@ -138,6 +138,19 @@ public class Comanda extends HttpServlet {
 				}
 				
 				break;
+				
+			case "ExcluirItemConsumo":
+				
+				int itemConsumo = Integer.parseInt(request.getParameter("idItemConsumo"));
+				int comandaConsumo = Integer.parseInt(request.getParameter("idComanda"));
+				try {
+					boolean ret = removerItemComanda(itemConsumo, comandaConsumo);
+					response.getWriter().print(ret);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				break;
+				
 			}
 
 		}
@@ -191,6 +204,11 @@ public class Comanda extends HttpServlet {
 	public boolean alterarItemComanda(Consumo consumo) {
 		DaoConsumo daoConsumo = new DaoConsumo();
 		return daoConsumo.alterar(consumo);
+	}
+	
+	public boolean removerItemComanda(int idItem, int idComanda) {
+		DaoConsumo daoConsumo = new DaoConsumo();
+		return daoConsumo.excluir(idItem,idComanda);
 	}
 
 	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id) {

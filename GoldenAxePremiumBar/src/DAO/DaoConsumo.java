@@ -51,6 +51,28 @@ public class DaoConsumo extends ConnectionDAO {
 		}
 
 	}
+	
+	public boolean excluir(int idItem, int idComanda) {
+
+		String sql = "UPDATE CONSUMO SET STATUS = 0 WHERE ID = ? AND ID_COMANDA = ?";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, idItem);
+			pst.setInt(2, idComanda);
+			pst.execute();
+			pst.close();
+
+			desconectaBanco();
+			return true;
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+
+	}
 
 	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoIdComanda(int id) {
 

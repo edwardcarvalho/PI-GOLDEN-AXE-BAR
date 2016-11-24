@@ -37,7 +37,7 @@ function clearAlteracaoFuncionario() {
 }
 
 function clearAlteracaoFornecedor() {
-    $('#cnpj').attr('readonly', false);
+    $('#cnpj').val('').attr('readonly', false);
     $('#alterarFornecedor').css("display", "none");
     clearForm("alterarFornecedor,#cadastroFornecedor");
 
@@ -389,24 +389,6 @@ function excluirFornecedor() {
 
 // funções de manipulação da comanda
 
-function abrirComanda() {
-    $.ajax({
-        url: 'Comanda',
-        data: {
-            'menu': 'AbrirComanda'
-        },
-        method: 'GET',
-        success: function (data) {
-            if (data != "" && data != undefined) {
-                $('#numComanda').val(data);
-                $('#numComanda').attr('readonly', true);
-                $('#buscarComanda').hide();
-                $('#tableControleProdutos').css("display", "");
-                $('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
-            }
-        }
-    });
-}
 
 function salvarComanda() {
 
@@ -428,8 +410,9 @@ function salvarComanda() {
         method: 'GET',
         success: function (data) {
             if (data == "true" || data == true) {
-                alert("Cadastro efetuado com sucesso!");
+                alert("Operação realizada com sucesso!");
                 clearForm('comandaAdmin');
+                clearComandaAdmin();
                 $('#numComanda').attr('readonly', false);
                 $('#cpf').attr('readonly', false);
                 $('#buscarComanda').show();
@@ -440,9 +423,31 @@ function salvarComanda() {
     });
 }
 
+function abrirComanda() {
+	$.ajax({
+		url: 'Comanda',
+		data: {
+			'menu': 'AbrirComanda'
+		},
+		method: 'GET',
+		success: function (data) {
+			if (data != "" && data != undefined) {
+				$('#numComanda').val(data);
+				$('#numComanda').attr('readonly', true);
+				$('#buscarComanda').hide();
+				$('#cpf').attr('readonly', false);
+//				$('#tableControleProdutos').css("display", "");
+				$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
+			}
+		}
+	});
+}
+
 function alterarComanda() {
     $('#salvarForm').css('display', 'none');
     $('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #alterarForm').css('display', '');
+    $('#buscarComanda').show();
+    $('#numComanda').val('').attr('readonly', false);
     $('#buscarCliente').hide();
     $('#cpf').attr('readonly', true);
 }
@@ -479,7 +484,6 @@ function buscarComandaCliente() {
                             linha.find('.preco').val(item.precoUnitario.toFixed(2).replace(".", ","));
                             linha.find('.total').val((item.quantidadeItemConsumo * item.precoUnitario).toFixed(2).replace(".", ","));
                         } else {
-//                            $('#tableControleProdutos').css('display', "");
                             adicionarItemComanda();
                             var linha = $("#produto" + (index+1));
                             linha.find('.idItemConsumo').val(item.idItemConsumo);
@@ -517,63 +521,52 @@ $(document).ready(function () {
             }
         }
     });
-
-    // $(function () {
-    // var availableTags = [
-    // { value: "ActionScript", data: "1" },
-    // { value: "AppleScript", data: "2" },
-    // { value: "Asp", data: "3" }
-    // ];
-    // jQuery('#textBoxBrowsers')
-    // .on('keypress',
-    // function (e) {
-    // if (e.which != 13)
-    // $('#browsers').find('option').remove();
-    // jQuery(availableTags)
-    // .each(function (index, item) {
-    // $('#browsers').append("<option value=" + item.data + ">" +
-    // item.value + "</option>");
-    // });
-    // });
-    // });
+    
+    //acrescenta mais um evento no botão buscar, quando
+    $('#buscarCliente').on('click', function(){
+    	var cpf = $('#cpf').val();
+    	if(cpf != ""){
+    		$('#tableControleProdutos').css("display", "");
+			$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
+    	}
+    });
 });
 
 //**********/23/11/2016**************
 
-//criar duas colunas ocultas que irão trazer o id do item de consumo e id do produto
+function btnSalvarProduto(element) {
+	var check = false;
+	var elementX = $("#" + element.id);
+	var idItemConsumo = elementX.find('.idItemConsumo').val();
+	if (idItemConsumo != "" && idItemConsumo != 0) {
+		alterarItemComanda(element);
+		check = true;
+	} else {
+		elementX.find('input:visible').each(function (index, item) {
+			var itemValue = $(item).val();
+			if (itemValue == "" || itemValue == undefined) {
+				alert("Preencha todos os campos!");
+				check = false;
+				return false;
+			} else {
+				check = true;
+			}
+		});
+	}
+	
+	if (check) {
+		elementX.find('input').attr('readonly', true);
+		var qtd = parseInt(elementX.find('.quantidade').val());
+		var valorProduto = parseInt(elementX.find('.preco').val());
+		elementX.find('.total').val((valorProduto * qtd).toFixed(2).replace(".", ","));
+	}
+}
 
 function btnEditarProduto(element) {
     var elementX = $("#" + element.id);
     elementX.find('input').attr('readonly', false);
 }
 
-function btnSalvarProduto(element) {
-    var check = false;
-    var elementX = $("#" + element.id);
-    var idItemConsumo = elementX.find('.idItemConsumo').val();
-    if (idItemConsumo != "" && idItemConsumo != 0) {
-        alterarItemComanda(element);
-        check = true;
-    } else {
-        elementX.find('input:visible').each(function (index, item) {
-            var itemValue = $(item).val();
-            if (itemValue == "" || itemValue == undefined) {
-                alert("Preencha todos os campos!");
-                check = false;
-                return false;
-            } else {
-                check = true;
-            }
-        });
-    }
-
-    if (check) {
-    	elementX.find('input').attr('readonly', true);
-    	var qtd = parseInt(elementX.find('.quantidade').val());
-    	var valorProduto = parseInt(elementX.find('.preco').val());
-    	elementX.find('.total').val((valorProduto * qtd).toFixed(2).replace(".", ","));
-    }
-}
 
 function btnRemoverProduto(element) {
     var idItemConsumo = $('#' + element.id).find('.idItemConsumo').val();
@@ -681,13 +674,18 @@ function verificaProdutoCadastrado(idTextBox) {
 }
 
 function salvarProdutosDaComanda() {
+	var i = 0;
     var listaDeProdutos = [];
-    var produtosInseridos = $('#tableControleProdutos').find('input.produto');
+    var produtosInseridos = $('#tableControleProdutos tr')
     if (produtosInseridos.length > 0) {
         $(produtosInseridos).each(function (index, item) {
-            var productLine = $(item).closest('tr');
-            var obj = { idProduto: productLine.find('.idProduto').val(), Quantidade: productLine.find('.quantidade').val() };
-            listaDeProdutos[index] = obj;
+            var productLine = $(item);
+            var hasIdComanda = productLine.find('td .idItemConsumo').val();
+            if( hasIdComanda == ""){
+            	var obj = { idProduto: productLine.find('td .idProduto').val(), Quantidade: productLine.find('td .quantidade').val() };
+            	listaDeProdutos[i] = obj;
+            	i++;
+            }
         });
         return listaDeProdutos;
     }
