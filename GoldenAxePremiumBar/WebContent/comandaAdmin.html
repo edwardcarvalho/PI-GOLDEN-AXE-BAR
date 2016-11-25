@@ -90,14 +90,16 @@
 		<tbody>
 		</tbody>
 		<tbody id="adicionarLinha">
-			<tr><td style="background-color:white;"><button type="submit" class="btn btn btn-inverse" onclick="adicionarItemComanda()" >Adicionar</button></td></tr>
+			<tr><td style="background-color:white;"><button id="addProduto" type="submit" class="btn btn btn-inverse" onclick="adicionarItemComanda()" >Adicionar</button></td></tr>
+			<th id="totalFechamento">Total</th>
+			<td id="totalFechamentoTextBox"><input class='total totalComanda' type='text' disabled></td>
 		</tbody>
 	</table>
 	<div class="botoesComanda">
 		<p>
 			<button type="submit" id="abrirCmd" class="btn btn-primary"onclick="abrirComanda()">Abrir</button>
 			<button type="submit" id="alterarCmd" class="btn btn-primary" onclick="alterarComanda()">Alterar</button>
-			<button type="submit" id="fecharCmd" class="btn btn-primary">Fechar</button>
+			<button type="submit" id="fecharCmd" class="btn btn-primary" onclick="fecharComanda()">Fechar</button>
 <!-- 			<button type="submit" class="btn btn-primary">Cancelar</button> -->
 		</p>
 	</div>
@@ -131,6 +133,7 @@
 	<div id="btnInferiorComanda"class="botoesComanda" style="display:none">
 		<button id="salvarForm" type="submit" class="btn btn-primary"onclick="salvarComanda()">Salvar</button>
 		<button id="alterarForm" type="submit" class="btn btn-primary"onclick="atualizarComanda()" style='display:none'>Atualizar</button>
+		<button id="encerrarForm" type="submit" class="btn btn-primary"onclick="fecharComanda()" style='display:none'>Fechar Comanda</button>
 		<button type="button" class="btn" onclick="clearComandaAdmin()">Cancelar</button>
 	</div>
 
@@ -150,6 +153,10 @@
 	<script src="scripts/tab.js"></script>
 	<script src="scripts/tooltip.js"></script>
 	<script src="scripts/transition.js"></script>
+	
+	<script type="text/javascript">
+		loadComboBoxJogos();
+	</script>
 	
 </body>
 </html>

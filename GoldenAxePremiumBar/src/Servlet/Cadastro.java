@@ -259,7 +259,7 @@ public class Cadastro extends HttpServlet {
 		return cDAL.salvar(cliente);
 	}
 
-	public Cliente buscarCliente(String cpf) throws Exception {
+	public static Cliente buscarCliente(String cpf) throws Exception {
 
 		DaoCliente cDAL = new DaoCliente();
 		Cliente cliente = cDAL.buscarClienteCPF(cpf);

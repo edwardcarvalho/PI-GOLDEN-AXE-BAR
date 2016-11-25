@@ -122,5 +122,15 @@ public class Utilities {
 
 		return json;
 	}
+	
+	public static String SerializeIdComandaClienteNome(Cliente cliente, int idComanda){
+		String json = "";
+		json += "[{";
+		json += "\"nome\" : " + "\"" + cliente.getNome() + "\"";
+		json += ", \"idComanda\" : " + "\"" + idComanda + "\"";
+		json += "}]";
+		
+		return json;
+	}
 
 }

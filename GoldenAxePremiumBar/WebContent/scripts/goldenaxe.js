@@ -458,12 +458,12 @@ function atualizarComanda() {
 function abrirComanda() {
 
 	clearComandaAdmin();
-
+	$('#buscarCliente, #addProduto').show();
+	$('#totalFechamento, #totalFechamentoTextBox').hide();
+	
 	$.ajax({
 		url : 'Comanda',
-		data : {
-			'menu' : 'AbrirComanda'
-		},
+		data : {'menu' : 'AbrirComanda'},
 		method : 'GET',
 		success : function(data) {
 			if (data != "" && data != undefined) {
@@ -471,9 +471,7 @@ function abrirComanda() {
 				$('#numComanda').attr('readonly', true);
 				$('#buscarComanda').hide();
 				$('#cpf').attr('readonly', false);
-				// $('#tableControleProdutos').css("display", "");
-				$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css(
-						'display', "");
+				$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
 			}
 		}
 	});
@@ -481,10 +479,9 @@ function abrirComanda() {
 
 function alterarComanda() {
 	clearComandaAdmin();
-	$('#salvarForm').css('display', 'none');
-	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #alterarForm').css(
-			'display', '');
-	$('#buscarComanda').show();
+	$('#salvarForm, #encerrarForm, #totalFechamento, #totalFechamentoTextBox').css('display', 'none');
+	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #alterarForm').css('display', '');
+	$('#buscarComanda,#addProduto').show();
 	$('#numComanda').val('').attr('readonly', false);
 	$('#buscarCliente').hide();
 	$('#cpf').attr('readonly', true);
@@ -495,8 +492,7 @@ function buscarComandaCliente() {
 	var idComanda = $('#numComanda').val();
 	var table = $('#tableControleProdutos');
 
-	if (idComanda != 0 && idComanda != "0" && idComanda != ""
-			&& !table.is(':visible')) {
+	if (idComanda != 0 && idComanda != "0" && idComanda != ""&& !table.is(':visible')) {
 		$.ajax({	
 			url : 'Comanda',
 			method : 'GET',
@@ -545,49 +541,109 @@ function buscarComandaCliente() {
 	}
 }
 
-$(document)
-		.ready(
-				function() {
-					var psw;
-					// alimenta o combobox com todos os jogos ao carregar a
-					// pagina.
-					$.ajax({
-						url : 'Comanda',
-						method : 'GET',
-						data : {
-							'menu' : 'CarregarJogos'
-						},
-						success : function(data) {
-							if (data != "" && data != undefined) {
-								data = JSON.parse(data);
-								for (var i = 0; i < data.length; i++) {
-									$('#jogos').append(
-											'<option value=' + data[i].id + '>'
-													+ data[i].jogo
-													+ '</option>');
-								}
-							}
-						}
-					});
+//alimenta o combobox com todos os jogos ao carregar a pagina.
+function loadComboBoxJogos (){
+	$.ajax({ url : 'Comanda', method : 'GET', data : { 'menu' : 'CarregarJogos' }, 
+		success : function(data) {
+	
+		if (data != "" && data != undefined) {
+			data = JSON.parse(data);
+			for (var i = 0; i < data.length; i++) {
+				$('#jogos').append('<option value=' + data[i].id + '>' + data[i].jogo + '</option>');
+			}
+			}
+		} 
+	});
+}
 
-					// acrescenta mais um evento no botão buscar, quando
-					$('#buscarCliente')
-							.on(
-									'click',
-									function() {
-										var cpf = $('#cpf').val();
-										if (cpf != "") {
-											$('#tableControleProdutos').css(
-													"display", "");
-											$(
-													'#abrirComanda, #comandaAdmin, #btnInferiorComanda')
-													.css('display', "");
-										}
-									});
+//faz a renderização das mesas ao carregar a pagina.
+function loadMesas(){
+	
+	$.ajax({ 
+		url : 'Comanda', 
+		method : 'GET', 
+		data : { 'menu' : 'CarregarMesas' }, 
+		success : function(data) {
+	
+		if (data != "" && data != undefined) {
+			data = JSON.parse(data);
+				$(data).each(function(index, item){
+					var tipo = item.tipo;
+					var status = item.status;
+					var itemNumber = item.numero > 9 ? item.numero : "0"+item.numero
+					var imgId = "mesa"+itemNumber;
+					if(tipo == 1){
+						if(status == 0){
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-green.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+						}else{
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-red.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+						}
+					}else{
+						if(status == 0){
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-green.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+						}else{
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-red.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+						}
+					}
 				});
+			}
+		} 
+	});
+}
+
+function buscarIdComandaNomeCliente(){
+	var cpf = $('#cpf');
+	$.ajax({
+		url: 'Comanda',
+		method: 'GET',
+		data: {'menu': 'BuscarIdComandaNomeCliente','cpf': cpf.val()},
+		success: function(data){
+			if(data != "" && data != undefined){
+				data = JSON.parse(data);
+				var item = data[0];
+				cpf.attr('readonly', true);
+				$('#idComanda').val(item.idComanda);
+				$('#nome').val(item.nome);
+			}
+		}
+	})
+}
+
+//**********FUNÇÃO PARA EXECUÇÃO APÓS LOAD DA PAGINA**************
+
+$(document).ready(function() { 	
+	var psw;
+	
+	// acrescenta mais um evento no botão buscar, quando
+	$('#buscarCliente').on('click', function() {
+		var cpf = $('#cpf').val();
+		if (cpf != "") {
+			$('#tableControleProdutos').css("display", "");
+			$('#abrirComanda, #comandaAdmin, #btnInferiorComanda').css('display', "");
+		}
+	});
+	
+	$('img[id*=mesa]').on('dblclick', function(e) {
+		var idMesa = parseInt($(this).attr('id').replace('mesa0','').replace('mesa',''));
+		alert(idMesa);
+	});
+});
+
+//****************************************************************
 
 // **********/23/11/2016**************
 
+function fecharComanda(){
+	
+	clearComandaAdmin();
+	$('#alterarForm, #salvarForm, #addProduto').css('display', 'none');
+	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #encerrarForm, #totalFechamento, #totalFechamentoTextBox').css('display', '');
+	$('#buscarComanda').show();
+	$('#numComanda').val('').attr('readonly', false);
+	$('#buscarCliente').hide();
+	$('#cpf').attr('readonly', true);
+	
+}
 function btnSalvarProduto(element) {
 	var check = false;
 	var elementX = $("#" + element.id);
@@ -681,28 +737,18 @@ var sequencia = 1;
 function adicionarItemComanda() {
 	var itemId = "produto" + sequencia;
 	var trInit = "<tr id=" + itemId + ">";
-	var th = "<th scope='row'>" + sequencia + "</th>"; // indice da tabela
-	var td1 = "<td style='display:none'><input class='idItemConsumo' type='text'></td>";// coluna
-																						// idConsumo
-	var td2 = "<td><input class='quantidade' type='text'></td>"; // coluna
-																	// quantidade
-	var td3 = "<td style='display:none'><input class='idProduto' type='text'></td>"; // coluna
-																						// idProduto
-	var td4 = "<td><input class='produto' type='text' onfocusout='verificaProdutoCadastrado("
-			+ itemId + ")'></td>"; // coluna nome produto
-	var td5 = "<td><input class='preco' type='text'disabled></td>"; // coluna
-																	// preço
-	var td6 = "<td><input class='total' type='text' disabled></td>"; // coluna
-																		// total
-	var td7Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-success salvar' role='button' onclick='btnSalvarProduto("
-			+ itemId + ")'>Salvar</a></td>"; // btn salvar
-	var td8Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-warning editar' role='button' onclick='btnEditarProduto("
-			+ itemId + ")'>Editar</a></td>"; // btn editar
-	var td9Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-danger excluir' role='button' onclick='btnRemoverProduto("
-			+ itemId + ")'>Excluir</a></td>"; // btn remover
+	var th = "<th scope='row'>" + sequencia + "</th>"; 
+	var td1 = "<td style='display:none'><input class='idItemConsumo' type='text'></td>";
+	var td2 = "<td><input class='quantidade' type='text'></td>"; 
+	var td3 = "<td style='display:none'><input class='idProduto' type='text'></td>"; 
+	var td4 = "<td><input class='produto' type='text' onfocusout='verificaProdutoCadastrado(" + itemId + ")'></td>"; 
+	var td5 = "<td><input class='preco' type='text'disabled></td>"; 
+	var td6 = "<td><input class='total' type='text' disabled></td>"; 
+	var td7Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-success salvar' role='button' onclick='btnSalvarProduto(" + itemId + ")'>Salvar</a></td>"; // btn
+	var td8Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-warning editar' role='button' onclick='btnEditarProduto(" + itemId + ")'>Editar</a></td>"; // btn
+	var td9Btn = "<td height='30px' width='50px'><a href='#' class='btn btn-danger excluir' role='button' onclick='btnRemoverProduto(" + itemId + ")'>Excluir</a></td>"; // btn
 	var trEnd = "</tr>";
-	var line = trInit + th + td1 + td2 + td3 + td4 + td5 + td6 + td7Btn
-			+ td8Btn + td9Btn + trEnd;
+	var line = trInit + th + td1 + td2 + td3 + td4 + td5 + td6 + td7Btn + td8Btn + td9Btn + trEnd;
 	$('#tableControleProdutos').find('tbody:nth-child(2)').append(line);
 	sequencia++;
 }
@@ -715,21 +761,15 @@ function verificaProdutoCadastrado(idTextBox) {
 		if (qtd > 0) {
 			$.ajax({
 				url : 'Comanda',
-				data : {
-					'menu' : 'VerificaProdutoCadastrado',
-					'produto' : produto
-				},
+ 				data : { 'menu' : 'VerificaProdutoCadastrado', 'produto' : produto },
 				method : 'GET',
 				success : function(data) {
 					data = JSON.parse(data);
 					if (data[0].nome != "null") {
 						element.find('.idProduto').val(data[0].id);
 						var valorProduto = parseInt(data[0].valor);
-						element.find('.preco').val(
-								valorProduto.toFixed(2).replace(".", ","));
-						element.find('.total').val(
-								(valorProduto * qtd).toFixed(2).replace(".",
-										","));
+						element.find('.preco').val(valorProduto.toFixed(2).replace(".", ","));
+						element.find('.total').val((valorProduto * qtd).toFixed(2).replace(".", ","));
 					} else {
 						alert("Produto não cadastrado!");
 						element.find('.idProduto').val("");

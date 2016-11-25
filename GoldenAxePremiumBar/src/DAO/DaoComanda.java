@@ -148,5 +148,28 @@ public class DaoComanda extends ConnectionDAO {
 		}
 		return lista;
 	}
+	
+	public int buscarIdComandaPorIdCliente(String cpf){
+		int id = 0;
+		String sql = "SELECT ID_COMANDA FROM COMANDA AS CO INNER JOIN CLIENTE AS C ON C.ID_CLIENTE =  CO.ID_CLIENTE WHERE C.CPF = ? AND CO.STATUS = 1";
+
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1,cpf);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				id = rs.getInt("ID_COMANDA");
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return id;
+	}
 
 }

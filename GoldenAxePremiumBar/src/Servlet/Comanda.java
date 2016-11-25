@@ -15,7 +15,9 @@ import DAO.DaoCliente;
 import DAO.DaoComanda;
 import DAO.DaoConsumo;
 import DAO.DaoJogos;
+import DAO.DaoMesa;
 import DAO.DaoProduto;
+import Entity.Cliente;
 import Entity.Consumo;
 import Entity.ConsumoComandaResponseEntity;
 import Entity.Jogos;
@@ -54,8 +56,23 @@ public class Comanda extends HttpServlet {
 					response.getWriter().print(serialize);
 
 				} catch (Exception e) {
+					System.out.println(e);
 					e.printStackTrace();
 				}
+				break;
+
+			case "CarregarMesas":
+
+				try {
+					List<Mesa> listaMesa = listarMesas();
+					String serialize = gson.toJson(listaMesa);
+					response.getWriter().printf(serialize);
+
+				} catch (Exception e1) {
+					System.out.println(e1);
+					e1.printStackTrace();
+				}
+
 				break;
 
 			case "CadastrarComanda":
@@ -89,7 +106,7 @@ public class Comanda extends HttpServlet {
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "AtualizarComanda":
 				try {
 
@@ -151,13 +168,29 @@ public class Comanda extends HttpServlet {
 				}
 				break;
 
+			case "BuscarIdComandaNomeCliente":
+				try {
+					String cpf = request.getParameter("cpf");
+					Cliente cliente = Servlet.Cadastro.buscarCliente(cpf);
+					int idComanda1 = buscarIdComandaPorCpf(cpf);
+					
+					String serialize = Utilities.SerializeIdComandaClienteNome(cliente,idComanda1);
+					
+					response.getWriter().print(serialize);
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				
+				break;
+
 			case "AlterarItemConsumo":
 
 				int idItemConsumo = Integer.parseInt(request.getParameter("idItemConsumo"));
 				int idComandaConsumo = Integer.parseInt(request.getParameter("idComanda"));
 				int quantidadeConsumo = Integer.parseInt(request.getParameter("quantidade"));
 				int idProduto = Integer.parseInt(request.getParameter("produto"));
-				
+
 				try {
 					boolean ret = alterarItemComanda(
 							new Consumo(idItemConsumo, idProduto, idComandaConsumo, quantidadeConsumo));
@@ -166,11 +199,11 @@ public class Comanda extends HttpServlet {
 				} catch (Exception e) {
 					System.out.println(e);
 				}
-				
+
 				break;
-				
+
 			case "ExcluirItemConsumo":
-				
+
 				int itemConsumo = Integer.parseInt(request.getParameter("idItemConsumo"));
 				int comandaConsumo = Integer.parseInt(request.getParameter("idComanda"));
 				try {
@@ -180,7 +213,7 @@ public class Comanda extends HttpServlet {
 					System.out.println(e);
 				}
 				break;
-				
+
 			}
 
 		}
@@ -206,13 +239,19 @@ public class Comanda extends HttpServlet {
 		return cDAL.mostrarTodos();
 	}
 
+	public List<Mesa> listarMesas() throws Exception {
+
+		DaoMesa cDAL = new DaoMesa();
+		return cDAL.mostrarTodas();
+	}
+
 	public boolean gravarComanda(Entity.Comanda comanda) {
 
 		DaoComanda cDAL = new DaoComanda();
 		return cDAL.salvar(comanda);
 
 	}
-	
+
 	public boolean atualizarComanda(Entity.Comanda comanda) {
 
 		DaoComanda cDAL = new DaoComanda();
@@ -233,19 +272,24 @@ public class Comanda extends HttpServlet {
 
 	}
 
-	public Entity.Comanda buscarComandaPorId(int id) throws Exception {
+	public Entity.Comanda buscarComandaPorId(int idComanda) throws Exception {
 		DaoComanda daoComanda = new DaoComanda();
-		return daoComanda.procurarId(id);
+		return daoComanda.procurarId(idComanda);
+	}
+	
+	public int buscarIdComandaPorCpf(String cpf) throws Exception {
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.buscarIdComandaPorIdCliente(cpf);
 	}
 
 	public boolean alterarItemComanda(Consumo consumo) {
 		DaoConsumo daoConsumo = new DaoConsumo();
 		return daoConsumo.alterar(consumo);
 	}
-	
+
 	public boolean removerItemComanda(int idItem, int idComanda) {
 		DaoConsumo daoConsumo = new DaoConsumo();
-		return daoConsumo.excluir(idItem,idComanda);
+		return daoConsumo.excluir(idItem, idComanda);
 	}
 
 	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id) {

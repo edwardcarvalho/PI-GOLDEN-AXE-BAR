@@ -34,16 +34,6 @@
 	width:180px;
 }
 
-#overviewMesas{
-	margin-top:25px;
-	text-align:center;
-}
-
-#overviewMesas img{
-	cursor:pointer;
-	margin: 0px 10px 10px 10px;
-}
-
 #sideBarMesas{
 /* 	background-color: #E6E6FA; */
 }
@@ -99,4 +89,39 @@ table .total {
 
 th, td, tr {
 	text-align: center!important;
+}
+
+
+#overviewMesas{
+	margin-top:25px;
+	text-align:center;
+	position: relative;
+    border-radius: 40px;
+}
+
+#overviewMesas img{
+	cursor:pointer;
+	margin: 0px 10px 10px 10px;
+}
+
+.tableNumber {
+	
+	position: absolute;
+    margin-left: -83px;
+    margin-top: 35px;
+    font-size: -webkit-xxx-large;
+    opacity: 0.35;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.tableTimeCounter {
+	
+	position: absolute;
+    margin-left: -83px;
+    margin-top: 35px;
+    font-size: medium;
+    cursor: pointer;
+    opacity: 0.7;
+    pointer-events: none;
 }
