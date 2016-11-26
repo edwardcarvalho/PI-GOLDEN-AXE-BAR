@@ -123,11 +123,12 @@ public class Utilities {
 		return json;
 	}
 	
-	public static String SerializeIdComandaClienteNome(Cliente cliente, int idComanda){
+	public static String SerializeIdComandaClienteNome(Cliente cliente, Entity.Comanda comanda){
 		String json = "";
 		json += "[{";
 		json += "\"nome\" : " + "\"" + cliente.getNome() + "\"";
-		json += ", \"idComanda\" : " + "\"" + idComanda + "\"";
+		json += ", \"idComanda\" : " + "\"" + comanda.getIdComanda() + "\"";
+		json += ", \"numeroMesa\" : " + "\"" + comanda.getNumeroMesa() + "\"";
 		json += "}]";
 		
 		return json;

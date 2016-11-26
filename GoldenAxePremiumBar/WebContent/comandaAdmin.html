@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
+
 </head>
 <body>
 	<!-- menu navegação superior-->
@@ -90,7 +91,11 @@
 		<tbody>
 		</tbody>
 		<tbody id="adicionarLinha">
-			<tr><td style="background-color:white;"><button id="addProduto" type="submit" class="btn btn btn-inverse" onclick="adicionarItemComanda()" >Adicionar</button></td></tr>
+			<tr>
+				<td style="background-color:white;">
+				<button id="addProduto" type="submit" class="btn btn btn-inverse" onclick="adicionarItemComanda()" >Adicionar</button>
+				</td>
+			</tr>
 			<th id="totalFechamento">Total</th>
 			<td id="totalFechamentoTextBox"><input class='total totalComanda' type='text' disabled></td>
 		</tbody>
@@ -99,7 +104,7 @@
 		<p>
 			<button type="submit" id="abrirCmd" class="btn btn-primary"onclick="abrirComanda()">Abrir</button>
 			<button type="submit" id="alterarCmd" class="btn btn-primary" onclick="alterarComanda()">Alterar</button>
-			<button type="submit" id="fecharCmd" class="btn btn-primary" onclick="fecharComanda()">Fechar</button>
+			<button type="submit" id="fecharCmd" class="btn btn-primary" onclick="btnOptionFecharComanda()">Fechar</button>
 <!-- 			<button type="submit" class="btn btn-primary">Cancelar</button> -->
 		</p>
 	</div>
@@ -126,7 +131,7 @@
 				<p>Jogos:</p> <select id="jogos">
 					<option>...</option>
 			</select>
-				<p>Horas Reservadas:</p> <input type="number" id=qtdHoras>
+				<p>Horas Reservadas:</p> <input type="text" id=qtdHoras>
 			</b>
 		</div>
 	</div>
@@ -138,6 +143,7 @@
 	</div>
 
 	<script src="scripts/jquery-3.1.1.min.js"></script>
+	<script src="scripts/jquery.maskedinput.min.js"></script>
 	<script src="scripts/goldenaxe.js"></script>
 	<script src="scripts/bootstrap.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>

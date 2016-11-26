@@ -156,10 +156,13 @@ public class Comanda extends HttpServlet {
 				int idComanda = Integer.parseInt(request.getParameter("idComanda"));
 				try {
 					ArrayList<ConsumoComandaResponseEntity> lista = buscarConsumoPorIdComanda(idComanda);
-
-					String listaSerialize = gson.toJson(lista);
-
-					response.getWriter().print(listaSerialize);
+					
+					if(lista.size() > 0){
+						String listaSerialize = gson.toJson(lista);
+						response.getWriter().print(listaSerialize);
+					}else{
+						response.getWriter().print("");
+					}
 
 				} catch (Exception e) {
 
@@ -172,16 +175,16 @@ public class Comanda extends HttpServlet {
 				try {
 					String cpf = request.getParameter("cpf");
 					Cliente cliente = Servlet.Cadastro.buscarCliente(cpf);
-					int idComanda1 = buscarIdComandaPorCpf(cpf);
-					
-					String serialize = Utilities.SerializeIdComandaClienteNome(cliente,idComanda1);
-					
+					Entity.Comanda comanda = buscarComandaPorCpf(cpf);
+
+					String serialize = Utilities.SerializeIdComandaClienteNome(cliente, comanda);
+
 					response.getWriter().print(serialize);
 
 				} catch (Exception e) {
 					System.out.println(e);
 				}
-				
+
 				break;
 
 			case "AlterarItemConsumo":
@@ -214,8 +217,67 @@ public class Comanda extends HttpServlet {
 				}
 				break;
 
-			}
+			case "FecharComanda":
 
+				try {
+					int idComanda1 = Integer.parseInt(request.getParameter("numComanda"));
+					boolean ret = encerrarComanda(idComanda1);
+					response.getWriter().print(ret);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				break;
+
+			case "AssociarMesaComanda":
+
+				try {
+
+					int idMesa = Integer.parseInt(request.getParameter("idMesa"));
+					int idComanda1 = Integer.parseInt(request.getParameter("idComanda"));
+					boolean ret = associarMesaAcomanda(idComanda1, idMesa);
+					boolean ret2 = associarComandaAmesa(idComanda1, idMesa);
+					if (ret && ret2)
+						response.getWriter().print(true);
+					else
+						response.getWriter().print(false);
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+
+				break;
+
+			case "RemoverMesaComanda":
+				try {
+
+					int idComanda1 = Integer.parseInt(request.getParameter("idComanda"));
+					boolean ret = removerMesaDeComanda(idComanda1);
+					boolean ret2 = removerComandaMesa(idComanda1);
+					if (ret && ret2)
+						response.getWriter().print(true);
+					else
+						response.getWriter().print(false);
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+
+				break;
+
+			case "VerificarClientePossuiMesa":
+
+				try {
+					int idComanda1 = Integer.parseInt(request.getParameter("idComanda"));
+					boolean ret = clientePossuiComanda(idComanda1);
+					response.getWriter().print(ret);
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+
+				break;
+
+			}
 		}
 	}
 
@@ -243,6 +305,16 @@ public class Comanda extends HttpServlet {
 
 		DaoMesa cDAL = new DaoMesa();
 		return cDAL.mostrarTodas();
+	}
+
+	public boolean associarComandaAmesa(int idComanda, int idMesa) {
+		DaoMesa cDAL = new DaoMesa();
+		return cDAL.associarComanda(idComanda, idMesa);
+	}
+
+	public boolean removerComandaMesa(int idComanda) {
+		DaoMesa cDAL = new DaoMesa();
+		return cDAL.removerComanda(idComanda);
 	}
 
 	public boolean gravarComanda(Entity.Comanda comanda) {
@@ -276,10 +348,10 @@ public class Comanda extends HttpServlet {
 		DaoComanda daoComanda = new DaoComanda();
 		return daoComanda.procurarId(idComanda);
 	}
-	
-	public int buscarIdComandaPorCpf(String cpf) throws Exception {
+
+	public Entity.Comanda buscarComandaPorCpf(String cpf) throws Exception {
 		DaoComanda daoComanda = new DaoComanda();
-		return daoComanda.buscarIdComandaPorIdCliente(cpf);
+		return daoComanda.buscarComandaPorCpf(cpf);
 	}
 
 	public boolean alterarItemComanda(Consumo consumo) {
@@ -295,6 +367,26 @@ public class Comanda extends HttpServlet {
 	public ArrayList<ConsumoComandaResponseEntity> buscarConsumoPorIdComanda(int id) {
 		DaoConsumo daoConsumo = new DaoConsumo();
 		return daoConsumo.buscarConsumoIdComanda(id);
+	}
+
+	public boolean associarMesaAcomanda(int idComanda, int idMesa) {
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.adicionarMesa(idComanda, idMesa);
+	}
+
+	public boolean removerMesaDeComanda(int idComanda) {
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.removerMesa(idComanda);
+	}
+
+	public boolean clientePossuiComanda(int idComanda) {
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.clientePossuiMesa(idComanda);
+	}
+	
+	public boolean encerrarComanda(int idComanda){
+		DaoComanda daoComanda = new DaoComanda();
+		return daoComanda.encerrarComanda(idComanda);
 	}
 
 }

@@ -64,6 +64,11 @@ function clearComandaAdmin() {
 	sequencia = 1;
 }
 
+function clearMesaStatus(){
+	$('#sideBarMesas').find('input').val('')
+	$('#cpf').attr('readonly', false);
+}
+
 // funções de manipulação do cliente
 
 function cadastrarCliente() {
@@ -491,8 +496,9 @@ function buscarComandaCliente() {
 
 	var idComanda = $('#numComanda').val();
 	var table = $('#tableControleProdutos');
+	var totalComanda = 0;
 
-	if (idComanda != 0 && idComanda != "0" && idComanda != ""&& !table.is(':visible')) {
+	if (idComanda != 0 && idComanda != "0" && idComanda != "" && !table.is(':visible')) {
 		$.ajax({	
 			url : 'Comanda',
 			method : 'GET',
@@ -509,21 +515,6 @@ function buscarComandaCliente() {
 									$('#jogos option').eq(item.jogo).prop('selected', true);
 									$('#qtdHoras').val(item.horasReservadas);
 									table.css('display', "");
-									// adicionarItemComanda();
-									// var linha =
-									// $("#produto1");
-									// linha.find('.idItemConsumo').val(item.idItemConsumo);
-									// linha.find('.quantidade').val(item.quantidadeItemConsumo).attr('readonly',
-									// true);
-									// linha.find('.idProduto').val(item.idProduto);
-									// linha.find('.produto').val(item.nomeItemConsumo).attr('readonly',
-									// true);
-									// linha.find('.preco').val(item.precoUnitario.toFixed(2).replace(".",
-									// ","));
-									// linha.find('.total').val((item.quantidadeItemConsumo
-									// *
-									// item.precoUnitario).toFixed(2).replace(".",
-									// ","));
 								} else {
 									adicionarItemComanda();
 									var linha = $("#produto"+ index);
@@ -533,8 +524,12 @@ function buscarComandaCliente() {
 									linha.find('.produto').val(item.nomeItemConsumo).attr('readonly',true);
 									linha.find('.preco').val(item.precoUnitario.toFixed(2).replace(".",","));
 									linha.find('.total').val((item.quantidadeItemConsumo * item.precoUnitario).toFixed(2).replace(".",","));
+									totalComanda += (item.quantidadeItemConsumo * item.precoUnitario);
 								}
 							});
+							$('input.totalComanda').val(totalComanda.toFixed(2).replace(".",","));
+						}else{
+							alert("Comanda não encontrada!")
 						}
 					}
 				});
@@ -574,15 +569,15 @@ function loadMesas(){
 					var imgId = "mesa"+itemNumber;
 					if(tipo == 1){
 						if(status == 0){
-							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-green.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-green.PNG' class='smallTable'><span class='tableNumber'>"+itemNumber+"</span>");
 						}else{
-							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-red.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-table-red.PNG'class='smallTable selected'><span class='tableNumber'>"+itemNumber+"</span>");
 						}
 					}else{
 						if(status == 0){
-							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-green.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-green.PNG' class='bigTable'><span class='tableNumber'>"+itemNumber+"</span>");
 						}else{
-							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-red.PNG'><span class='tableNumber'>"+itemNumber+"</span>");
+							$('#overviewMesas').append("<img id="+imgId+" src='img/icon-tableroom-red.PNG' class='bigTable selected'><span class='tableNumber'>"+itemNumber+"</span>");
 						}
 					}
 				});
@@ -604,15 +599,112 @@ function buscarIdComandaNomeCliente(){
 				cpf.attr('readonly', true);
 				$('#idComanda').val(item.idComanda);
 				$('#nome').val(item.nome);
+				$('#numeroMesa').val(item.numeroMesa == 0 ? "" : item.numeroMesa);
 			}
 		}
 	})
 }
 
+function associarMesaAcomanda(idMesa, idComanda){
+	
+	$.ajax({
+		url: 'Comanda',
+		method: 'GET',
+		data: {'menu': 'AssociarMesaComanda' , 'idMesa': idMesa, 'idComanda': idComanda},
+		success: function(data){
+			if(data == "true" || data == true){
+				var idBody = $('body').attr('id');
+				if(idBody == 'pageMesas'){
+					alert("Mesa "+ idMesa + " reservada para comanda " + idComanda +" !");
+				}
+			}else{
+				alert("Erro ao tentar fazer reserva !");
+			}
+		}
+	});
+}
+
+function removerMesaDeComanda(idComanda){
+	
+	$.ajax({
+		url: 'Comanda',
+		method: 'GET',
+		data: {'menu': 'RemoverMesaComanda', 'idComanda': idComanda},
+		success: function(data){
+			if(data == "true" || data == true){
+				var idBody = $('body').attr('id');
+				if(idBody == 'pageMesas'){
+					alert("Mesa liberada !");
+				}
+			}else{
+				alert("Erro ao tentar liberada !");
+			}
+		}
+	});
+}
+
+function isEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	}
+
 //**********FUNÇÃO PARA EXECUÇÃO APÓS LOAD DA PAGINA**************
+
 
 $(document).ready(function() { 	
 	var psw;
+	
+	jQuery(function($){
+	   $("#cpf").mask("999.999.999-99");
+	   $('#dataNascimento').mask("99/99/9999");
+	   $('#telefone').mask("(99) 9999-9999?9");
+	   $('#cnpj').mask("99.999.999/9999-99");
+	   $('#qtdHoras').mask("99:99")
+	});
+	
+	//adiciona um evento de double click na pagina de status de mesa
+	$('body').on('dblclick','img[id*=mesa]', function(e) {
+		var tableClicked = $(this);
+		var inputMesa = $('#numeroMesa');
+		var idMesa = parseInt(tableClicked.attr('id').replace('mesa0','').replace('mesa',''));
+		var idComanda = $('#idComanda').val();
+		if(idComanda != ""){
+			if(!tableClicked.hasClass('selected')){
+				//requisição irá verificar se o cliente ja tem mesa associada a sua comanda
+				$.ajax({
+					url: 'Comanda',
+					method: 'GET',
+					data: {'menu': 'VerificarClientePossuiMesa', 'idComanda': idComanda},
+					success: function(data){
+						if(data != "true" && data != true){
+							associarMesaAcomanda(idMesa, idComanda);
+							tableClicked.addClass('selected');
+							if(tableClicked.hasClass('smallTable')){
+								tableClicked.attr('src','img/icon-table-red.PNG');
+								inputMesa.val(idMesa);
+							}else{
+								tableClicked.attr('src','img/icon-tableroom-red.PNG');
+								inputMesa.val(idMesa);
+							}
+							
+						}else{
+							alert("Cliente já está associado a uma mesa !");
+						}
+					}
+				});
+			}else{
+				removerMesaDeComanda(idComanda);
+				tableClicked.removeClass('selected');
+				if(tableClicked.hasClass('smallTable')){
+					tableClicked.attr('src','img/icon-table-green.PNG');
+					inputMesa.val("");
+				}else{
+					tableClicked.attr('src','img/icon-tableroom-green.PNG');
+					inputMesa.val("");
+				}
+			}
+		}
+	});
 	
 	// acrescenta mais um evento no botão buscar, quando
 	$('#buscarCliente').on('click', function() {
@@ -623,17 +715,13 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('img[id*=mesa]').on('dblclick', function(e) {
-		var idMesa = parseInt($(this).attr('id').replace('mesa0','').replace('mesa',''));
-		alert(idMesa);
-	});
 });
 
 //****************************************************************
 
 // **********/23/11/2016**************
 
-function fecharComanda(){
+function btnOptionFecharComanda(){
 	
 	clearComandaAdmin();
 	$('#alterarForm, #salvarForm, #addProduto').css('display', 'none');
@@ -642,8 +730,35 @@ function fecharComanda(){
 	$('#numComanda').val('').attr('readonly', false);
 	$('#buscarCliente').hide();
 	$('#cpf').attr('readonly', true);
+	$('#qtdHoras').attr('readonly', true);
+	$('#tpServico').attr('disabled', true);
+	$('#jogos').attr('disabled', true);
+}
+
+function fecharComanda(){
+	
+	$.ajax({
+		url : 'Comanda',
+		dataType : 'json',
+		data : {
+			'menu' : 'FecharComanda',
+			'cpf' : $('#cpf').val(),
+			'numComanda' : $('#numComanda').val(),
+		},
+		method : 'GET',
+		success : function(data) {
+			if (data == "true" || data == true) {
+				alert("Comanda encerrada!");
+				btnOptionFecharComanda();
+			} else {
+				alert("Erro no fechamento!");
+			}
+		}
+	});
+	
 	
 }
+
 function btnSalvarProduto(element) {
 	var check = false;
 	var elementX = $("#" + element.id);

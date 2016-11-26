@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
 </head>
-<body>
+<body id="pageMesas">
 <!-- menu navegação superior-->
 	<div class="navbar">
 	  <div class="navbar-inner">
@@ -81,9 +81,13 @@
 	    	<div id="sideBarMesas" class="span2">
 	      <!--Sidebar content-->
 	      		<p><b>CPF:</b></p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
-				<p><button id="buscarCliente" type="submit" class="btn btn-primary" onclick="buscarIdComandaNomeCliente()">Buscar</button></p>
+	      		<div class="">
+				<p><button id="buscarCliente" type="submit" class="btn btn-primary" onclick="buscarIdComandaNomeCliente()">Buscar</button>
+				<button id="limparBusca" type="submit" class="btn btn-primary-inverse" onclick="clearMesaStatus()">Nova Consulta</button></p>
+				</div>
 				<b><p>Nome:</p><input type="text" id="nome" readonly="readonly">
-				<p>Nro.Comanda:</p><input type="text" id="idComanda"  readonly="readonly"></b>
+				<p>Nro.Comanda:</p><input type="text" id="idComanda"  readonly="readonly">
+				<p>Nro.Mesa:</p><input type="text" id="numeroMesa"  readonly="readonly"></b>
 	    	</div>
 	    	<div id="overviewMesas" class="span10">
 
@@ -92,6 +96,7 @@
 	</div>
 	
 <script src="scripts/jquery-3.1.1.min.js"></script>
+	<script src="scripts/jquery.maskedinput.min.js"></script>
 	<script src="scripts/goldenaxe.js"></script>
 	<script src="scripts/bootstrap.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
