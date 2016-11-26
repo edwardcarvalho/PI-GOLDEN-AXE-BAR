@@ -166,19 +166,29 @@ public class Cadastro extends HttpServlet {
 					if (tipo == 2) {
 
 						Jogos jogos = new Jogos(nome1, quantidade, valor, idFornecedor);
+						int idJogo = cadastrarJogos(jogos);
+						
+						if(idJogo != 0){
+							Estoque estoque = new Estoque(idFornecedor,0,idJogo,quantidade,valor,1);
+							boolean ret = adicionarItemEstoque(estoque);
+							response.getWriter().print(ret);
+						}else{
+							response.getWriter().print(false);
+						}
 
-						boolean ret = cadastrarJogos(jogos);
-
-						response.getWriter().print(ret);
 
 					} else if (tipo == 1) {
 
 						Produto produto = new Produto(nome1, quantidade, valor, idFornecedor);
-
-						boolean ret = cadastrarProduto(produto);
-
-						response.getWriter().print(ret);
-
+						int idProduto = cadastrarProduto(produto);
+						
+						if(idProduto != 0){
+							Estoque estoque = new Estoque(idFornecedor,idProduto,0,quantidade,valor,1);
+							boolean ret = adicionarItemEstoque(estoque);
+							response.getWriter().print(ret);
+						}else{
+							response.getWriter().print(false);
+						}
 					}
 
 				} catch (Exception e) {
@@ -299,14 +309,13 @@ public class Cadastro extends HttpServlet {
 
 	}
 
-	public boolean cadastrarJogos(Jogos jogos) {
+	public int cadastrarJogos(Jogos jogos) {
 
 		DaoJogos jDAL = new DaoJogos();
 		return jDAL.salvar(jogos);
 	}
 
-	public boolean cadastrarProduto(Produto produto) {
-
+	public int cadastrarProduto(Produto produto) {
 		DaoProduto pDAL = new DaoProduto();
 		return pDAL.salvar(produto);
 	}
@@ -332,6 +341,11 @@ public class Cadastro extends HttpServlet {
 	public Usuario buscarUsuarioPorIdFuncionario(int idFuncionario) {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.buscarUsuario(idFuncionario);
+	}
+	
+	public boolean adicionarItemEstoque(Estoque estoque){
+		DaoEstoque daoEstoque = new DaoEstoque();
+		return daoEstoque.salvar(estoque);
 	}
 
 }

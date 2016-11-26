@@ -6,10 +6,10 @@ import java.util.List;
 import Entity.Jogos;
 
 public class DaoJogos extends ConnectionDAO {
-	public boolean salvar(Jogos jogos) {
+	public int salvar(Jogos jogos) {
 
 		String sql = "INSERT INTO JOGOS(NOME, QUANTIDADE,VALOR,ID_FORNECEDOR, ATIVO) VALUES(?,?,?,?,1)";
-
+		int id = 0;
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
@@ -18,14 +18,21 @@ public class DaoJogos extends ConnectionDAO {
 			pst.setFloat(3, jogos.getValor());
 			pst.setInt(3, jogos.getIdFornecedor());
 			pst.execute();
-
+			pst.close();
+			
+			String sql1 = "SELECT MAX(ID_JOGOS) as ID_JOGOS FROM JOGOS";
+			pst = conn.prepareStatement(sql1);
+			rs = pst.executeQuery();
+			while(rs.next()){
+				id = rs.getInt("ID_JOGOS");
+			}
 			pst.close();
 
 			desconectaBanco();
-			return true;
+			return id;
 
 		} catch (Exception e) {
-			return false;
+			return id;
 		}
 
 	}
@@ -73,23 +80,24 @@ public class DaoJogos extends ConnectionDAO {
 	public Jogos procurarId(int id_jogos) throws Exception {
 		String sql = "SELECT * FROM JOGOS WHERE ID_JOGOS = ?";
 
+		Jogos jogos = new Jogos();
+
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, id_jogos);
 			rs = pst.executeQuery();
+			while (rs.next()) {
+				
+				jogos.setNome(rs.getString("NOME"));
+				jogos.setQuantidade(rs.getInt("QUANTIDADE"));
+				jogos.setValor(rs.getFloat("VALOR"));
+				jogos.setIdFornecedor(rs.getInt("ID_FORNECEDOR"));
+			}
+			pst.close();
+			desconectaBanco();
 		} catch (Exception e) {
 		}
-		Jogos jogos = new Jogos();
-		while (rs.next()) {
-
-			jogos.setNome(rs.getString("NOME"));
-			jogos.setQuantidade(rs.getInt("QUANTIDADE"));
-			jogos.setValor(rs.getFloat("VALOR"));
-			jogos.setIdFornecedor(rs.getInt("ID_FORNECEDOR"));
-		}
-		pst.close();
-		desconectaBanco();
 
 		return jogos;
 	}

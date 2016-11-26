@@ -6,9 +6,11 @@ import java.util.List;
 import Entity.Produto;
 
 public class DaoProduto extends ConnectionDAO {
-	public boolean salvar(Produto produto) {
+	public int salvar(Produto produto) {
 
 		String sql = "INSERT INTO PRODUTOS(NOME, QUANTIDADE,VALOR,ID_FORNECEDOR,ATIVO) VALUES(?,?,?,?,1)";
+		String sql1 = "SELECT MAX(ID_PRODUTO) AS ID_PRODUTO FROM PRODUTOS";
+		int id = 0;
 
 		try {
 			conectaBanco();
@@ -19,12 +21,19 @@ public class DaoProduto extends ConnectionDAO {
 			pst.setInt(4, produto.getIdFornecedor());
 			pst.execute();
 			pst.close();
+			
+			pst = conn.prepareStatement(sql1);
+			rs = pst.executeQuery();
+			
+			while(rs.next()){
+				id = rs.getInt("ID_PRODUTO");
+			}
 
 			desconectaBanco();
-			return true;
+			return id;
 
 		} catch (Exception e) {
-			return false;
+			return id;
 		}
 
 	}

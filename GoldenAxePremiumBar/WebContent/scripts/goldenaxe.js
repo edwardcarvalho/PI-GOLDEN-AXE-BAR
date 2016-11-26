@@ -20,6 +20,7 @@ function getDate() {
 function clearForm(idForm) {
 	$('#' + idForm).find('input').val('');
 	$('#' + idForm).find('select').val('');
+	$('#cnpj').attr('readonly', false);
 }
 
 function clearAlteracaoCliente() {
@@ -941,7 +942,7 @@ function salvarItemEstoque(){
 	var idFornecedor = $('#idFornecedor').val();
 	var nome = $('#nome').val();
 	var quantidade = $('#quantidade').val();
-	var valor = $('#valor').val();
+	var valor = $('#valor').val().replace(',','.');
 	
 	$.ajax({
 		url: 'Cadastro',
@@ -950,6 +951,8 @@ function salvarItemEstoque(){
 		success: function(data){
 			if(data == "true" || data == true){
 				alert("Cadastrado com sucesso!");
+				clearForm('cadastrarProduto');
+				$('#cnpj').attr('readonly', false);
 			}else{
 				alert("Erro no cadastro!");
 			}
