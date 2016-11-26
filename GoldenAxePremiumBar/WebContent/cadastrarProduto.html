@@ -77,14 +77,19 @@
 	<div class="alert alert-info"><h2>Cadastrar Produto</h2></div>
 	<div id="cadastrarProduto">
 		<b><p>Tipo:</p>
-		<select id="Tipo">
-		  <option value="1">Produto</option>
+		<select id="tipo">
+		  <option>...</option>
+		  <option value="1">Consumo</option>
 		  <option value="2">Jogo</option>
 		</select>
+		<p>Fornecedor:</p><input type="text" id="cnpj" onfocusout="buscarFornecedor()"></p>
+		<p><input type="hidden" id="idFornecedor" readonly='readonly'></p>
+		<p><input type="text" id="fornecedor" readonly='readonly'></p>
+		<p>Nome:</p><input type="text" id="nome">
 		<p>Quantidade:</p><input type="number" id="quantidade">
-		<p>Valor:</p><input type="number" id="valor"></b>
-		<p><button type="submit" class="btn btn-primary">Salvar</button>
-		<button type="button" class="btn">Cancelar</button></p></b>
+		<p>Valor:</p><input type="text" id="valor"></b>
+		<p><button type="submit" class="btn btn-primary" onclick="salvarItemEstoque()">Salvar</button>
+		<button type="button" class="btn" onclick="clearForm('cadastrarProduto')">Cancelar</button></p></b>
 	</div>
 
 <script src="scripts/jquery-3.1.1.min.js"></script>

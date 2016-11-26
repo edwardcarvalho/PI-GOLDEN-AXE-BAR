@@ -154,25 +154,26 @@ public class Cadastro extends HttpServlet {
 				}
 				break;
 
-			case "CadastroProduto":
+			case "CadastroItem":
 
 				try {
-					int tipo = Integer.parseInt("tipo");
-					String nomeCad = request.getParameter("nome");
+					float valor = Float.parseFloat(request.getParameter("valor"));
+					int tipo = Integer.parseInt(request.getParameter("tipo"));
+					int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
+					String nome1 = request.getParameter("nome");
 					int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-					float valor = (float) Float.parseFloat(request.getParameter("valor"));
 
-					if (tipo == 1) {
+					if (tipo == 2) {
 
-						Jogos jogos = new Jogos(nomeCad, quantidade, valor);
+						Jogos jogos = new Jogos(nome1, quantidade, valor, idFornecedor);
 
 						boolean ret = cadastrarJogos(jogos);
 
 						response.getWriter().print(ret);
 
-					} else if (tipo == 2) {
+					} else if (tipo == 1) {
 
-						Produto produto = new Produto(nomeCad, quantidade, valor);
+						Produto produto = new Produto(nome1, quantidade, valor, idFornecedor);
 
 						boolean ret = cadastrarProduto(produto);
 

@@ -77,7 +77,7 @@ public class DaoFornecedor extends ConnectionDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				fornecedor = new Fornecedor(rs.getString("CNPJ"), rs.getString("NOME"), rs.getString("TELEFONE"),
+				fornecedor = new Fornecedor(rs.getInt("ID_FORNECEDOR"),rs.getString("CNPJ"), rs.getString("NOME"), rs.getString("TELEFONE"),
 						rs.getString("EMAIL"));
 			}
 			pst.close();

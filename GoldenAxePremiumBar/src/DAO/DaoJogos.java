@@ -8,7 +8,7 @@ import Entity.Jogos;
 public class DaoJogos extends ConnectionDAO {
 	public boolean salvar(Jogos jogos) {
 
-		String sql = "INSERT INTO JOGOS(NOME, QUANTIDADE,VALOR) VALUES(?,?,?)";
+		String sql = "INSERT INTO JOGOS(NOME, QUANTIDADE,VALOR,ID_FORNECEDOR, ATIVO) VALUES(?,?,?,?,1)";
 
 		try {
 			conectaBanco();
@@ -16,6 +16,7 @@ public class DaoJogos extends ConnectionDAO {
 			pst.setString(1, jogos.getNome());
 			pst.setInt(2, jogos.getQuantidade());
 			pst.setFloat(3, jogos.getValor());
+			pst.setInt(3, jogos.getIdFornecedor());
 			pst.execute();
 
 			pst.close();

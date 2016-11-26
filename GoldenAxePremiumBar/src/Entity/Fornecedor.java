@@ -2,6 +2,7 @@ package Entity;
 
 public class Fornecedor {
 
+	private int id;
 	private String Cnpj;
 	private String Nome;
 	private String Telefone;
@@ -10,8 +11,16 @@ public class Fornecedor {
 
 	public Fornecedor() {
 	}
-
+	
 	public Fornecedor(String cnpj, String nome, String telefone, String email) {
+		this.Cnpj = cnpj;
+		this.Nome = nome;
+		this.Telefone = telefone;
+		this.Email = email;
+	}
+
+	public Fornecedor(int id, String cnpj, String nome, String telefone, String email) {
+		this.id = id;
 		this.Cnpj = cnpj;
 		this.Nome = nome;
 		this.Telefone = telefone;
@@ -48,6 +57,14 @@ public class Fornecedor {
 
 	public void setEmail(String email) {
 		Email = email;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

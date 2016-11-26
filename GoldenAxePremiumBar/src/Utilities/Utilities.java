@@ -84,7 +84,8 @@ public class Utilities {
 
 		String json = "";
 		json += "[{";
-		json += "\"fornecedor\" : " + "\"" + fornecedor.getNome() + "\"";
+		json += "\"id\" : " + "\"" + fornecedor.getId() + "\"";
+		json += ", \"fornecedor\" : " + "\"" + fornecedor.getNome() + "\"";
 		json += ", \"cnpj\" : " + "\"" + fornecedor.getCnpj() + "\"";
 		json += ", \"email\" : " + "\"" + fornecedor.getEmail() + "\"";
 		json += ", \"telefone\" : " + "\"" + fornecedor.getTelefone() + "\"";

@@ -291,6 +291,9 @@ function excluirFuncionario() {
 		success : function(data) {
 			if (data == "true") {
 				$('#cpf').attr('readonly', false);
+				$('#cpf').attr('readonly', false);
+				$('#cpf').attr('readonly', false);
+				$('#cpf').attr('readonly', false);
 				$('#alterarFuncionario').css("display", "none");
 				clearForm("alterarFuncionario,#cadastroFuncionario");
 				alert("Exclusão realizada com sucesso!");
@@ -304,26 +307,31 @@ function excluirFuncionario() {
 // funções de manipulação de fornecedors
 
 function buscarFornecedor() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'BuscarFornecedor',
-			'cnpj' : $('#cnpj').val(),
-		},
-		success : function(data) {
-			if (data != null && data != "") {
-				data = JSON.parse(data);
-				$('#cnpj').attr('readonly', true);
-				$('#alterarFornecedor').css("display", "");
-				$('#fornecedor').val(data[0].fornecedor);
-				$('#inputIcon').val(data[0].email);
-				$('#telefone').val(data[0].telefone);
-			} else {
-				alert("CNPJ não encontrado!");
+	var cnpj = $('#cnpj').val();
+	
+	if(cnpj.length > 17){
+		$.ajax({
+			url : 'Cadastro',
+			method : 'GET',
+			data : {
+				'menu' : 'BuscarFornecedor',
+				'cnpj' : cnpj,
+			},
+			success : function(data) {
+				if (data != null && data != "") {
+					data = JSON.parse(data);
+					$('#cnpj').attr('readonly', true);
+					$('#idFornecedor').val(data[0].id)
+					$('#alterarFornecedor').css("display", "");
+					$('#fornecedor').val(data[0].fornecedor);
+					$('#inputIcon').val(data[0].email);
+					$('#telefone').val(data[0].telefone);
+				} else {
+					alert("CNPJ não encontrado!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function cadastrarFornecedor() {
@@ -925,4 +933,26 @@ function salvarProdutosDaComanda() {
 		return listaDeProdutos;
 	}
 	return undefined;
+}
+
+function salvarItemEstoque(){
+	
+	var tipo = $('#tipo').val();
+	var idFornecedor = $('#idFornecedor').val();
+	var nome = $('#nome').val();
+	var quantidade = $('#quantidade').val();
+	var valor = $('#valor').val();
+	
+	$.ajax({
+		url: 'Cadastro',
+		data: {'menu': 'CadastroItem', 'tipo' : tipo,'idFornecedor':idFornecedor ,'quantidade': quantidade,'valor':valor,'nome': nome},
+		method: 'GET',
+		success: function(data){
+			if(data == "true" || data == true){
+				alert("Cadastrado com sucesso!");
+			}else{
+				alert("Erro no cadastro!");
+			}
+		}
+	});
 }

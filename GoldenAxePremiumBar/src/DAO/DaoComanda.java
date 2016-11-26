@@ -17,7 +17,7 @@ public class DaoComanda extends ConnectionDAO {
 			pst.setInt(1, comanda.getIdCliente());
 			pst.setInt(2, comanda.getIdServico());
 			pst.setInt(3, comanda.getIdJogo());
-			pst.setInt(4, comanda.getQuantidadeHoras());
+			pst.setString(4, comanda.getQuantidadeHoras());
 			pst.setString(5, comanda.getDataComanda());
 			pst.setInt(6, comanda.getIdFuncionario());
 			pst.execute();
@@ -106,7 +106,7 @@ public class DaoComanda extends ConnectionDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, comanda.getIdServico());
 			pst.setInt(2, comanda.getIdJogo());
-			pst.setInt(3, comanda.getQuantidadeHoras());
+			pst.setString(3, comanda.getQuantidadeHoras());
 			pst.setInt(4, comanda.getIdFuncionario());
 			pst.setInt(5, comanda.getIdCliente());
 			pst.execute();
@@ -182,7 +182,7 @@ public class DaoComanda extends ConnectionDAO {
 				comanda.setIdCliente(rs.getInt("ID_CLIENTE"));
 				comanda.setIdServico(rs.getInt("ID_SERVICO"));
 				comanda.setIdJogo(rs.getInt("ID_JOGO"));
-				comanda.setQuantidadeHoras(rs.getInt("QUANTIDADE_HORAS"));
+				comanda.setQuantidadeHoras(rs.getString("QUANTIDADE_HORAS"));
 				comanda.setDataComanda(rs.getString("DATA_COMANDA"));
 				comanda.setIdFuncionario(rs.getInt("ID_FUNCIONARIO"));
 				comanda.setNumeroMesa(rs.getInt("NUMERO_MESA"));
@@ -214,7 +214,7 @@ public class DaoComanda extends ConnectionDAO {
 				comanda.setIdCliente(rs.getInt("ID_CLIENTE"));
 				comanda.setIdServico(rs.getInt("ID_SERVICO"));
 				comanda.setIdJogo(rs.getInt("ID_JOGO"));
-				comanda.setQuantidadeHoras(rs.getInt("QUANTIDADE_HORAS"));
+				comanda.setQuantidadeHoras(rs.getString("QUANTIDADE_HORAS"));
 				comanda.setDataComanda(rs.getString("DATA_COMANDA"));
 				comanda.setIdFuncionario(rs.getInt("ID_FUNCIONARIO"));
 				comanda.setNumeroMesa(rs.getInt("NUMERO_MESA"));
@@ -245,7 +245,7 @@ public class DaoComanda extends ConnectionDAO {
 				comanda.setIdCliente(rs.getInt("ID_CLIENTE"));
 				comanda.setIdServico(rs.getInt("ID_SERVICO"));
 				comanda.setIdJogo(rs.getInt("ID_JOGO"));
-				comanda.setQuantidadeHoras(rs.getInt("QUANTIDADE_HORAS"));
+				comanda.setQuantidadeHoras(rs.getString("QUANTIDADE_HORAS"));
 				comanda.setDataComanda(rs.getString("DATA_COMANDA"));
 				comanda.setIdFuncionario(rs.getInt("ID_FUNCIONARIO"));
 				comanda.setNumeroMesa(rs.getInt("NUMERO_MESA"));

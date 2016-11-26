@@ -83,7 +83,7 @@ public class Comanda extends HttpServlet {
 					int idCliente = buscarIdClienteCpf(cpf);
 					int idServico = Integer.parseInt(request.getParameter("servico"));
 					int idJogo = Integer.parseInt(request.getParameter("jogo"));
-					int qtdHoras = Integer.parseInt(request.getParameter("horas"));
+					String qtdHoras = request.getParameter("horas");
 					int idFuncionario = 1;
 					String dataComanda = request.getParameter("data");
 					String produtos = request.getParameter("produtos") == null ? "vazio"
@@ -115,7 +115,7 @@ public class Comanda extends HttpServlet {
 					int idCliente = buscarIdClienteCpf(cpf);
 					int idServico = Integer.parseInt(request.getParameter("servico"));
 					int idJogo = Integer.parseInt(request.getParameter("jogo"));
-					int qtdHoras = Integer.parseInt(request.getParameter("horas"));
+					String qtdHoras = request.getParameter("horas");
 					int idFuncionario = 1;
 					String produtos = request.getParameter("produtos") == null ? "vazio"
 							: request.getParameter("produtos");
