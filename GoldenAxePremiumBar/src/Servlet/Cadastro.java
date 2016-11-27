@@ -162,33 +162,39 @@ public class Cadastro extends HttpServlet {
 					int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
 					String nome1 = request.getParameter("nome");
 					int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+					int idItem = Integer.parseInt(request.getParameter("idItem"));
+					boolean isChecked = Boolean.parseBoolean(request.getParameter("isChecked"));
+					if (isChecked) {
+						if (tipo == 2) {
 
-					if (tipo == 2) {
+							Jogos jogos = new Jogos(nome1, quantidade, valor, idFornecedor);
+							int idJogo = cadastrarJogos(jogos);
 
-						Jogos jogos = new Jogos(nome1, quantidade, valor, idFornecedor);
-						int idJogo = cadastrarJogos(jogos);
-						
-						if(idJogo != 0){
-							Estoque estoque = new Estoque(idFornecedor,0,idJogo,quantidade,valor,1);
-							boolean ret = adicionarItemEstoque(estoque);
-							response.getWriter().print(ret);
-						}else{
-							response.getWriter().print(false);
+							if (idJogo != 0) {
+								Estoque estoque = new Estoque(idFornecedor, 0, idJogo, quantidade, valor, 1);
+								boolean ret = adicionarItemEstoque(estoque);
+								response.getWriter().print(ret);
+							} else {
+								response.getWriter().print(false);
+							}
+
+						} else if (tipo == 1) {
+
+							Produto produto = new Produto(nome1, quantidade, valor, idFornecedor);
+							int idProduto = cadastrarProduto(produto);
+
+							if (idProduto != 0) {
+								Estoque estoque = new Estoque(idFornecedor, idProduto, 0, quantidade, valor, 1);
+								boolean ret = adicionarItemEstoque(estoque);
+								response.getWriter().print(ret);
+							} else {
+								response.getWriter().print(false);
+							}
 						}
-
-
-					} else if (tipo == 1) {
-
-						Produto produto = new Produto(nome1, quantidade, valor, idFornecedor);
-						int idProduto = cadastrarProduto(produto);
+					} else {
 						
-						if(idProduto != 0){
-							Estoque estoque = new Estoque(idFornecedor,idProduto,0,quantidade,valor,1);
-							boolean ret = adicionarItemEstoque(estoque);
-							response.getWriter().print(ret);
-						}else{
-							response.getWriter().print(false);
-						}
+						boolean ret = adicionarItemCadastradoEstoque(idItem, quantidade, valor, tipo);
+						response.getWriter().print(ret);
 					}
 
 				} catch (Exception e) {
@@ -342,10 +348,15 @@ public class Cadastro extends HttpServlet {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.buscarUsuario(idFuncionario);
 	}
-	
-	public boolean adicionarItemEstoque(Estoque estoque){
+
+	public boolean adicionarItemEstoque(Estoque estoque) {
 		DaoEstoque daoEstoque = new DaoEstoque();
 		return daoEstoque.salvar(estoque);
+	}
+
+	public boolean adicionarItemCadastradoEstoque(int idItem, int quantidade, float valor, int tipo) {
+		DaoEstoque daoEstoque = new DaoEstoque();
+		return daoEstoque.updateItemCadastrado(idItem, quantidade, valor, tipo);
 	}
 
 }

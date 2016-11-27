@@ -60,6 +60,19 @@ public class Comanda extends HttpServlet {
 					e.printStackTrace();
 				}
 				break;
+				
+			case "CarregarProdutos":
+				try {
+					List<Produto> lista = listarProdutos();
+					String serialize = gson.toJson(lista);
+					response.getWriter().print(serialize);
+
+				} catch (Exception e) {
+					System.out.println(e);
+					e.printStackTrace();
+				}
+				break;
+				
 
 			case "CarregarMesas":
 
@@ -300,6 +313,13 @@ public class Comanda extends HttpServlet {
 		DaoJogos cDAL = new DaoJogos();
 		return cDAL.mostrarTodos();
 	}
+	
+	public List<Produto> listarProdutos() throws Exception {
+
+		DaoProduto daoProduto = new DaoProduto();
+		return daoProduto.mostrarTodos();
+	}
+	
 
 	public List<Mesa> listarMesas() throws Exception {
 

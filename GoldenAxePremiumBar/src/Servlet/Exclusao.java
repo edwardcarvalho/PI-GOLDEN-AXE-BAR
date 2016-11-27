@@ -5,26 +5,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import DAO.DaoCliente;
 import DAO.DaoEstoque;
 import DAO.DaoFornecedor;
 import DAO.DaoFuncionario;
-import DAO.DaoJogos;
-import DAO.DaoProduto;
-import DAO.DaoServicos;
-import DAO.DaoUnidade;
 import DAO.DaoUsuarios;
-import Entity.Cliente;
-import Entity.Estoque;
-import Entity.Fornecedor;
-import Entity.Funcionario;
-import Entity.Jogos;
-import Entity.Produto;
-import Entity.Servico;
-import Entity.Unidade;
-import Entity.Usuario;
-import Utilities.Utilities;
 
 public class Exclusao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,7 +39,7 @@ public class Exclusao extends HttpServlet {
 					// TODO: handle exception
 				}
 				break;
-				
+
 			case "ExcluirFuncionario":
 				try {
 
@@ -68,7 +53,7 @@ public class Exclusao extends HttpServlet {
 					// TODO: handle exception
 				}
 				break;
-				
+
 			case "ExcluirFornecedor":
 				try {
 
@@ -79,6 +64,19 @@ public class Exclusao extends HttpServlet {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
+				break;
+
+			case "ExclusaoItemEstoque":
+				try {
+					int idItem = Integer.parseInt(request.getParameter("idItem"));
+					int tipo = Integer.parseInt(request.getParameter("tipo"));
+					boolean ret = excluirEntradaItem(idItem, tipo);
+					response.getWriter().print(ret);
+					
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				
 				break;
 			}
 		}
@@ -98,27 +96,32 @@ public class Exclusao extends HttpServlet {
 		DaoCliente cDAL = new DaoCliente();
 		return cDAL.deletar(id);
 	}
-	
+
 	public int buscarIdFuncionarioPorCpf(String cpf) throws Exception {
 
 		DaoFuncionario cDAL = new DaoFuncionario();
 		int ret = cDAL.buscarIdFuncionarioPorCPF(cpf);
 		return ret;
 	}
-	
-	public boolean excluirFuncionario (int idFuncionario){
+
+	public boolean excluirFuncionario(int idFuncionario) {
 		DaoFuncionario cDAL = new DaoFuncionario();
-		
+
 		return cDAL.deletar(idFuncionario);
 	}
-	
-	public boolean excluirUsuario (int idFuncionario){
+
+	public boolean excluirUsuario(int idFuncionario) {
 		DaoUsuarios cDAL = new DaoUsuarios();
 		return cDAL.deletar(idFuncionario);
 	}
-	
-	public boolean excluirFornecedor (String cpf){
+
+	public boolean excluirFornecedor(String cpf) {
 		DaoFornecedor cDAL = new DaoFornecedor();
 		return cDAL.deletar(cpf);
+	}
+	
+	public boolean excluirEntradaItem(int idItem, int tipo){
+		DaoEstoque daoEstoque = new DaoEstoque();
+		return daoEstoque.deletar(idItem, tipo);
 	}
 }

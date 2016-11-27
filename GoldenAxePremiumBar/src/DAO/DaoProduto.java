@@ -130,7 +130,7 @@ public class DaoProduto extends ConnectionDAO {
 
 	public List<Produto> mostrarTodos() throws Exception {
 		List<Produto> lista = new ArrayList<Produto>();
-		String sql = "SELECT * FROM PRODUTO";
+		String sql = "SELECT * FROM PRODUTOS WHERE ATIVO = 1";
 
 		try {
 			conectaBanco();
@@ -139,7 +139,8 @@ public class DaoProduto extends ConnectionDAO {
 
 			while (rs.next()) {
 				Produto produto = new Produto();
-
+				
+				produto.setId(rs.getInt("ID_PRODUTO"));
 				produto.setNome(rs.getString("NOME"));
 				produto.setQuantidade(rs.getInt("QUANTIDADE"));
 				produto.setValor(rs.getFloat("VALOR"));

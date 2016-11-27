@@ -130,7 +130,7 @@ public class DaoJogos extends ConnectionDAO {
 
 	public List<Jogos> mostrarTodos() throws Exception {
 		List<Jogos> lista = new ArrayList<Jogos>();
-		String sql = "SELECT * FROM JOGOS";
+		String sql = "SELECT * FROM JOGOS WHERE ATIVO = 1";
 
 		try {
 			conectaBanco();

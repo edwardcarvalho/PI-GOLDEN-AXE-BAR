@@ -474,6 +474,9 @@ function abrirComanda() {
 	clearComandaAdmin();
 	$('#buscarCliente, #addProduto').show();
 	$('#totalFechamento, #totalFechamentoTextBox').hide();
+	$('#tpServico, #jogos').attr('disabled',false);
+	$('#nome, #qtdHoras').attr('readonly',false);
+	$('H2').text('Abrir nova comanda');
 	
 	$.ajax({
 		url : 'Comanda',
@@ -499,6 +502,9 @@ function alterarComanda() {
 	$('#numComanda').val('').attr('readonly', false);
 	$('#buscarCliente').hide();
 	$('#cpf').attr('readonly', true);
+	$('H2').text('Alterar comanda');
+	$('#tpServico, #jogos').attr('disabled',false);
+	$('#nome, #qtdHoras').attr('readonly',false);
 }
 
 function buscarComandaCliente() {
@@ -549,15 +555,41 @@ function buscarComandaCliente() {
 function loadComboBoxJogos (){
 	$.ajax({ url : 'Comanda', method : 'GET', data : { 'menu' : 'CarregarJogos' }, 
 		success : function(data) {
-	
-		if (data != "" && data != undefined) {
-			data = JSON.parse(data);
-			for (var i = 0; i < data.length; i++) {
-				$('#jogos').append('<option value=' + data[i].id + '>' + data[i].jogo + '</option>');
-			}
+			if (data != "" && data != undefined) {
+				data = JSON.parse(data);
+				for (var i = 0; i < data.length; i++) {
+					$('#jogos').append('<option value=' + data[i].id + '>' + data[i].jogo + '</option>');
+				}
 			}
 		} 
 	});
+}
+
+function loadComboboxProdutos (){
+	$.ajax({ url : 'Comanda', method : 'GET', data : { 'menu' : 'CarregarProdutos' }, 
+		success : function(data) {
+			if (data != "" && data != undefined) {
+				data = JSON.parse(data);
+				for (var i = 0; i < data.length; i++) {
+					$('#produtos').append('<option value=' + data[i].id + '>' + data[i].Nome + '</option>');
+				}
+			}	
+		} 
+	});
+}
+
+function changeIdComboBox(){
+	var tipo = $('#tipo').val();
+	if(tipo == 2){
+		$('#cadastrarProduto select.change option').remove();
+		$('#cadastrarProduto select.change').attr('id','jogos');
+		loadComboBoxJogos();
+		
+	}else{
+		$('#cadastrarProduto select.change option').remove();
+		$('#cadastrarProduto select.change').attr('id','produtos');
+		loadComboboxProdutos();
+	}
 }
 
 //faz a renderização das mesas ao carregar a pagina.
@@ -726,12 +758,24 @@ $(document).ready(function() {
 	
 });
 
+//altera o input de descricao no campo de cadastro de produto para um combobox
+$('#novoProduto').on('click', function() {
+    var isCheck = $(this).is(':checked');
+    if(!isCheck){
+    	$('#nome').hide();
+    	$('#cadastrarProduto select.change').show();
+    }else{
+    	$('#nome').show();
+    	$('#cadastrarProduto select.change').hide();
+    }
+});
+
 //****************************************************************
 
 // **********/23/11/2016**************
 
 function btnOptionFecharComanda(){
-	
+	$('H2').text('Fechar comanda');
 	clearComandaAdmin();
 	$('#alterarForm, #salvarForm, #addProduto').css('display', 'none');
 	$('#abrirComanda, #comandaAdmin, #btnInferiorComanda, #encerrarForm, #totalFechamento, #totalFechamentoTextBox').css('display', '');
@@ -739,12 +783,12 @@ function btnOptionFecharComanda(){
 	$('#numComanda').val('').attr('readonly', false);
 	$('#buscarCliente').hide();
 	$('#cpf').attr('readonly', true);
-	$('#qtdHoras').attr('readonly', true);
-	$('#tpServico').attr('disabled', true);
-	$('#jogos').attr('disabled', true);
+	$('#tpServico, #jogos').attr('disabled',true);
+	$('#nome, #qtdHoras').attr('readonly',true);
 }
 
 function fecharComanda(){
+	
 	
 	$.ajax({
 		url : 'Comanda',
@@ -938,15 +982,21 @@ function salvarProdutosDaComanda() {
 
 function salvarItemEstoque(){
 	
+	var isChecked = $('#novoProduto').is(':checked');
 	var tipo = $('#tipo').val();
 	var idFornecedor = $('#idFornecedor').val();
-	var nome = $('#nome').val();
+	var nome;
+	if(isChecked)
+		nome = $('#nome').val();
+	else
+		nome = $('select.change option:selected').text();
 	var quantidade = $('#quantidade').val();
 	var valor = $('#valor').val().replace(',','.');
+	var idItem = $('select.change option:selected').val();
 	
 	$.ajax({
 		url: 'Cadastro',
-		data: {'menu': 'CadastroItem', 'tipo' : tipo,'idFornecedor':idFornecedor ,'quantidade': quantidade,'valor':valor,'nome': nome},
+		data: {'menu': 'CadastroItem','idItem':idItem, 'isChecked': isChecked, 'tipo' : tipo,'idFornecedor':idFornecedor ,'quantidade': quantidade,'valor':valor,'nome': nome},
 		method: 'GET',
 		success: function(data){
 			if(data == "true" || data == true){
@@ -955,6 +1005,25 @@ function salvarItemEstoque(){
 				$('#cnpj').attr('readonly', false);
 			}else{
 				alert("Erro no cadastro!");
+			}
+		}
+	});
+}
+
+function excluirProdutoEstoque(){
+	var tipo = $('#tipo').val();
+	var idItem = $('select.change option:selected').val();
+	
+	$.ajax({
+		url: 'Exclusao',
+		data: {'menu': 'ExclusaoItemEstoque','idItem':idItem, 'tipo': tipo},
+		method: 'GET',
+		success: function(data){
+			if(data == "true" || data == true){
+				alert("Excluido com sucesso!");
+				clearForm('cadastrarProduto');
+			}else{
+				alert("Erro na exclusão!");
 			}
 		}
 	});

@@ -56,10 +56,10 @@
 			  <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Estoque<b class="caret"></b></a>
 				   <ul id="estoqueDrop" class="dropdown-menu">
-				   	<li><a href="cadastrarProduto.html">Cadastrar Produto</a></li>
-				    <li><a href="estoqueIncluir.html">Inserir</a></li>
-				  	<li><a href="estoqueAlterar.html">Alterar</a></li>
-				  	<li><a href="estoqueExcluir.html">Excluir</a></li>
+				   	<li><a href="cadastrarProduto.html">Entrada de Produto</a></li>
+<!-- 				    <li><a href="estoqueIncluir.html">Inserir</a></li> -->
+<!-- 				  	<li><a href="estoqueAlterar.html">Alterar</a></li> -->
+				  	<li><a href="estoqueExcluir.html">Excluir Produto</a></li>
 				   </ul>
 			  </li>
 			  <li>
@@ -74,10 +74,11 @@
 	  </div>
 	</div>
 	
-	<div class="alert alert-info"><h2>Cadastrar Produto</h2></div>
+	<div class="alert alert-info"><h2>Entrada de Produtos</h2></div>
 	<div id="cadastrarProduto">
+	<p><input type="checkbox" id="novoProduto" name="novoProduto" value="Novo" checked><label for="novoProduto"> Novo</label></p>
 		<b><p>Tipo:</p>
-		<select id="tipo">
+		<select id="tipo" onchange="changeIdComboBox()">
 		  <option>...</option>
 		  <option value="1">Consumo</option>
 		  <option value="2">Jogo</option>
@@ -85,7 +86,10 @@
 		<p>Fornecedor:</p><input type="text" id="cnpj" onfocusout="buscarFornecedor()"></p>
 		<p><input type="hidden" id="idFornecedor" readonly='readonly'></p>
 		<p><input type="text" id="fornecedor" readonly='readonly'></p>
-		<p>Nome:</p><input type="text" id="nome">
+		<p>Descrição:</p><input type="text" id="nome">
+		<select class="change" style="display:none">
+		  <option>...</option>
+		</select>
 		<p>Quantidade:</p><input type="number" id="quantidade">
 		<p>Valor:</p><input type="text" id="valor"></b>
 		<p><button type="submit" class="btn btn-primary" onclick="salvarItemEstoque()">Salvar</button>
