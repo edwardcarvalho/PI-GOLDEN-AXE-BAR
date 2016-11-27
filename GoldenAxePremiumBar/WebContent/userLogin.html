@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>GoldenAxe Bar e Luderia</title>
 <link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.min.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
-
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <link rel="stylesheet" type="text/css" href="styles/login.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+function delete_cookie( name, path, domain ) {
+	  if( get_cookie( name ) ) {
+	    document.cookie = name + "=" +
+	      ((path) ? ";path="+path:"")+
+	      ((domain)?";domain="+domain:"") +
+	      ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	  }
+	}
+	
+var cookie = document.cookie.split(=)[0]
+
+</script>
+
 </head>
 <body>
 	<div class="container">
     <div class="row">
       <div class="col-sm-6 col-md-4 col-md-offset-4">
-        <h1 class="text-center login-title">Bim vindo a GoldenAxe Bar & Luderia</h1>
+        <h1 class="text-center login-title">Bem vindo a GoldenAxe Bar & Luderia</h1>
         <div class="account-wall">
-          <img class="profile-img"
-            src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-            alt="">
+          <img class="profile-img"  src="img/userLoginimg.jpg"  alt="">
           <form class="form-signin">
-            <input type="text" class="form-control" placeholder="Nome de usuário"
-              required autofocus> <input type="password"
-              class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-              Sign in</button>
-            <label class="checkbox pull-left"> <input type="checkbox"
-              value="remember-me"> Lembrar...
-            </label>
+            <input id="user" type="text" class="form-control" placeholder="Nome de usuÃ¡rio" required autofocus> 
+            <input id="psw" type="password" class="form-control" placeholder="Password" required>
+            <input id="btnEntrar" type="button" class="btn btn-lg btn-primary btn-block" onclick="loginUsuario()" value="Entrar">
           </form>
         </div>
       </div>
     </div>
   </div>
 
-<script src="scripts/jquery-3.1.1.min.js"></script>
 	<script src="scripts/jquery.maskedinput.min.js"></script>
 	<script src="scripts/goldenaxe.js"></script>
 	<script src="scripts/bootstrap.js"></script>

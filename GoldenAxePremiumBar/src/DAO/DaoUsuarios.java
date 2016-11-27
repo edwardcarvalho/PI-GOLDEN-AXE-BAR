@@ -93,6 +93,29 @@ public class DaoUsuarios extends ConnectionDAO {
 
 		return usuario;
 	}
+	
+	public Usuario checarUsuario(String user, String psw) {
+		String sql = "SELECT * FROM USUARIO WHERE usuario = ? and senha = ? AND ATIVO = 1";
+		Usuario usuario = null;
+		try {
+			conectaBanco();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, user);
+			pst.setString(2, psw);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				usuario = new Usuario(rs.getString("USUARIO"), rs.getString("SENHA"), rs.getInt("ID_FUNCIONARIO"));
+			}
+			pst.close();
+			desconectaBanco();
+
+		} catch (Exception e) {
+
+		}
+
+		return usuario;
+	}
 
 	public List<Usuario> mostrarTodos() throws Exception {
 		List<Usuario> lista = new ArrayList<Usuario>();

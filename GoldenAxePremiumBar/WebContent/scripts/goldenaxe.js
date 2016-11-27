@@ -1028,3 +1028,23 @@ function excluirProdutoEstoque(){
 		}
 	});
 }
+
+function loginUsuario(){
+	var user = $('#user').val();
+	var psw = $('#psw').val();
+	
+	$.ajax({
+		url: 'UserLogin',
+		method: 'post',
+		data: {'user': user, 'psw': psw},
+		success: function(data){
+			if(data == "false" || data == false){
+				alert("Nome de usuário ou senha inválidos!");
+			}else{
+				var localhost = window.location.origin;
+				window.location.replace("/GoldenAxePremiumBar/index.html");
+			}
+		}
+	});
+}
+

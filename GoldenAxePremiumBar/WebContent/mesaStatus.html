@@ -9,6 +9,28 @@
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/goldenaxe.css">
 <script src="scripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
+
+var userAuthenticated = getCookie("usuarioAutenticado");
+
+if(userAuthenticated == ""){
+	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/acessonegado.html");
+}
+</script>
 </head>
 <body id="pageMesas">
 <!-- menu navegação superior-->
@@ -66,7 +88,7 @@
 			  	<div id="usuarioLogado" class="btn-group">
 			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
 			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>
-				  <ul class="dropdown-menu"><li><a href="logoutUsuario.html"><i class="icon-off"></i> Sair</a></li></ul>
+				  <ul class="dropdown-menu"><li><a href="userLogin.html"><i class="icon-off"></i> Sair</a></li></ul>
 				</div>
 				</li>
 			</ul>
