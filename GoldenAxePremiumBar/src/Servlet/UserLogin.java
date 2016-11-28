@@ -25,12 +25,13 @@ public class UserLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String user = request.getParameter("user");
+		String user = request.getParameter("user").toLowerCase();
 		String psw = request.getParameter("psw");
 		Usuario usuario = checkUser(user, psw);
 
 		if (usuario != null) {
 			addCookie(response, "usuarioAutenticado", user, -1);
+			addCookie(response, "grupoUsuario", Integer.toString(usuario.getIdGrupoFuncionario()), -1);
 			response.getWriter().print(true);
 		} else {
 			response.getWriter().print(false);

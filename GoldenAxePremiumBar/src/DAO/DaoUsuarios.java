@@ -95,7 +95,7 @@ public class DaoUsuarios extends ConnectionDAO {
 	}
 	
 	public Usuario checarUsuario(String user, String psw) {
-		String sql = "SELECT * FROM USUARIO WHERE usuario = ? and senha = ? AND ATIVO = 1";
+		String sql = "SELECT U.USUARIO, U.SENHA, U.ID_FUNCIONARIO, F.GRUPO FROM USUARIOS AS U INNER JOIN FUNCIONARIO F ON U.ID_FUNCIONARIO = F.ID_FUNCIONARIO WHERE U.USUARIO = ? AND U.SENHA = ? AND U.ATIVO = 1";
 		Usuario usuario = null;
 		try {
 			conectaBanco();
@@ -105,13 +105,13 @@ public class DaoUsuarios extends ConnectionDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				usuario = new Usuario(rs.getString("USUARIO"), rs.getString("SENHA"), rs.getInt("ID_FUNCIONARIO"));
+				usuario = new Usuario(rs.getString("USUARIO"), rs.getString("SENHA"), rs.getInt("ID_FUNCIONARIO"), rs.getInt("GRUPO"));
 			}
 			pst.close();
 			desconectaBanco();
 
 		} catch (Exception e) {
-
+			System.out.println(e);
 		}
 
 		return usuario;

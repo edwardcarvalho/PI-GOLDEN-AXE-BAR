@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>GoldenAxe Bar e Luderia</title>
 <link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap-responsive.min.css">
@@ -26,14 +26,17 @@ function getCookie(cname) {
 }
 
 var userAuthenticated = getCookie("usuarioAutenticado");
+var userGroup = getCookie("grupoUsuario");
 
 if(userAuthenticated == ""){
-	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/acessonegado.html");
+	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/sessaoexpirada.html");
+}else if( userGroup == 1){
+	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/accessdenied.html");
 }
 </script>
 </head>
 <body>
-<!-- menu navegação superior-->
+<!-- menu navegaÃ§Ã£o superior-->
 	<div class="navbar">
 	  <div class="navbar-inner">
 	    <a class="brand" href="index.html">Golden Axe Bar</a>
@@ -96,7 +99,7 @@ if(userAuthenticated == ""){
 	  </div>
 	</div>
 	
-	<div class="alert alert-info"><h2>Alterar Dados do Funcionário</h2></div>
+	<div class="alert alert-info"><h2>Alterar Dados do FuncionÃ¡rio</h2></div>
 	<div id="cadastroFuncionario">
 		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
 		<p><button id="buscarFunc" type="submit" class="btn btn-primary" onclick="buscarFuncionario()">Buscar</button></p>
@@ -112,7 +115,7 @@ if(userAuthenticated == ""){
 		<p>Grupo:</p>
 		<select id="grupo">
 			<option value="1">Atendimento</option>
-			<option value="2">Gerência</option>
+			<option value="2">GerÃªncia</option>
 		</select>
 		<p>Unidade:</p>
 		<select id="unidade">

@@ -30,7 +30,7 @@ var userGroup = getCookie("grupoUsuario");
 
 if(userAuthenticated == ""){
 	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/sessaoexpirada.html");
-}else if( userGroup == 1){
+}else if( userGroup == 2){
 	window.location.href = (window.location.origin + "/GoldenAxePremiumBar/accessdenied.html");
 }
 </script>
@@ -41,52 +41,19 @@ if(userAuthenticated == ""){
 	  <div class="navbar-inner">
 	    <a class="brand" href="index.html">Golden Axe Bar</a>
 	      <ul class="nav">
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Cliente<b class="caret"></b></a>
-				   <ul id="clienteDrop" class="dropdown-menu">
-				    <li><a href="clienteCadastro.html">Novo</a></li>
-				  	<li><a href="clienteAlterar.html">Alterar</a></li>
-				  	<li><a href="clienteExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Funcionario<b class="caret"></b></a>
-				   <ul id="funcionarioDrop" class="dropdown-menu">
-				    <li><a href="funcionarioCadastro.html">Novo</a></li>
-				  	<li><a href="funcionarioAlterar.html">Alterar</a></li>
-				  	<li><a href="funcionarioExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Fornecedor<b class="caret"></b></a>
-				   <ul id="fornecedorDrop" class="dropdown-menu">
-				    <li><a href="fornecedorCadastro.html">Novo</a></li>
-				  	<li><a href="fornecedorAlterar.html">Alterar</a></li>
-				  	<li><a href="fornecedorExcluir.html">Excluir</a></li>
-				   </ul>
-			  </li>
-			  <li class="dropdown">
+			   <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Comanda<b class="caret"></b></a>
 				   <ul id="comandaDrop" class="dropdown-menu">
-				    <li><a href="comandaAdmin.html">Admin Comanda</a></li>
+				    <li><a href="comandaAdminService.html">Admin Comanda</a></li>
 				   </ul>
 			  </li>
 			  <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Mesas<b class="caret"></b></a>
 				   <ul id="mesaDrop" class="dropdown-menu">
-				    <li><a href="mesaStatus.html">Status</a></li>
+				    <li><a href="mesaStatusService.html">Status</a></li>
 				   </ul>
 			  </li>
-			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Estoque<b class="caret"></b></a>
-				   <ul id="estoqueDrop" class="dropdown-menu">
-				   	<li><a href="cadastrarProduto.html">Entrada de Produto</a></li>
-<!-- 				    <li><a href="estoqueIncluir.html">Inserir</a></li> -->
-<!-- 				  	<li><a href="estoqueAlterar.html">Alterar</a></li> -->
-				  	<li><a href="estoqueExcluir.html">Excluir Produto</a></li>
-				   </ul>
-			  </li>
-			  <li>
+			   <li>
 			  	<div id="usuarioLogado" class="btn-group">
 			 	 <a class="btn btn-primary" href="userLogin.html"><i class="icon-user icon-white"></i> Usuario</a>
 			  	 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="userLogin.html"><span class="caret"></span></a>

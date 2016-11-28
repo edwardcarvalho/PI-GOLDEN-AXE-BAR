@@ -1029,6 +1029,21 @@ function excluirProdutoEstoque(){
 	});
 }
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
+
 function loginUsuario(){
 	var user = $('#user').val();
 	var psw = $('#psw').val();
@@ -1042,7 +1057,12 @@ function loginUsuario(){
 				alert("Nome de usuário ou senha inválidos!");
 			}else{
 				var localhost = window.location.origin;
-				window.location.replace("/GoldenAxePremiumBar/index.html");
+				var userCookieGroup = getCookie('grupoUsuario');
+				if(userCookieGroup == 2){
+					window.location.replace("/GoldenAxePremiumBar/index.html");
+				}else{
+					window.location.replace("/GoldenAxePremiumBar/comandaAdminService.html");
+				}
 			}
 		}
 	});
