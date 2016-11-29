@@ -10,7 +10,7 @@ public class DaoUsuarios extends ConnectionDAO {
 
 	public boolean salvar(Usuario usuarios) {
 
-		String sql = "INSERT INTO USUARIO(ID_FUNCIONARIO, USUARIO, SENHA, ATIVO) VALUES(?,?,?,1)";
+		String sql = "INSERT INTO USUARIOS(ID_FUNCIONARIO, USUARIO, SENHA, ATIVO) VALUES(?,?,?,1)";
 
 		try {
 			conectaBanco();
@@ -34,7 +34,7 @@ public class DaoUsuarios extends ConnectionDAO {
 
 	public boolean alterar(Usuario usuarios) {
 
-		String sql = "UPDATE USUARIO SET USUARIO = ?, SENHA = ? WHERE ID_FUNCIONARIO = ?";
+		String sql = "UPDATE USUARIOS SET USUARIO = ?, SENHA = ? WHERE ID_FUNCIONARIO = ?";
 
 		try {
 			conectaBanco();
@@ -56,7 +56,7 @@ public class DaoUsuarios extends ConnectionDAO {
 	}
 
 	public boolean deletar(int id_Usuario) {
-		String sql = "UPDATE USUARIO SET ATIVO = 0 WHERE ID_FUNCIONARIO = ?";
+		String sql = "UPDATE USUARIOS SET ATIVO = 0 WHERE ID_FUNCIONARIO = ?";
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
@@ -73,7 +73,7 @@ public class DaoUsuarios extends ConnectionDAO {
 	}
 
 	public Usuario buscarUsuario(int id_funcionario) {
-		String sql = "SELECT * FROM USUARIO WHERE ID_FUNCIONARIO = ? AND ATIVO = 1";
+		String sql = "SELECT * FROM USUARIOS WHERE ID_FUNCIONARIO = ? AND ATIVO = 1";
 		Usuario usuario = null;
 		try {
 			conectaBanco();
@@ -119,7 +119,7 @@ public class DaoUsuarios extends ConnectionDAO {
 
 	public List<Usuario> mostrarTodos() throws Exception {
 		List<Usuario> lista = new ArrayList<Usuario>();
-		String sql = "SELECT * FROM USUARIO";
+		String sql = "SELECT * FROM USUARIOS";
 
 		try {
 			conectaBanco();

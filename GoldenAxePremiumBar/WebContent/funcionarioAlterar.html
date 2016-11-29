@@ -101,11 +101,11 @@ if(userAuthenticated == ""){
 	
 	<div class="alert alert-info"><h2>Alterar Dados do Funcionário</h2></div>
 	<div id="cadastroFuncionario">
-		<p>CPF:</p><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
+		<b><p>CPF:</p></b><input type="text" placeholder="xxx.xxx.xxx-xx" id="cpf">
 		<p><button id="buscarFunc" type="submit" class="btn btn-primary" onclick="buscarFuncionario()">Buscar</button></p>
 	</div>
 	<div id="alterarFuncionario" style="display:none">
-		<p>Nome:</p>
+		<b><p>Nome:</p>
 		<input type="text" placeholder="Fulano da Silva" id="nome">
 		<p>Sexo:</p>
 		<select id="sexo">
@@ -129,7 +129,7 @@ if(userAuthenticated == ""){
 		<p>Nova Senha:</p>
 		<input type="password" placeholder="*******" id="newPassword">
 		<p>Confirmar Nova Senha:</p>
-		<input type="password" placeholder="*******" id="newPasswordConfirmation">
+		<input type="password" placeholder="*******" id="newPasswordConfirmation"></b>
 		<p>
 			<button type="submit" class="btn btn-primary" onclick="alterarFuncionario()">Salvar</button>
 			<button type="button" class="btn" onclick="clearAlteracaoFuncionario()">Cancelar</button>
@@ -139,6 +139,7 @@ if(userAuthenticated == ""){
 <script src="scripts/jquery-3.1.1.min.js"></script>
 <script src="scripts/jquery.maskedinput.min.js"></script>
 	<script src="scripts/goldenaxe.js"></script>
+	<script src="scripts/bootbox.min.js"></script>
 	<script src="scripts/bootstrap.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
 	<script src="scripts/affix.js"></script>

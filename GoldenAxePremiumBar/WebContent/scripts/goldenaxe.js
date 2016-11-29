@@ -16,6 +16,22 @@ function getDate() {
 
 }
 
+function validateInputsAndSelectOption(){
+	var fields = $('input:visible, select:visible');
+	var check = false;
+	$(fields).each(function (index, field){
+		var item = $(field).val();
+		if(item == ""){
+			bootbox.alert("Preencher todos os campos!");
+			check = false;
+			return false;
+		}else{
+			check = true;
+		}
+	});
+	return check;
+}
+
 // funções de limpeza de tela
 function clearForm(idForm) {
 	$('#' + idForm).find('input').val('');
@@ -73,400 +89,448 @@ function clearMesaStatus(){
 // funções de manipulação do cliente
 
 function cadastrarCliente() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'CadastroCliente',
-			'nome' : $('#nome').val(),
-			'cpf' : $('#cpf').val(),
-			'email' : $('#inputIcon').val(),
-			'telefone' : $('#telefone').val(),
-			'dataNascimento' : $('#dataNascimento').val(),
-			'sexo' : $('#sexo').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				alert("Cadastrado com sucesso!");
-				clearForm("cadastroCliente");
-			} else {
-				alert("Erro no cadastro!");
-
+	
+	var check = validateInputsAndSelectOption();
+	
+	if(check){
+		$.ajax({
+			url : 'Cadastro',
+			method : 'GET',
+			data : {
+				'menu' : 'CadastroCliente',
+				'nome' : $('#nome').val(),
+				'cpf' : $('#cpf').val(),
+				'email' : $('#inputIcon').val(),
+				'telefone' : $('#telefone').val(),
+				'dataNascimento' : $('#dataNascimento').val(),
+				'sexo' : $('#sexo').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					bootbox.alert("Cadastrado com sucesso!");
+					clearForm("cadastroCliente");
+				} else {
+					bootbox.alert("Erro no cadastro!");
+					
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function alterarCliente() {
-	$.ajax({
-		url : 'Alteracao',
-		method : 'GET',
-		data : {
-			'menu' : 'AlterarCliente',
-			'nome' : $('#nome').val(),
-			'cpf' : $('#cpf').val(),
-			'email' : $('#inputIcon').val(),
-			'telefone' : $('#telefone').val(),
-			'dataNascimento' : $('#dataNascimento').val(),
-			'sexo' : $('#sexo').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				$('#cpf').attr('readonly', false);
-				$('#alterarCliente').css("display", "none");
-				clearForm("alterarCliente,#cadastroCliente");
-				alert("Alteração realizada com sucesso!");
-			} else {
-				alert("Erro no processamento da alteração!");
+	
+	var check = validateInputsAndSelectOption();
+	
+	if(check){
+		$.ajax({
+			url : 'Alteracao',
+			method : 'GET',
+			data : {
+				'menu' : 'AlterarCliente',
+				'nome' : $('#nome').val(),
+				'cpf' : $('#cpf').val(),
+				'email' : $('#inputIcon').val(),
+				'telefone' : $('#telefone').val(),
+				'dataNascimento' : $('#dataNascimento').val(),
+				'sexo' : $('#sexo').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$('#cpf').attr('readonly', false);
+					$('#alterarCliente').css("display", "none");
+					clearForm("alterarCliente,#cadastroCliente");
+					bootbox.alert("Alteração realizada com sucesso!");
+				} else {
+					bootbox.alert("Erro no processamento da alteração!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function excluirCliente() {
-	$.ajax({
-		url : 'Exclusao',
-		method : 'GET',
-		data : {
-			'menu' : 'ExcluirCliente',
-			'cpf' : $('#cpf').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				$('#cpf').attr('readonly', false);
-				$('#alterarCliente').css("display", "none");
-				clearForm("alterarCliente,#cadastroCliente");
-				alert("Exclusão realizada com sucesso!");
-			} else {
-				alert("Erro no processamento da exclusão!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		$.ajax({
+			url : 'Exclusao',
+			method : 'GET',
+			data : {
+				'menu' : 'ExcluirCliente',
+				'cpf' : $('#cpf').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$('#cpf').attr('readonly', false);
+					$('#alterarCliente').css("display", "none");
+					clearForm("alterarCliente,#cadastroCliente");
+					bootbox.alert("Exclusão realizada com sucesso!");
+				} else {
+					bootbox.alert("Erro no processamento da exclusão!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function buscarCliente() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'BuscarCliente',
-			'cpf' : $('#cpf').val(),
-		},
-		success : function(data) {
-			if (data != null && data != "") {
-				data = JSON.parse(data);
-				$('#cpf').attr('readonly', true);
-				$('#alterarCliente').css("display", "");
-				$('#nome').val(data[0].nome);
-				$('#inputIcon').val(data[0].email);
-				$('#telefone').val(data[0].telefone);
-				$('#dataNascimento').val(data[0].dataNascimento);
-				$('#sexo option').eq(data[0].sexo).prop('selected', true);
-			} else {
-				alert("CPF não encontrado!");
-
+	var cpf = $('#cpf').val();
+	if(cpf != ""){
+		$.ajax({
+			url : 'Cadastro',
+			method : 'GET',
+			data : {
+				'menu' : 'BuscarCliente',
+				'cpf' : cpf,
+			},
+			success : function(data) {
+				if (data != null && data != "") {
+					data = JSON.parse(data);
+					$('#cpf').attr('readonly', true);
+					$('#alterarCliente').css("display", "");
+					$('#nome').val(data[0].nome);
+					$('#inputIcon').val(data[0].email);
+					$('#telefone').val(data[0].telefone);
+					$('#dataNascimento').val(data[0].dataNascimento);
+					$('#sexo option').eq(data[0].sexo).prop('selected', true);
+				} else {
+					bootbox.alert("CPF não encontrado!");
+					
+				}
 			}
-		}
-	});
+		});
+	}else{
+		bootbox.alert("Preencher todos os campos!");
+	}
 }
 
 // funções de manipulação do funcionario
 
 function buscarFuncionario() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'POST',
-		data : {
-			'menu' : 'BuscarFuncionario',
-			'cpf' : $('#cpf').val(),
-		},
-		success : function(data) {
-			if (data != null && data != "") {
-				data = JSON.parse(data);
-
-				$('#cpf').attr('readonly', true);
-				$('#alterarFuncionario').css("display", "");
-				$('#nome').val(data[0].nome);
-				$('#sexo option').eq(data[0].sexo).prop('selected', true);
-				$('#grupo option').val(data[0].grupo).prop('selected', true);
-				$('#unidade').val(data[0].unidade).prop('selected', true);
-				$('#usuario').val(data[0].usuario);
-				psw = data[0].senha;
-			} else {
-				alert("CPF não encontrado!");
-			}
-		}
-	});
-}
-
-function cadastrarFuncionario() {
-	var pwd = $('#password').val();
-	var pwdc = $('#passwordConfirmation').val();
-
-	if (pwd == pwdc) {
-
+	var check = validateInputsAndSelectOption();
+	if(check){
 		$.ajax({
 			url : 'Cadastro',
 			method : 'POST',
 			data : {
-				'menu' : 'CadastroFuncionario',
-				'nome' : $('#nome').val(),
+				'menu' : 'BuscarFuncionario',
 				'cpf' : $('#cpf').val(),
-				'sexo' : $('#sexo').val(),
-				'grupo' : $('#grupo').val(),
-				'unidade' : $('#unidade').val(),
-				'usuario' : $('#usuario').val(),
-				'pswd' : $('#password').val()
 			},
 			success : function(data) {
-				if (data == "true") {
-					alert("Cadastrado com sucesso!");
-					clearForm("cadastroFuncionario");
+				if (data != null && data != "") {
+					data = JSON.parse(data);
+					
+					$('#cpf').attr('readonly', true);
+					$('#alterarFuncionario').css("display", "");
+					$('#nome').val(data[0].nome);
+					$('#sexo option').eq(data[0].sexo).prop('selected', true);
+					$('#grupo option').val(data[0].grupo).prop('selected', true);
+					$('#unidade').val(data[0].unidade).prop('selected', true);
+					$('#usuario').val(data[0].usuario);
+					psw = data[0].senha;
 				} else {
-					alert("Erro no cadastro!");
+					bootbox.alert("CPF não encontrado!");
 				}
 			}
 		});
-	} else {
-		alert("Senha e confirmação de senha diferentes. Inserir novamente.");
-		$('#password').val('');
-		$('#passwordConfirmation').val('');
 	}
 }
 
-function alterarFuncionario() {
-	var pwdlast = $('#lastPassword').val();
-	var pwd = $('#newPassword').val();
-	var pwdc = $('#newPasswordConfirmation').val();
-
-	if (psw == pwdlast) {
-
+function cadastrarFuncionario() {
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var pwd = $('#password').val();
+		var pwdc = $('#passwordConfirmation').val();
+		
 		if (pwd == pwdc) {
-
+			
 			$.ajax({
-				url : 'Alteracao',
+				url : 'Cadastro',
 				method : 'POST',
 				data : {
-					'menu' : 'AlterarFuncionario',
+					'menu' : 'CadastroFuncionario',
 					'nome' : $('#nome').val(),
 					'cpf' : $('#cpf').val(),
 					'sexo' : $('#sexo').val(),
 					'grupo' : $('#grupo').val(),
 					'unidade' : $('#unidade').val(),
 					'usuario' : $('#usuario').val(),
-					'pswd' : $('#newPassword').val()
+					'pswd' : $('#password').val()
 				},
 				success : function(data) {
 					if (data == "true") {
-						$('#cpf').attr('readonly', false);
-						$('#alterarFuncionario').css("display", "none");
-						clearForm("alterarFuncionario,#cadastroFuncionario");
-						alert("Alteração realizada com sucesso!");
+						bootbox.alert("Cadastrado com sucesso!");
+						clearForm("cadastroFuncionario");
 					} else {
-						alert("Erro no processamento da alteração!");
+						bootbox.alert("Erro no cadastro!");
 					}
 				}
 			});
 		} else {
-			alert("Senha e confirmação de senha diferentes. Inserir novamente.");
+			bootbox.alert("Senha e confirmação de senha diferentes. Inserir novamente.");
+			$('#password').val('');
+			$('#passwordConfirmation').val('');
+		}
+	}
+}
+
+function alterarFuncionario() {
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var pwdlast = $('#lastPassword').val();
+		var pwd = $('#newPassword').val();
+		var pwdc = $('#newPasswordConfirmation').val();
+		
+		if (psw == pwdlast) {
+			
+			if (pwd == pwdc) {
+				
+				$.ajax({
+					url : 'Alteracao',
+					method : 'POST',
+					data : {
+						'menu' : 'AlterarFuncionario',
+						'nome' : $('#nome').val(),
+						'cpf' : $('#cpf').val(),
+						'sexo' : $('#sexo').val(),
+						'grupo' : $('#grupo').val(),
+						'unidade' : $('#unidade').val(),
+						'usuario' : $('#usuario').val(),
+						'pswd' : $('#newPassword').val()
+					},
+					success : function(data) {
+						if (data == "true") {
+							$('#cpf').attr('readonly', false);
+							$('#alterarFuncionario').css("display", "none");
+							clearForm("alterarFuncionario,#cadastroFuncionario");
+							bootbox.alert("Alteração realizada com sucesso!");
+						} else {
+							bootbox.alert("Erro no processamento da alteração!");
+						}
+					}
+				});
+			} else {
+				bootbox.alert("Senha e confirmação de senha diferentes. Inserir novamente.");
+				$('#newPassword').val('');
+				$('#newPasswordConfirmation').val('');
+			}
+		} else {
+			
+			bootbox.alert("Senha anterior incorreta. Inserir novamente.");
+			$('#lastPassword').val('');
 			$('#newPassword').val('');
 			$('#newPasswordConfirmation').val('');
 		}
-	} else {
-
-		alert("Senha anterior incorreta. Inserir novamente.");
-		$('#lastPassword').val('');
-		$('#newPassword').val('');
-		$('#newPasswordConfirmation').val('');
 	}
 }
 
 function excluirFuncionario() {
-	$.ajax({
-		url : 'Exclusao',
-		method : 'GET',
-		data : {
-			'menu' : 'ExcluirFuncionario',
-			'cpf' : $('#cpf').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				$('#cpf').attr('readonly', false);
-				$('#cpf').attr('readonly', false);
-				$('#cpf').attr('readonly', false);
-				$('#cpf').attr('readonly', false);
-				$('#alterarFuncionario').css("display", "none");
-				clearForm("alterarFuncionario,#cadastroFuncionario");
-				alert("Exclusão realizada com sucesso!");
-			} else {
-				alert("Erro no processamento da exclusão!");
+	var cpf = $('#cpf').val();
+	if(cpf != ""){
+		$.ajax({
+			url : 'Exclusao',
+			method : 'GET',
+			data : {
+				'menu' : 'ExcluirFuncionario',
+				'cpf' : $('#cpf').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$('#cpf').attr('readonly', false);
+					$('#cpf').attr('readonly', false);
+					$('#cpf').attr('readonly', false);
+					$('#cpf').attr('readonly', false);
+					$('#alterarFuncionario').css("display", "none");
+					clearForm("alterarFuncionario,#cadastroFuncionario");
+					bootbox.alert("Exclusão realizada com sucesso!");
+				} else {
+					bootbox.alert("Erro no processamento da exclusão!");
+				}
 			}
-		}
-	});
+		});
+	}else{
+		bootbox.alert("Preencher todos os campos!");
+	}
 }
 
 // funções de manipulação de fornecedors
 
 function buscarFornecedor() {
-	var cnpj = $('#cnpj').val();
-	
-	if(cnpj.length > 17){
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var cnpj = $('#cnpj').val();
+		
+		if(cnpj.length > 17){
+			$.ajax({
+				url : 'Cadastro',
+				method : 'GET',
+				data : {
+					'menu' : 'BuscarFornecedor',
+					'cnpj' : cnpj,
+				},
+				success : function(data) {
+					if (data != null && data != "") {
+						data = JSON.parse(data);
+						$('#cnpj').attr('readonly', true);
+						$('#idFornecedor').val(data[0].id)
+						$('#alterarFornecedor').css("display", "");
+						$('#fornecedor').val(data[0].fornecedor);
+						$('#inputIcon').val(data[0].email);
+						$('#telefone').val(data[0].telefone);
+					} else {
+						bootbox.alert("CNPJ não encontrado!");
+					}
+				}
+			});
+		}
+	}
+}
+
+function cadastrarFornecedor() {
+	var check = validateInputsAndSelectOption();
+	if(check){
 		$.ajax({
 			url : 'Cadastro',
 			method : 'GET',
 			data : {
-				'menu' : 'BuscarFornecedor',
-				'cnpj' : cnpj,
+				'menu' : 'CadastroFornecedor',
+				'fornecedor' : $('#fornecedor').val(),
+				'cnpj' : $('#cnpj').val(),
+				'email' : $('#inputIcon').val(),
+				'telefone' : $('#telefone').val()
 			},
 			success : function(data) {
-				if (data != null && data != "") {
-					data = JSON.parse(data);
-					$('#cnpj').attr('readonly', true);
-					$('#idFornecedor').val(data[0].id)
-					$('#alterarFornecedor').css("display", "");
-					$('#fornecedor').val(data[0].fornecedor);
-					$('#inputIcon').val(data[0].email);
-					$('#telefone').val(data[0].telefone);
+				if (data == "true") {
+					bootbox.alert("Cadastrado com sucesso!");
+					clearForm("fornecedorCadastro");
 				} else {
-					alert("CNPJ não encontrado!");
+					bootbox.alert("Erro no cadastro!");
 				}
 			}
 		});
 	}
 }
 
-function cadastrarFornecedor() {
-	$.ajax({
-		url : 'Cadastro',
-		method : 'GET',
-		data : {
-			'menu' : 'CadastroFornecedor',
-			'fornecedor' : $('#fornecedor').val(),
-			'cnpj' : $('#cnpj').val(),
-			'email' : $('#inputIcon').val(),
-			'telefone' : $('#telefone').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				alert("Cadastrado com sucesso!");
-				clearForm("fornecedorCadastro");
-			} else {
-				alert("Erro no cadastro!");
-			}
-		}
-	});
-}
-
 function alterarFornecedor() {
-	$.ajax({
-		url : 'Alteracao',
-		method : 'GET',
-		data : {
-			'menu' : 'AlterarFornecedor',
-			'fornecedor' : $('#fornecedor').val(),
-			'cnpj' : $('#cnpj').val(),
-			'email' : $('#inputIcon').val(),
-			'telefone' : $('#telefone').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				$('#cnpj').attr('readonly', false);
-				$('#alterarFornecedor').css("display", "none");
-				clearForm("alterarFornecedor,#fornecedorAlterar");
-				alert("Alteração realizada com sucesso!");
-			} else {
-				alert("Erro no processamento da alteração!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		$.ajax({
+			url : 'Alteracao',
+			method : 'GET',
+			data : {
+				'menu' : 'AlterarFornecedor',
+				'fornecedor' : $('#fornecedor').val(),
+				'cnpj' : $('#cnpj').val(),
+				'email' : $('#inputIcon').val(),
+				'telefone' : $('#telefone').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$('#cnpj').attr('readonly', false);
+					$('#alterarFornecedor').css("display", "none");
+					clearForm("alterarFornecedor,#fornecedorAlterar");
+					bootbox.alert("Alteração realizada com sucesso!");
+				} else {
+					bootbox.alert("Erro no processamento da alteração!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function excluirFornecedor() {
-	$.ajax({
-		url : 'Exclusao',
-		method : 'GET',
-		data : {
-			'menu' : 'ExcluirFornecedor',
-			'cnpj' : $('#cnpj').val()
-		},
-		success : function(data) {
-			if (data == "true") {
-				$('#cnpj').attr('readonly', false);
-				$('#alterarFornecedor').css("display", "none");
-				clearForm("alterarFornecedor,#cadastroFornecedor");
-				alert("Exclusão realizada com sucesso!");
-			} else {
-				alert("Erro no processamento da exclusão!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		$.ajax({
+			url : 'Exclusao',
+			method : 'GET',
+			data : {
+				'menu' : 'ExcluirFornecedor',
+				'cnpj' : $('#cnpj').val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$('#cnpj').attr('readonly', false);
+					$('#alterarFornecedor').css("display", "none");
+					clearForm("alterarFornecedor,#cadastroFornecedor");
+					bootbox.alert("Exclusão realizada com sucesso!");
+				} else {
+					bootbox.alert("Erro no processamento da exclusão!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 // funções de manipulação da comanda
 
 function salvarComanda() {
-
-	var produtos = JSON.stringify(salvarProdutosDaComanda());
-
-	$.ajax({
-		url : 'Comanda',
-		dataType : 'json',
-		data : {
-			'menu' : 'CadastrarComanda',
-			'cpf' : $('#cpf').val(),
-			'servico' : $('#tpServico').val(),
-			'jogo' : $('#jogos').val(),
-			'horas' : $('#qtdHoras').val(),
-			'data' : getDate(),
-			'numComanda' : $('#numComanda').val(),
-			'produtos' : produtos
-		},
-		method : 'GET',
-		success : function(data) {
-			if (data == "true" || data == true) {
-				alert("Cadastro realizado com sucesso!");
-				clearForm('comandaAdmin');
-				clearComandaAdmin();
-				$('#numComanda').attr('readonly', false);
-				$('#cpf').attr('readonly', false);
-				$('#buscarComanda').show();
-			} else {
-				alert("Erro no cadastro!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var produtos = JSON.stringify(salvarProdutosDaComanda());
+		
+		$.ajax({
+			url : 'Comanda',
+			dataType : 'json',
+			data : {
+				'menu' : 'CadastrarComanda',
+				'cpf' : $('#cpf').val(),
+				'servico' : $('#tpServico').val(),
+				'jogo' : $('#jogos').val(),
+				'horas' : $('#qtdHoras').val(),
+				'data' : getDate(),
+				'numComanda' : $('#numComanda').val(),
+				'produtos' : produtos
+			},
+			method : 'GET',
+			success : function(data) {
+				if (data == "true" || data == true) {
+					bootbox.alert("Cadastro realizado com sucesso!");
+					clearForm('comandaAdmin');
+					clearComandaAdmin();
+					$('#numComanda').attr('readonly', false);
+					$('#cpf').attr('readonly', false);
+					$('#buscarComanda').show();
+				} else {
+					bootbox.alert("Erro no cadastro!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function atualizarComanda() {
-
-	var produtos = JSON.stringify(salvarProdutosDaComanda());
-
-	$.ajax({
-		url : 'Comanda',
-		dataType : 'json',
-		data : {
-			'menu' : 'AtualizarComanda',
-			'cpf' : $('#cpf').val(),
-			'servico' : $('#tpServico').val(),
-			'jogo' : $('#jogos').val(),
-			'horas' : $('#qtdHoras').val(),
-			'numComanda' : $('#numComanda').val(),
-			'produtos' : produtos
-		},
-		method : 'GET',
-		success : function(data) {
-			if (data == "true" || data == true) {
-				alert("Alteração realizada com sucesso!");
-				clearForm('comandaAdmin');
-				clearComandaAdmin();
-				$('#numComanda').attr('readonly', false);
-				$('#cpf').attr('readonly', false);
-				$('#buscarComanda').show();
-			} else {
-				alert("Erro na alteração!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var produtos = JSON.stringify(salvarProdutosDaComanda());
+		
+		$.ajax({
+			url : 'Comanda',
+			dataType : 'json',
+			data : {
+				'menu' : 'AtualizarComanda',
+				'cpf' : $('#cpf').val(),
+				'servico' : $('#tpServico').val(),
+				'jogo' : $('#jogos').val(),
+				'horas' : $('#qtdHoras').val(),
+				'numComanda' : $('#numComanda').val(),
+				'produtos' : produtos
+			},
+			method : 'GET',
+			success : function(data) {
+				if (data == "true" || data == true) {
+					bootbox.alert("Alteração realizada com sucesso!");
+					clearForm('comandaAdmin');
+					clearComandaAdmin();
+					$('#numComanda').attr('readonly', false);
+					$('#cpf').attr('readonly', false);
+					$('#buscarComanda').show();
+				} else {
+					bootbox.alert("Erro na alteração!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function abrirComanda() {
@@ -512,42 +576,44 @@ function buscarComandaCliente() {
 	var idComanda = $('#numComanda').val();
 	var table = $('#tableControleProdutos');
 	var totalComanda = 0;
-
+	
 	if (idComanda != 0 && idComanda != "0" && idComanda != "" && !table.is(':visible')) {
 		$.ajax({	
 			url : 'Comanda',
 			method : 'GET',
 			data : {'menu' : 'BuscarComandaCliente','idComanda' : idComanda},
-					success : function(data) {
-						if (data != "" && data != undefined) {
-							$('#numComanda').attr('readonly', true);
-							data = JSON.parse(data);
-							$(data).each(function(index, item) {
-								if (index == 0) {
-									$('#cpf').val(item.cpf);
-									$('#nome').val(item.nome);
-									$('#tpServico option').eq(item.tipoServico).prop('selected',true);
-									$('#jogos option').eq(item.jogo).prop('selected', true);
-									$('#qtdHoras').val(item.horasReservadas);
-									table.css('display', "");
-								} else {
-									adicionarItemComanda();
-									var linha = $("#produto"+ index);
-									linha.find('.idItemConsumo').val(item.idItemConsumo);
-									linha.find('.quantidade').val(item.quantidadeItemConsumo).attr('readonly',true);
-									linha.find('.idProduto').val(item.idProduto);
-									linha.find('.produto').val(item.nomeItemConsumo).attr('readonly',true);
-									linha.find('.preco').val(item.precoUnitario.toFixed(2).replace(".",","));
-									linha.find('.total').val((item.quantidadeItemConsumo * item.precoUnitario).toFixed(2).replace(".",","));
-									totalComanda += (item.quantidadeItemConsumo * item.precoUnitario);
-								}
-							});
-							$('input.totalComanda').val(totalComanda.toFixed(2).replace(".",","));
-						}else{
-							alert("Comanda não encontrada!")
+			success : function(data) {
+				if (data != "" && data != undefined) {
+					$('#numComanda').attr('readonly', true);
+					data = JSON.parse(data);
+					$(data).each(function(index, item) {
+						if (index == 0) {
+							$('#cpf').val(item.cpf);
+							$('#nome').val(item.nome);
+							$('#tpServico option').eq(item.tipoServico).prop('selected',true);
+							$('#jogos option').eq(item.jogo).prop('selected', true);
+							$('#qtdHoras').val(item.horasReservadas);
+							table.css('display', "");
+						} else {
+							adicionarItemComanda();
+							var linha = $("#produto"+ index);
+							linha.find('.idItemConsumo').val(item.idItemConsumo);
+							linha.find('.quantidade').val(item.quantidadeItemConsumo).attr('readonly',true);
+							linha.find('.idProduto').val(item.idProduto);
+							linha.find('.produto').val(item.nomeItemConsumo).attr('readonly',true);
+							linha.find('.preco').val(item.precoUnitario.toFixed(2).replace(".",","));
+							linha.find('.total').val((item.quantidadeItemConsumo * item.precoUnitario).toFixed(2).replace(".",","));
+							totalComanda += (item.quantidadeItemConsumo * item.precoUnitario);
 						}
-					}
-				});
+					});
+					$('input.totalComanda').val(totalComanda.toFixed(2).replace(".",","));
+				}else{
+					bootbox.alert("Comanda não encontrada!")
+				}
+			}
+		});
+	}else{
+		bootbox.alert("Preencher todos os campos!");
 	}
 }
 
@@ -629,21 +695,25 @@ function loadMesas(){
 
 function buscarIdComandaNomeCliente(){
 	var cpf = $('#cpf');
-	$.ajax({
-		url: 'Comanda',
-		method: 'GET',
-		data: {'menu': 'BuscarIdComandaNomeCliente','cpf': cpf.val()},
-		success: function(data){
-			if(data != "" && data != undefined){
-				data = JSON.parse(data);
-				var item = data[0];
-				cpf.attr('readonly', true);
-				$('#idComanda').val(item.idComanda);
-				$('#nome').val(item.nome);
-				$('#numeroMesa').val(item.numeroMesa == 0 ? "" : item.numeroMesa);
+	if(cpf.val() != ""){
+		$.ajax({
+			url: 'Comanda',
+			method: 'GET',
+			data: {'menu': 'BuscarIdComandaNomeCliente','cpf': cpf.val()},
+			success: function(data){
+				if(data != "" && data != undefined){
+					data = JSON.parse(data);
+					var item = data[0];
+					cpf.attr('readonly', true);
+					$('#idComanda').val(item.idComanda);
+					$('#nome').val(item.nome);
+					$('#numeroMesa').val(item.numeroMesa == 0 ? "" : item.numeroMesa);
+				}
 			}
-		}
-	})
+		});
+	}else{
+		bootbox.alert("Preencher todos os campos!");
+	}
 }
 
 function associarMesaAcomanda(idMesa, idComanda){
@@ -656,10 +726,10 @@ function associarMesaAcomanda(idMesa, idComanda){
 			if(data == "true" || data == true){
 				var idBody = $('body').attr('id');
 				if(idBody == 'pageMesas'){
-					alert("Mesa "+ idMesa + " reservada para comanda " + idComanda +" !");
+					bootbox.alert("Mesa "+ idMesa + " reservada para comanda " + idComanda +" !");
 				}
 			}else{
-				alert("Erro ao tentar fazer reserva !");
+				bootbox.alert("Erro ao tentar fazer reserva !");
 			}
 		}
 	});
@@ -675,10 +745,10 @@ function removerMesaDeComanda(idComanda){
 			if(data == "true" || data == true){
 				var idBody = $('body').attr('id');
 				if(idBody == 'pageMesas'){
-					alert("Mesa liberada !");
+					bootbox.alert("Mesa liberada !");
 				}
 			}else{
-				alert("Erro ao tentar liberada !");
+				bootbox.alert("Erro ao tentar liberada !");
 			}
 		}
 	});
@@ -729,7 +799,7 @@ $(document).ready(function() {
 							}
 							
 						}else{
-							alert("Cliente já está associado a uma mesa !");
+							bootbox.alert("Cliente já está associado a uma mesa !");
 						}
 					}
 				});
@@ -788,28 +858,27 @@ function btnOptionFecharComanda(){
 }
 
 function fecharComanda(){
-	
-	
-	$.ajax({
-		url : 'Comanda',
-		dataType : 'json',
-		data : {
-			'menu' : 'FecharComanda',
-			'cpf' : $('#cpf').val(),
-			'numComanda' : $('#numComanda').val(),
-		},
-		method : 'GET',
-		success : function(data) {
-			if (data == "true" || data == true) {
-				alert("Comanda encerrada!");
-				btnOptionFecharComanda();
-			} else {
-				alert("Erro no fechamento!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		$.ajax({
+			url : 'Comanda',
+			dataType : 'json',
+			data : {
+				'menu' : 'FecharComanda',
+				'cpf' : $('#cpf').val(),
+				'numComanda' : $('#numComanda').val(),
+			},
+			method : 'GET',
+			success : function(data) {
+				if (data == "true" || data == true) {
+					bootbox.alert("Comanda encerrada!");
+					btnOptionFecharComanda();
+				} else {
+					bootbox.alert("Erro no fechamento!");
+				}
 			}
-		}
-	});
-	
-	
+		});
+	}
 }
 
 function btnSalvarProduto(element) {
@@ -823,7 +892,7 @@ function btnSalvarProduto(element) {
 		elementX.find('input:visible').each(function(index, item) {
 			var itemValue = $(item).val();
 			if (itemValue == "" || itemValue == undefined) {
-				alert("Preencha todos os campos!");
+				bootbox.alert("Preencha todos os campos!");
 				check = false;
 				return false;
 			} else {
@@ -874,9 +943,9 @@ function alterarItemComanda(element) {
 		},
 		success : function(data) {
 			if (data == true || data == "true") {
-				alert("Alterado com sucesso!");
+				bootbox.alert("Alterado com sucesso!");
 			} else {
-				alert("Erro na alteração!");
+				bootbox.alert("Erro na alteração!");
 			}
 		}
 	});
@@ -893,9 +962,9 @@ function excluirItemComanda(idItemConsumo) {
 		},
 		success : function(data) {
 			if (data == true || data == "true") {
-				alert("Excluido com sucesso!");
+				bootbox.alert("Excluido com sucesso!");
 			} else {
-				alert("Erro na exclusão!");
+				bootbox.alert("Erro na exclusão!");
 			}
 		}
 	});
@@ -939,7 +1008,7 @@ function verificaProdutoCadastrado(idTextBox) {
 						element.find('.preco').val(valorProduto.toFixed(2).replace(".", ","));
 						element.find('.total').val((valorProduto * qtd).toFixed(2).replace(".", ","));
 					} else {
-						alert("Produto não cadastrado!");
+						bootbox.alert("Produto não cadastrado!");
 						element.find('.idProduto').val("");
 						element.find('.produto').val("");
 						element.find('.preco').val("");
@@ -949,7 +1018,7 @@ function verificaProdutoCadastrado(idTextBox) {
 				}
 			});
 		} else {
-			alert("Preencha o campo de quantidade!");
+			bootbox.alert("Preencha o campo de quantidade!");
 			return false;
 		}
 	} else {
@@ -981,52 +1050,57 @@ function salvarProdutosDaComanda() {
 }
 
 function salvarItemEstoque(){
-	
-	var isChecked = $('#novoProduto').is(':checked');
-	var tipo = $('#tipo').val();
-	var idFornecedor = $('#idFornecedor').val();
-	var nome;
-	if(isChecked)
-		nome = $('#nome').val();
-	else
-		nome = $('select.change option:selected').text();
-	var quantidade = $('#quantidade').val();
-	var valor = $('#valor').val().replace(',','.');
-	var idItem = $('select.change option:selected').val();
-	
-	$.ajax({
-		url: 'Cadastro',
-		data: {'menu': 'CadastroItem','idItem':idItem, 'isChecked': isChecked, 'tipo' : tipo,'idFornecedor':idFornecedor ,'quantidade': quantidade,'valor':valor,'nome': nome},
-		method: 'GET',
-		success: function(data){
-			if(data == "true" || data == true){
-				alert("Cadastrado com sucesso!");
-				clearForm('cadastrarProduto');
-				$('#cnpj').attr('readonly', false);
-			}else{
-				alert("Erro no cadastro!");
+	var check = validateInputsAndSelectOption();
+	if(check){
+		var isChecked = $('#novoProduto').is(':checked');
+		var tipo = $('#tipo').val();
+		var idFornecedor = $('#idFornecedor').val();
+		var nome;
+		if(isChecked)
+			nome = $('#nome').val();
+		else
+			nome = $('select.change option:selected').text();
+		var quantidade = $('#quantidade').val();
+		var valor = $('#valor').val().replace(',','.');
+		var idItem = $('select.change option:selected').val();
+		
+		$.ajax({
+			url: 'Cadastro',
+			data: {'menu': 'CadastroItem','idItem':idItem, 'isChecked': isChecked, 'tipo' : tipo,'idFornecedor':idFornecedor ,'quantidade': quantidade,'valor':valor,'nome': nome},
+			method: 'GET',
+			success: function(data){
+				if(data == "true" || data == true){
+					bootbox.alert("Cadastrado com sucesso!");
+					clearForm('cadastrarProduto');
+					$('#cnpj').attr('readonly', false);
+				}else{
+					bootbox.alert("Erro no cadastro!");
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function excluirProdutoEstoque(){
 	var tipo = $('#tipo').val();
 	var idItem = $('select.change option:selected').val();
-	
-	$.ajax({
-		url: 'Exclusao',
-		data: {'menu': 'ExclusaoItemEstoque','idItem':idItem, 'tipo': tipo},
-		method: 'GET',
-		success: function(data){
-			if(data == "true" || data == true){
-				alert("Excluido com sucesso!");
-				clearForm('cadastrarProduto');
-			}else{
-				alert("Erro na exclusão!");
+	if(tipo != "..." && idItem != "..."){
+		$.ajax({
+			url: 'Exclusao',
+			data: {'menu': 'ExclusaoItemEstoque','idItem':idItem, 'tipo': tipo},
+			method: 'GET',
+			success: function(data){
+				if(data == "true" || data == true){
+					bootbox.alert("Excluido com sucesso!");
+					clearForm('cadastrarProduto');
+				}else{
+					bootbox.alert("Erro na exclusão!");
+				}
 			}
-		}
-	});
+		});
+	}else{
+		bootbox.alert("Preencher todos os campos!");
+	}
 }
 
 function getCookie(cname) {
@@ -1047,14 +1121,13 @@ function getCookie(cname) {
 function loginUsuario(){
 	var user = $('#user').val();
 	var psw = $('#psw').val();
-	
 	$.ajax({
 		url: 'UserLogin',
 		method: 'post',
 		data: {'user': user, 'psw': psw},
 		success: function(data){
 			if(data == "false" || data == false){
-				alert("Nome de usuário ou senha inválidos!");
+				bootbox.alert("Nome de usuário ou senha inválidos!");
 			}else{
 				var localhost = window.location.origin;
 				var userCookieGroup = getCookie('grupoUsuario');
