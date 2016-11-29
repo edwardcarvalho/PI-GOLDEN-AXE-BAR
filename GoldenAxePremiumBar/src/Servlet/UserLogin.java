@@ -25,7 +25,7 @@ public class UserLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String user = request.getParameter("user").toLowerCase();
+		String user = request.getParameter("user");
 		String psw = request.getParameter("psw");
 		Usuario usuario = checkUser(user, psw);
 
