@@ -31,6 +31,13 @@ function getCookie(cname) {
   return "";
 }
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
 function validateInputsAndSelectOption() {
   var fields = $('input:visible, select:visible');
   var check = false;
@@ -929,6 +936,10 @@ $(document).ready(function () {
     }
   });
 
+  $('#usuarioLogado li').on('click','a',function(){
+	  setCookie('grupoUsuario',0,-1);
+	  setCookie('usuarioAutenticado',0,-1);
+  });
 });
 
 //altera o input de descricao no campo de cadastro de produto para um combobox
@@ -942,6 +953,7 @@ $('#novoProduto').on('click', function () {
     $('#nome').show();
     $('#cadastrarProduto select.change').hide();
   }
+  
 });
 
 //****************************************************************
