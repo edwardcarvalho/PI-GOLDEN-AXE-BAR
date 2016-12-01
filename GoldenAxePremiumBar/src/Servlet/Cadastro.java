@@ -1,6 +1,9 @@
 package Servlet;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -192,7 +195,7 @@ public class Cadastro extends HttpServlet {
 							}
 						}
 					} else {
-						
+
 						boolean ret = adicionarItemCadastradoEstoque(idItem, quantidade, valor, tipo);
 						response.getWriter().print(ret);
 					}
@@ -232,23 +235,41 @@ public class Cadastro extends HttpServlet {
 
 			case "CadastroFuncionario":
 
-				String nome = request.getParameter("nome");
-				String cpf = request.getParameter("cpf");
-				boolean sexo = Utilities.ConvertToBoolean(request.getParameter("sexo"));
-				int grupo = Integer.parseInt(request.getParameter("grupo"));
-				int unidade = Integer.parseInt(request.getParameter("unidade"));
-				Funcionario funcionario = new Funcionario(nome, cpf, sexo, grupo, unidade);
-				int idFuncionario = cadastrarFuncionario(funcionario);
+				try {
+					String nome = request.getParameter("nome");
+					String cpf = request.getParameter("cpf");
+					boolean sexo = Utilities.ConvertToBoolean(request.getParameter("sexo"));
+					int grupo = Integer.parseInt(request.getParameter("grupo"));
+					int unidade = Integer.parseInt(request.getParameter("unidade"));
+					Funcionario funcionario = new Funcionario(nome, cpf, sexo, grupo, unidade);
+					int idFuncionario = cadastrarFuncionario(funcionario);
 
-				String user = request.getParameter("usuario");
-				String pswd = request.getParameter("pswd");
-				if (idFuncionario != 0) {
-					Usuario usuario = new Usuario(user, pswd, idFuncionario);
-					boolean ret = cadastrarUsuario(usuario);
-					response.getWriter().print(ret);
-				} else {
-					response.getWriter().print(false);
+					String user = request.getParameter("usuario");
+					String pswd = request.getParameter("pswd");
+
+					MessageDigest crypt;
+					crypt = MessageDigest.getInstance("MD5");
+					byte pswdByte[] = crypt.digest(pswd.getBytes("UTF-8"));
+					
+					StringBuilder hexString = new StringBuilder();
+					for (byte b : pswdByte) {
+					  hexString.append(String.format("%02X", 0xFF & b));
+					}
+					pswd = hexString.toString();
+					
+					if (idFuncionario != 0) {
+						Usuario usuario = new Usuario(user, pswd, idFuncionario);
+						boolean ret = cadastrarUsuario(usuario);
+						response.getWriter().print(ret);
+					} else {
+						response.getWriter().print(false);
+					}
+					
+				} catch (NoSuchAlgorithmException e1) {
+					System.out.println(e1);
+					e1.printStackTrace();
 				}
+
 				break;
 
 			case "BuscarFuncionario":

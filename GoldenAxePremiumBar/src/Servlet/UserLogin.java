@@ -1,6 +1,8 @@
 package Servlet;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -25,16 +27,32 @@ public class UserLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String user = request.getParameter("user");
-		String psw = request.getParameter("psw");
-		Usuario usuario = checkUser(user, psw);
+		try {
+			String user = request.getParameter("user");
+			String psw = request.getParameter("psw");
 
-		if (usuario != null) {
-			addCookie(response, "usuarioAutenticado", user, -1);
-			addCookie(response, "grupoUsuario", Integer.toString(usuario.getIdGrupoFuncionario()), -1);
-			response.getWriter().print(true);
-		} else {
-			response.getWriter().print(false);
+			MessageDigest crypt;
+			crypt = MessageDigest.getInstance("MD5");
+			byte pswdByte[] = crypt.digest(psw.getBytes("UTF-8"));
+			
+			StringBuilder hexString = new StringBuilder();
+			for (byte b : pswdByte) {
+			  hexString.append(String.format("%02X", 0xFF & b));
+			}
+			psw = hexString.toString();
+
+			Usuario usuario = checkUser(user, psw);
+
+			if (usuario != null) {
+				addCookie(response, "usuarioAutenticado", user, -1);
+				addCookie(response, "grupoUsuario", Integer.toString(usuario.getIdGrupoFuncionario()), -1);
+				response.getWriter().print(true);
+			} else {
+				response.getWriter().print(false);
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

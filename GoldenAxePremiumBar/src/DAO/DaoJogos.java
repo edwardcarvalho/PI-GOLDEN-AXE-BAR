@@ -13,7 +13,7 @@ public class DaoJogos extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, jogos.getNome());
+			pst.setString(1, jogos.getNome().toUpperCase());
 			pst.setInt(2, jogos.getQuantidade());
 			pst.setFloat(3, jogos.getValor());
 			pst.setInt(3, jogos.getIdFornecedor());
@@ -44,7 +44,7 @@ public class DaoJogos extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, jogos.getNome());
+			pst.setString(1, jogos.getNome().toUpperCase());
 			pst.setInt(2, jogos.getQuantidade());
 			pst.setFloat(3, jogos.getValor());
 			pst.setInt(4, jogos.getIdFornecedor());

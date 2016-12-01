@@ -13,7 +13,7 @@ public class DaoUnidade extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, unidade.getNome());
+			pst.setString(1, unidade.getNome().toUpperCase());
 			pst.execute();
 			pst.close();
 
@@ -30,7 +30,7 @@ public class DaoUnidade extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, unidade.getNome());
+			pst.setString(1, unidade.getNome().toUpperCase());
 			pst.execute();
 			pst.close();
 

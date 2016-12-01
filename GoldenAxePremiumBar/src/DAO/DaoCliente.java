@@ -13,7 +13,7 @@ public class DaoCliente extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, cliente.getNome());
+			pst.setString(1, cliente.getNome().toUpperCase());
 			pst.setString(2, cliente.getTelefone());
 			pst.setString(3, cliente.getCpf());
 			pst.setBoolean(4, cliente.getSexo());
@@ -41,7 +41,7 @@ public class DaoCliente extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, cliente.getNome());
+			pst.setString(1, cliente.getNome().toUpperCase());
 			pst.setString(2, cliente.getTelefone());
 			pst.setBoolean(3, cliente.getSexo());
 			pst.setString(4, cliente.getEmail());

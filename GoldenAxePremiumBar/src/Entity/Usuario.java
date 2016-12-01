@@ -4,6 +4,7 @@ public class Usuario {
 
 	private String User;
 	private String Senha;
+	private byte senhaCryp;
 	private int IdFuncionario;
 	private boolean Ativo;
 	private int idGrupoFuncionario;
@@ -12,6 +13,12 @@ public class Usuario {
 	public Usuario(String usuario, String senha, int idFuncionario) {
 		this.User = usuario;
 		this.Senha = senha;
+		this.IdFuncionario = idFuncionario;
+	}
+	
+	public Usuario(String usuario, byte senhaCryp, int idFuncionario) {
+		this.User = usuario;
+		this.senhaCryp = senhaCryp;
 		this.IdFuncionario = idFuncionario;
 	}
 	
@@ -56,5 +63,13 @@ public class Usuario {
 
 	public void setIdGrupoFuncionario(int idGrupoFuncionario) {
 		this.idGrupoFuncionario = idGrupoFuncionario;
+	}
+
+	public byte getSenhaCryp() {
+		return senhaCryp;
+	}
+
+	public void setSenhaCryp(byte senhaCryp) {
+		this.senhaCryp = senhaCryp;
 	}
 }

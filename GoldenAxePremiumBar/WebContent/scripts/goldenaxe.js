@@ -848,7 +848,7 @@ $(document).ready(function () {
   $('#nome').on('focusout', function(){
 	 var nome = $(this).val();
 	 if(nome.length > 0){
-		 var regex = /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$/;
+		 var regex = /[{3}a-zA-ZéúíóáÉÚÍÓÁèùìòàÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ\s\'\-]{3}/;
 		 if(!regex.test(nome)){
 			 bootbox.alert("O nome digitado é inválido");
 		 }

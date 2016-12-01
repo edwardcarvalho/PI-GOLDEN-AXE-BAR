@@ -13,7 +13,7 @@ public class DaoServicos extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, servico.getDescricao());
+			pst.setString(1, servico.getDescricao().toUpperCase());
 			pst.setFloat(2, servico.getValorHora());
 
 			pst.execute();
@@ -32,7 +32,7 @@ public class DaoServicos extends ConnectionDAO {
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, servico.getDescricao());
+			pst.setString(1, servico.getDescricao().toUpperCase());
 			pst.setFloat(2, servico.getValorHora());
 			pst.execute();
 			pst.close();
