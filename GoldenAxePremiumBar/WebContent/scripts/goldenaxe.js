@@ -579,6 +579,8 @@ function abrirComanda() {
   $('#tpServico, #jogos').attr('disabled', false);
   $('#qtdHoras').attr('readonly', false);
   $('H2').text('Abrir nova comanda');
+  $('#encerrarForm').css('display', 'none');
+  $('#salvarForm').css('display', '');
 
   $.ajax({
     url: 'Comanda',

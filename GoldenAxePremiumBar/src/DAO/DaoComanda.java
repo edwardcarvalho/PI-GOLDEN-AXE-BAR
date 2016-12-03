@@ -249,7 +249,7 @@ public class DaoComanda extends ConnectionDAO {
 		String sql3 = "SELECT ID_JOGO FROM COMANDA WHERE ID_COMANDA = ? AND STATUS = 1 LIMIT 1";
 		String sql = "UPDATE COMANDA SET STATUS = 0, NUMERO_MESA = null WHERE ID_COMANDA = ? AND STATUS = 1";
 		String sql1 = "UPDATE MESA SET STATUS = 0, ID_COMANDA = null WHERE ID_COMANDA = ? AND STATUS = 1";
-		String sql2 = "UPDATE JOGOS SET QUANTIDADE = QUANTIDADE+1 WHERE ID_JOGO = ? AND STATUS = 1";
+		String sql2 = "UPDATE ESTOQUE SET QUANTIDADE = QUANTIDADE+1 WHERE ID_JOGO = ? AND STATUS = 1";
 		try {
 			conectaBanco();
 			// busca idJogo
