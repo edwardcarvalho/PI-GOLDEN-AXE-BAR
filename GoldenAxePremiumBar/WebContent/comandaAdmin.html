@@ -146,16 +146,16 @@ if(userAuthenticated == ""){
 					</p>
 				<p>Nome:</p> <input type="text" placeholder="Fulano da Silva"
 				id="nome" readonly="readonly">
-				<p>Tipo do Serviço:</p> <select id="tpServico">
+				<p>Tipo do Serviço:</p> <select id="tpServico" onchange="changeTipoServico()">
 					<option>...</option>
 					<option value="1">Mesa</option>
 					<option value="2">Sala</option>
 					<option value="3">Balcão</option>
 			</select>
-				<p>Jogos:</p> <select id="jogos">
+				<p class="jogos">Jogos:</p> <select id="jogos">
 					<option>...</option>
 			</select>
-				<p>Horas Reservadas:</p> <input type="text" id=qtdHoras>
+				<p class="qtdHoras">Horas Reservadas:</p> <input type="text" id=qtdHoras>
 			</b>
 		</div>
 	</div>

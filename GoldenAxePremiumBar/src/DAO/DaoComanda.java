@@ -185,24 +185,24 @@ public class DaoComanda extends ConnectionDAO {
 	public boolean alterar(Comanda comanda) {
 
 		String sql = "";
-		String sql2 = "SELECT ID_JOGO FROM COMANDA WHERE ID_CLIENTE = ? AND STATUS = 1 LIMIT 1";
+		String sql2 = "SELECT ID_JOGO FROM COMANDA WHERE ID_COMANDA = ? AND STATUS = 1 LIMIT 1";
 
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql2);
-			pst.setInt(1, comanda.getIdCliente());
+			pst.setInt(1, comanda.getIdComanda());
 			rs = pst.executeQuery();
 			int idJogo = rs.getInt("ID_JOGO");
 			pst.close();
 
 			if (idJogo == comanda.getIdJogo()) {
-				sql = "UPDATE COMANDA SET ID_SERVICO=?, QUANTIDADE_HORAS=?, ID_FUNCIONARIO=? WHERE ID_CLIENTE = ? AND STATUS = 1";
+				sql = "UPDATE COMANDA SET ID_SERVICO=?, QUANTIDADE_HORAS=?, ID_FUNCIONARIO=? WHERE ID_COMANDA = ? AND STATUS = 1";
 
 				pst = conn.prepareStatement(sql);
 				pst.setInt(1, comanda.getIdServico());
 				pst.setString(2, comanda.getQuantidadeHoras());
 				pst.setInt(3, comanda.getIdFuncionario());
-				pst.setInt(4, comanda.getIdCliente());
+				pst.setInt(4, comanda.getIdComanda());
 				pst.execute();
 				pst.close();
 
@@ -216,14 +216,14 @@ public class DaoComanda extends ConnectionDAO {
 				pst.close();
 
 				// atualiza comanda com o jogo novo
-				sql = "UPDATE COMANDA SET ID_SERVICO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, ID_FUNCIONARIO=? WHERE ID_CLIENTE = ? AND STATUS = 1";
+				sql = "UPDATE COMANDA SET ID_SERVICO=?, ID_JOGO=?, QUANTIDADE_HORAS=?, ID_FUNCIONARIO=? WHERE ID_COMANDA = ? AND STATUS = 1";
 
 				pst = conn.prepareStatement(sql);
 				pst.setInt(1, comanda.getIdServico());
 				pst.setInt(2, comanda.getIdJogo());
 				pst.setString(3, comanda.getQuantidadeHoras());
 				pst.setInt(4, comanda.getIdFuncionario());
-				pst.setInt(5, comanda.getIdCliente());
+				pst.setInt(5, comanda.getIdComanda());
 				pst.execute();
 				pst.close();
 

@@ -510,8 +510,8 @@ function salvarComanda() {
         'menu': 'CadastrarComanda',
         'cpf': $('#cpf').val(),
         'servico': $('#tpServico').val(),
-        'jogo': $('#jogos').val(),
-        'horas': $('#qtdHoras').val(),
+        'jogo': $('#jogos').val() == null ? '0':$('#jogos').val(),
+        'horas': $('#qtdHoras').val() == "" ? '0':$('#qtdHoras').val() ,
         'data': getDate(),
         'numComanda': $('#numComanda').val(),
         'produtos': produtos
@@ -854,9 +854,30 @@ function isEmail(email) {
   }
 }
 
+
+function changeTipoServico(){
+	$('#tpServico').on('change', function(){
+		var tipo = $(this).val();
+		if(tipo == 3){
+			$('p.jogos').css('display', 'none');
+			$('#jogos').css('display', 'none');
+			$('#qtdHoras').css('display', 'none');
+			$('p.qtdHoras').css('display', 'none');
+		}else{
+			$('p.jogos').css('display', '');
+			$('#jogos').css('display', '');
+			$('#qtdHoras').css('display', '');
+			$('p.qtdHoras').css('display', '');
+		}
+		
+	});
+}
+
 //**********FUNÇÃO PARA EXECUÇÃO APÓS LOAD DA PAGINA**************
 $(document).ready(function () {
   var psw;
+
+  changeTipoServico();
 
   //valida todos os campos de nome para receber apenas letras
   $('#nome').on('focusout', function(){

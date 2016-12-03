@@ -28,6 +28,15 @@ public class Comanda {
 		this.idFuncionario = idFuncionario;
 	}
 	
+	public Comanda(int idComanda, int idCliente, int idServico, int idJogo, String qtdHoras, int idFuncionario){
+		this.idComanda = idComanda;
+		this.idCliente = idCliente;
+		this.idServico = idServico;
+		this.idJogo = idJogo;
+		this.QuantidadeHoras = qtdHoras;
+		this.idFuncionario = idFuncionario;
+	}
+	
 	public Comanda(){
 		
 	}

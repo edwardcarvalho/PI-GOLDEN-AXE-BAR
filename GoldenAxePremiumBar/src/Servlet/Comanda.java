@@ -140,7 +140,7 @@ public class Comanda extends HttpServlet {
 						}
 					}
 
-					Entity.Comanda comanda = new Entity.Comanda(idCliente, idServico, idJogo, qtdHoras, idFuncionario);
+					Entity.Comanda comanda = new Entity.Comanda(idComanda,idCliente, idServico, idJogo, qtdHoras, idFuncionario);
 
 					boolean ret = atualizarComanda(comanda);
 					response.getWriter().print(ret);
