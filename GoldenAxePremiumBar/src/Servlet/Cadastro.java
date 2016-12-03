@@ -170,7 +170,7 @@ public class Cadastro extends HttpServlet {
 					if (isChecked) {
 						if (tipo == 2) {
 
-							Jogos jogos = new Jogos(nome1, quantidade, valor, idFornecedor);
+							Jogos jogos = new Jogos(nome1, valor, idFornecedor);
 							int idJogo = cadastrarJogos(jogos);
 
 							if (idJogo != 0) {
@@ -183,7 +183,7 @@ public class Cadastro extends HttpServlet {
 
 						} else if (tipo == 1) {
 
-							Produto produto = new Produto(nome1, quantidade, valor, idFornecedor);
+							Produto produto = new Produto(nome1, valor, idFornecedor);
 							int idProduto = cadastrarProduto(produto);
 
 							if (idProduto != 0) {

@@ -6,27 +6,57 @@ import Entity.ConsumoComandaResponseEntity;
 
 public class DaoConsumo extends ConnectionDAO {
 
+//	public boolean salvar(Consumo consumo) {
+//
+//		String sql = "INSERT INTO CONSUMO(ID_PRODUTO, ID_COMANDA, QUANTIDADE, STATUS) VALUES(?,?,?,1)";
+//
+//		try {
+//			conectaBanco();
+//			pst = conn.prepareStatement(sql);
+//			pst.setInt(1, consumo.getIdProduto());
+//			pst.setInt(2, consumo.getIdComanda());
+//			pst.setInt(3, consumo.getQuantidade());
+//			pst.execute();
+//			pst.close();
+//
+//			desconectaBanco();
+//			return true;
+//
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			return false;
+//		}
+//
+//	}
+	
 	public boolean salvar(Consumo consumo) {
-
-		String sql = "INSERT INTO CONSUMO(ID_PRODUTO, ID_COMANDA, QUANTIDADE, STATUS) VALUES(?,?,?,1)";
-
-		try {
-			conectaBanco();
-			pst = conn.prepareStatement(sql);
-			pst.setInt(1, consumo.getIdProduto());
-			pst.setInt(2, consumo.getIdComanda());
-			pst.setInt(3, consumo.getQuantidade());
-			pst.execute();
-			pst.close();
-
-			desconectaBanco();
-			return true;
-
-		} catch (Exception e) {
-			System.out.println(e);
-			return false;
-		}
-
+		 
+	       String sql = "INSERT INTO CONSUMO(ID_PRODUTO, ID_COMANDA, QUANTIDADE, STATUS) VALUES(?,?,?,1)";
+	       String sql1 = "UPDATE ESTOQUE SET QUANTIDADE = QUANTIDADE-? WHERE ID_PRODUTO = ?";
+	 
+	try {
+	    conectaBanco();
+	    pst = conn.prepareStatement(sql);
+	    pst.setInt(1, consumo.getIdProduto());
+	    pst.setInt(2, consumo.getIdComanda());
+	    pst.setInt(3, consumo.getQuantidade());
+	    pst.execute();
+	    pst.close();
+	 
+	    pst = conn.prepareStatement(sql1);
+	    pst.setInt(1, consumo.getQuantidade());
+	    pst.setInt(2, consumo.getIdProduto());
+	    pst.execute();
+	    pst.close();
+	 
+	    desconectaBanco();
+	    return true;
+	 
+	} catch (Exception e) {
+	    System.out.println(e);
+	    return false;
+	}
+	 
 	}
 
 	public boolean alterar(Consumo consumo) {

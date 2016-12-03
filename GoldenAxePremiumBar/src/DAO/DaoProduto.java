@@ -8,7 +8,7 @@ import Entity.Produto;
 public class DaoProduto extends ConnectionDAO {
 	public int salvar(Produto produto) {
 
-		String sql = "INSERT INTO PRODUTOS(NOME, QUANTIDADE,VALOR,ID_FORNECEDOR,ATIVO) VALUES(?,?,?,?,1)";
+		String sql = "INSERT INTO PRODUTOS(NOME,VALOR,ID_FORNECEDOR,ATIVO) VALUES(?,?,?,1)";
 		String sql1 = "SELECT MAX(ID_PRODUTO) AS ID_PRODUTO FROM PRODUTOS";
 		int id = 0;
 
@@ -16,9 +16,8 @@ public class DaoProduto extends ConnectionDAO {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, produto.getNome().toUpperCase());
-			pst.setInt(2, produto.getQuantidade());
-			pst.setFloat(3, produto.getValor());
-			pst.setInt(4, produto.getIdFornecedor());
+			pst.setFloat(2, produto.getValor());
+			pst.setInt(3, produto.getIdFornecedor());
 			pst.execute();
 			pst.close();
 			
@@ -130,7 +129,7 @@ public class DaoProduto extends ConnectionDAO {
 
 	public List<Produto> mostrarTodos() throws Exception {
 		List<Produto> lista = new ArrayList<Produto>();
-		String sql = "SELECT * FROM PRODUTOS WHERE ATIVO = 1";
+		String sql = "SELECT P.ID_PRODUTO, P.NOME, E.QUANTIDADE , P.VALOR, P.ID_FORNECEDOR FROM PRODUTOS AS P INNER JOIN ESTOQUE AS E ON E.ID_PRODUTO = P.ID_PRODUTO WHERE P.ATIVO = 1";
 
 		try {
 			conectaBanco();
@@ -158,7 +157,7 @@ public class DaoProduto extends ConnectionDAO {
 	
 	public Produto buscarProduto(String product) throws Exception {
 		
-		String sql = "SELECT * FROM PRODUTOS WHERE NOME = '"+product+"' COLLATE NOCASE LIMIT 1";
+		String sql = "SELECT P.ID_PRODUTO, P.NOME, E.QUANTIDADE , P.VALOR, P.ATIVO FROM PRODUTOS AS P INNER JOIN ESTOQUE AS E ON E.ID_PRODUTO = P.ID_PRODUTO WHERE P.NOME = '"+product+"' COLLATE NOCASE LIMIT 1";
 		Produto produto = new Produto();
 		
 		try {
@@ -171,6 +170,7 @@ public class DaoProduto extends ConnectionDAO {
 				produto.setId(rs.getInt("ID_PRODUTO"));
 				produto.setNome(rs.getString("NOME"));
 				produto.setValor(rs.getFloat("VALOR"));
+				produto.setQuantidade(rs.getInt("QUANTIDADE"));
 				
 			}
 			

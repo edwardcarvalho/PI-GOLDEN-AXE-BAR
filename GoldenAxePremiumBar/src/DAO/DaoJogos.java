@@ -8,14 +8,13 @@ import Entity.Jogos;
 public class DaoJogos extends ConnectionDAO {
 	public int salvar(Jogos jogos) {
 
-		String sql = "INSERT INTO JOGOS(NOME, QUANTIDADE,VALOR,ID_FORNECEDOR, ATIVO) VALUES(?,?,?,?,1)";
+		String sql = "INSERT INTO JOGOS(NOME,VALOR,ID_FORNECEDOR, ATIVO) VALUES(?,?,?,1)";
 		int id = 0;
 		try {
 			conectaBanco();
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, jogos.getNome().toUpperCase());
-			pst.setInt(2, jogos.getQuantidade());
-			pst.setFloat(3, jogos.getValor());
+			pst.setFloat(2, jogos.getValor());
 			pst.setInt(3, jogos.getIdFornecedor());
 			pst.execute();
 			pst.close();
@@ -130,7 +129,8 @@ public class DaoJogos extends ConnectionDAO {
 
 	public List<Jogos> mostrarTodos() throws Exception {
 		List<Jogos> lista = new ArrayList<Jogos>();
-		String sql = "SELECT * FROM JOGOS WHERE ATIVO = 1";
+//		String sql = "SELECT * FROM JOGOS WHERE ATIVO = 1";
+		String sql = "SELECT J.ID_JOGOS, J.NOME, E.QUANTIDADE , J.VALOR, J.ID_FORNECEDOR FROM JOGOS AS J INNER JOIN ESTOQUE AS E ON E.ID_JOGO = J.ID_JOGOS WHERE J.ATIVO = 1";
 
 		try {
 			conectaBanco();
